@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <section className="mx-auto container">
-      <h1 className="text-5xl font-bold mt-16 mb-8 text-[#002776]">
+      <h1 className="text-5xl font-bold mt-16 mb-8 text-seniorBankDarkBlue">
         Handlinger
       </h1>
 
