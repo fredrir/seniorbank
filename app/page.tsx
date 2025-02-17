@@ -32,7 +32,7 @@ export default function Home() {
       </h1>
 
       <div className="flex flex-col items-center gap-8">
-        <div className="grid grid-cols-2 max-w-7xl w-full gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 max-w-7xl w-full gap-8">
           {menuOptions.map((option, index) => (
             <MenuOptions
               title={option.title}
