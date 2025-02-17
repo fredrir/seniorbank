@@ -20,9 +20,11 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
     return (
       <div className="flex-grow min-h-screen text-black bg-seniorbankWhite flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-16 w-16 border-y-2  mb-4"></div>
-          <h2 className="text-2xl font-semibold">Laster inn banken...</h2>
-          <p className="text-slate-400 mt-2">
+          <div className="inline-block animate-spin border-seniorbankBlue rounded-full h-16 w-16 border-y-2  mb-4"></div>
+          <h2 className="text-2xl font-semibold text-seniorbankBlue">
+            Laster inn banken...
+          </h2>
+          <p className="text-blue-400 mt-2">
             Vennligst vent mens vi henter informasjonen din
           </p>
         </div>
