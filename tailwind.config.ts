@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        seniorbankWhite: "#fcf8f4",
-        seniorbankBlue: "#015aa5",
+        seniorbankWhite: "#FDF8F5",
+        seniorbankBlue: "#005AA4",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
