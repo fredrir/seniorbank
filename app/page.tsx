@@ -1,5 +1,17 @@
 import MenuOptions from "@/components/homepage/MenuOptions";
-import { ArrowBigDownDash, Banknote, MailIcon, Wallet } from "lucide-react";
+import { ArrowBigDownDash, ArrowLeftRight, Banknote, BanknoteIcon, HomeIcon, House, Landmark, MailIcon, Wallet } from "lucide-react";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu"
+import NavBar from "@/components/navbar/NavBar";
+
 
 export default function Home() {
   const menuOptions = [
@@ -25,24 +37,60 @@ export default function Home() {
     },
   ];
 
-  return (
-    <section className="mx-auto container">
-      <h1 className="text-5xl font-bold mt-16 mb-8 text-seniorBankDarkBlue">
-        Handlinger
-      </h1>
+  const navBar = [
+    {
+      title: "Hjem",
+      icon: <House className="size-8"/>,
+    },
+    {
+      title: "Konto",
+      icon: <Landmark className="size-8" />,
+    },
+    {
+      title: "Overfør",
+      icon: <ArrowLeftRight className="size-8" />,
+    },
+    {
+      title: "Betal",
+      icon: <Wallet className="size-8" />,
+    }
 
-      <div className="flex flex-col items-center gap-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 max-w-7xl w-full gap-8">
-          {menuOptions.map((option, index) => (
-            <MenuOptions
-              title={option.title}
-              description={option.description}
-              icon={option.icon}
-              key={index}
-            />
-          ))}
+    
+  ]
+
+  //const currentPath = window.location.pathname;
+
+  return (
+    <section /* className="mx-auto container" */>
+      <div className="bg-seniorbankBlue flex flex-row items-center gap-1 justify-center p-5">
+        {navBar.map((option, index) => (
+          <NavBar
+            title={option.title}
+            icon={option.icon}
+            key={index}
+          />
+        ))
+        }
+      </div>
+      <div className="mx-auto container ">
+        <h1 className="text-5xl font-bold mt-16 mb-8 text-seniorBankDarkBlue">
+          Handlinger
+        </h1>
+
+        <div className="flex flex-col items-center gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 max-w-7xl w-full gap-8">
+            {menuOptions.map((option, index) => (
+              <MenuOptions
+                title={option.title}
+                description={option.description}
+                icon={option.icon}
+                key={index}
+              />
+            ))}
+          </div>
         </div>
       </div>
+      
     </section>
   );
 }
