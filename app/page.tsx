@@ -41,32 +41,35 @@ export default function Home() {
     {
       title: "Hjem",
       icon: <House className="size-8"/>,
+      path: "/",
     },
     {
       title: "Konto",
       icon: <Landmark className="size-8" />,
+      path: "/konto",
     },
     {
       title: "Overfør",
       icon: <ArrowLeftRight className="size-8" />,
+      path: "/overfor",
     },
     {
       title: "Betal",
       icon: <Wallet className="size-8" />,
+      path: "/betal",
     }
 
     
   ]
 
-  //const currentPath = window.location.pathname;
-
   return (
     <section /* className="mx-auto container" */>
-      <div className="bg-seniorbankBlue flex flex-row items-center gap-1 justify-center p-5">
+      <div className="bg-seniorbankBlue flex flex-row items-center justify-center p-5">
         {navBar.map((option, index) => (
           <NavBar
             title={option.title}
             icon={option.icon}
+            path={option.path}
             key={index}
           />
         ))

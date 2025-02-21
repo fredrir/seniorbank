@@ -1,3 +1,6 @@
+
+"use client";
+
 import React from "react";
 import {
   NavigationMenu,
@@ -9,28 +12,44 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
   } from "@/components/ui/navigation-menu"
-import { Link } from "lucide-react";
+/* import { Link } from "lucide-react";
 import { Button } from "../ui/button";
+import Link from "next/link"; */
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface Props {
   title: String,
   icon: React.ReactNode;
+  path: string;
 }
 
-const NavBar = ({title, icon}: Props) => {
+const NavBar = ({title, icon, path}: Props) => {
+  const pathname = usePathname();
   return (
     <div>
       <div>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuLink className="text-2xl flex flex-row space-x-0 gap-2 text-white hover:bg-seniorBankLightBlue hover:text-seniorBankDarkBlue p-4 rounded-t-lg" asChild> 
-                <a href="https://www.google.com/maps">{icon}{title} </a>
+              <NavigationMenuLink asChild> 
+                <Link
+                href={path} className={`text-2xl flex flex-row items-center justify-center p-4 rounded-t-2xl transition-colors
+                  ${
+                    pathname === path
+                      ? "bg-seniorBankDarkBlue text-white font-bold border-seniorBankLightBlue active:bg-seniorBankLightBlue active:text-seniorBankDarkBlue"
+                      : "text-white hover:bg-seniorBankLightBlue hover:text-seniorBankDarkBlue active:bg-seniorBankDarkBlue active:text-white"
+                  }`}
+                >
+                  <span className="flex flex-row items-center gap-2">{icon}{title}</span>
+                </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
+            
           </NavigationMenuList>
         </NavigationMenu>
       </div>
+      <div className="relative h-[2px] bg-seniorbankWhite"></div>
     </div>
   );
 };
