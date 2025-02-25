@@ -1,5 +1,5 @@
 import MenuOptions from "@/components/homepage/MenuOptions";
-import { ArrowBigDownDash, Banknote, MailIcon, Wallet } from "lucide-react";
+import { ArrowBigDownDash, Banknote, HelpCircle, MailIcon, Settings, Wallet } from "lucide-react";
 
 export default function Home() {
   const menuOptions = [
@@ -23,6 +23,18 @@ export default function Home() {
       description: "Les meldinger og varslinger fra banken",
       icon: <MailIcon className="size-16" />,
     },
+    {
+      title: "Spør om hjelp",
+      description: "Kontakt vår kundehjelp eller Trygghetskontakten",
+      icon: <HelpCircle className="size-16" />,
+    },
+
+    {
+      title: "Innstillinger",
+      description: "Endre på instillinger og infomasjon",
+      icon: <Settings className="size-16" />,
+    },
+
   ];
 
   return (
