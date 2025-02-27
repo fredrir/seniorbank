@@ -118,7 +118,6 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
           </div>
         </div>
 
-        {/* Submit button */}
         <div className="pt-4">
           <Button
             type="submit"

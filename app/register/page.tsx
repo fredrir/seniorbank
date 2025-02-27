@@ -2,8 +2,11 @@
 import { ProgressBar } from "@/components/all/ProgressBar";
 import FirstStep from "@/components/register/FirstStep";
 import SecondStep from "@/components/register/SecondStep";
+import ThirdStep from "@/components/register/ThirdStep";
 import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 export default function RegisterAccountPage() {
   const [step, setStep] = useState(1);
@@ -25,14 +28,48 @@ export default function RegisterAccountPage() {
 
   const handleNextStep = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (step === 2) {
+      if (
+        formData.firstName === "" ||
+        formData.lastName === "" ||
+        formData.birthDate === "" ||
+        formData.phoneNumber === "" ||
+        formData.address === "" ||
+        formData.email === ""
+      ) {
+        toast.error("Fyll ut alle feltene før du går videre");
+        return;
+      }
+    }
+
     setStep(step + 1);
   };
 
   const handlePreviousStep = () => {
-    if (step === 1) {
-      window.location.href = "/register";
+    if (step === 2) {
+      setFormData({
+        firstName: "",
+        lastName: "",
+        birthDate: "",
+        phoneNumber: "",
+        address: "",
+        email: "",
+        difficulty: "",
+      });
     }
+
     setStep(step - 1);
+  };
+
+  const handleSubmit = () => {
+    //TODO -> Midlertig console log
+
+    console.log(formData);
+
+    toast.success("Brukeren er opprettet!");
+
+    redirect("/hjem");
   };
 
   return (
@@ -70,6 +107,8 @@ export default function RegisterAccountPage() {
               handleNextStep={handleNextStep}
             />
           )}
+
+          {step === 3 && <ThirdStep handleSubmit={handleSubmit} />}
         </div>
       </div>
     </main>
