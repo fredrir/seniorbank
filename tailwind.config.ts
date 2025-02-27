@@ -12,6 +12,8 @@ export default {
       colors: {
         seniorbankWhite: "#FDF8F5",
         seniorbankBlue: "#005AA4",
+        seniorBankLightBlue: "#B3CEE4",
+        seniorBankDarkBlue: "#002776",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
