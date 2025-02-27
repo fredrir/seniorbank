@@ -8,7 +8,7 @@ interface Props {
 
 export function ProgressBar({ totalSteps, currentStep, title }: Props) {
   return (
-    <div className="w-full bg-[#d3d3ea] p-8 rounded-lg">
+    <div className="w-full bg-inherit p-8 rounded-lg">
       <div className="flex justify-center items-center mb-6">
         {Array.from({ length: totalSteps }, (_, index) => (
           <div key={index} className="flex items-center">

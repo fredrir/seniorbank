@@ -1,75 +1,76 @@
-import { ChevronRight } from "lucide-react";
-import Link from "next/link";
+"use client";
+import { ProgressBar } from "@/components/all/ProgressBar";
+import FirstStep from "@/components/register/FirstStep";
+import SecondStep from "@/components/register/SecondStep";
+import { ChevronLeft } from "lucide-react";
+import { useState } from "react";
 
 export default function RegisterAccountPage() {
-  const difficulties = [
-    {
-      id: 1,
-      level: "Basis nivå",
-      description: [
-        "De fleste funksjoner er forenklet",
-        "Kun bassifunksjoner som saldooversikt og betaling av faste regninger",
-        "Viktige handlinger må godkjennes av din Trygghetskontakt før de blir gjennomført",
-      ],
-    },
+  const [step, setStep] = useState(1);
 
-    {
-      id: 2,
-      level: "Moderert kontroll",
-      description: [
-        "Litt flere muligheter, som å betale nye regninger og overføre mellom egne kontoer",
-        "Advarsler ved ukjente mottakere eller større transaksjoner",
-        "Enkel varsling til Trygghetskomtakt ved behov",
-      ],
-    },
-    {
-      id: 3,
-      level: "Full frihet",
-      description: [
-        "Alle funksjoner tilgjengelige, inkludert investeringer, uten bekrensninger",
-        "Du kan fortsatt velge å varsle din trygghetskontakt ved større eller uvanlige transaksjoner",
-      ],
-    },
-  ];
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    birthDate: "",
+    phoneNumber: "",
+    address: "",
+    email: "",
+    difficulty: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleNextStep = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStep(step + 1);
+  };
+
+  const handlePreviousStep = () => {
+    if (step === 1) {
+      window.location.href = "/register";
+    }
+    setStep(step - 1);
+  };
 
   return (
     <main className="mx-auto container my-8">
-      <header className="flex flex-col items-center gap-8">
-        <h1 className="text-5xl text-seniorBankDarkBlue font-bold">
-          Opprett ny bruker
-        </h1>
+      <header
+        className={`flex flex-row gap-2 mt-8 items-center text-seniorBankDarkBlue `}
+      >
+        <button onClick={() => handlePreviousStep()}>
+          <ChevronLeft
+            className={`size-16 ${step === 1 ? "text-white" : "text-inherit"}`}
+          />
+        </button>
 
-        <h3 className="text-3xl max-w-sm mt-16 font-bold text-seniorBankDarkBlue text-center">
-          Tilpass nettbanken til dine behov
-        </h3>
+        <h2 className="text-4xl py-4 font-bold">
+          {step === 1 ? "Opprett ny bruker" : "Fyll ut din informasjon"}
+        </h2>
       </header>
 
-      <div className="flex flex-col gap-8 mt-16  items-center w-full">
-        {difficulties.map((difficulty, index) => (
-          <Link
-            href={`/register/${difficulty.id}`}
-            key={index}
-            className="border-4 w-full max-w-2xl border-seniorBankDarkBlue hover:border-blue-500 bg-[#D3D3EA] rounded-2xl p-4 flex flex-col gap-4 relative group"
-          >
-            <h2 className="text-4xl font-bold text-seniorBankDarkBlue">
-              {difficulty.level}
-            </h2>
+      <div className="flex flex-col items-center mt-16">
+        <div
+          className={`${
+            step === 1 ? "bg-inherit" : "bg-[#D3D3EA]"
+          } p-4 rounded-2xl w-full max-w-2xl`}
+        >
+          <ProgressBar totalSteps={3} currentStep={step} />
 
-            <article className="p-4">
-              {difficulty.description.map((desc, index) => (
-                <div
-                  key={index}
-                  className="text-seniorBankDarkBlue flex text-lg font-semibold"
-                >
-                  <span className="mr-2">•</span>
-                  <span>{desc}</span>
-                </div>
-              ))}
-            </article>
+          {step === 1 && (
+            <FirstStep setFormData={setFormData} setStep={setStep} />
+          )}
 
-            <ChevronRight className="size-16 absolute top-4 right-4 text-seniorBankDarkBlue group-hover:translate-x-1 transition-transform duration-200" />
-          </Link>
-        ))}
+          {step === 2 && (
+            <SecondStep
+              formData={formData}
+              handleChange={handleChange}
+              handleNextStep={handleNextStep}
+            />
+          )}
+        </div>
       </div>
     </main>
   );
