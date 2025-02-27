@@ -4,6 +4,7 @@ import Link from "next/link";
 export default function RegisterAccountPage() {
   const difficulties = [
     {
+      id: 1,
       level: "Basis nivå",
       description: [
         "De fleste funksjoner er forenklet",
@@ -13,6 +14,7 @@ export default function RegisterAccountPage() {
     },
 
     {
+      id: 2,
       level: "Moderert kontroll",
       description: [
         "Litt flere muligheter, som å betale nye regninger og overføre mellom egne kontoer",
@@ -21,6 +23,7 @@ export default function RegisterAccountPage() {
       ],
     },
     {
+      id: 3,
       level: "Full frihet",
       description: [
         "Alle funksjoner tilgjengelige, inkludert investeringer, uten bekrensninger",
@@ -44,7 +47,7 @@ export default function RegisterAccountPage() {
       <div className="flex flex-col gap-8 mt-16  items-center w-full">
         {difficulties.map((difficulty, index) => (
           <Link
-            href={`/register/1`}
+            href={`/register/${difficulty.id}`}
             key={index}
             className="border-4 w-full max-w-2xl border-seniorBankDarkBlue hover:border-blue-500 bg-[#D3D3EA] rounded-2xl p-4 flex flex-col gap-4 relative group"
           >

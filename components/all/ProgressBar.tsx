@@ -33,7 +33,7 @@ export function ProgressBar({ totalSteps, currentStep, title }: Props) {
             {index < totalSteps - 1 && (
               <div
                 className={`h-1 w-16 md:w-24 mx-8 
-                  ${index < currentStep - 1 ? "bg-[#70c7aa]" : "bg-[#d3d3ea]"}`}
+                  ${index < currentStep - 1 ? "bg-[#70c7aa]" : "bg-white"}`}
               ></div>
             )}
           </div>
