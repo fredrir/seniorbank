@@ -1,4 +1,4 @@
-import MenuOptions from "@/components/homepage/MenuOptions";
+import MenuOption from "@/components/homepage/MenuOptions";
 import { ArrowBigDownDash, Banknote, HelpCircle, MailIcon, Settings, Wallet } from "lucide-react";
 
 export default function Home() {
@@ -45,7 +45,7 @@ export default function Home() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
         {menuOptions.map((option, index) => (
-          <MenuOptions
+          <MenuOption
             title={option.title}
             description={option.description}
             icon={option.icon}
