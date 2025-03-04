@@ -27,43 +27,10 @@ export default function Home() {
     },
   ];
 
-  const navBar = [
-    {
-      title: "Hjem",
-      icon: <House className="size-8"/>,
-      path: "/",
-    },
-    {
-      title: "Konto",
-      icon: <Landmark className="size-8" />,
-      path: "/konto",
-    },
-    {
-      title: "Overfør",
-      icon: <ArrowLeftRight className="size-8" />,
-      path: "/overfor",
-    },
-    {
-      title: "Betal",
-      icon: <Wallet className="size-8" />,
-      path: "/betal",
-    }
-
-    
-  ]
-
   return (
     <section /* className="mx-auto container" */>
       <div className="bg-seniorbankBlue flex flex-row items-center justify-center p-5">
-        {navBar.map((option, index) => (
-          <NavBar
-            title={option.title}
-            icon={option.icon}
-            path={option.path}
-            key={index}
-          />
-        ))
-        }
+        <NavBar />
       </div>
       <div className="mx-auto container ">
         <h1 className="text-5xl font-bold mt-16 mb-8 text-seniorBankDarkBlue">
