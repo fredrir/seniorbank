@@ -1,15 +1,5 @@
 import MenuOptions from "@/components/homepage/MenuOptions";
-import { ArrowBigDownDash, ArrowLeftRight, Banknote, BanknoteIcon, HomeIcon, House, Landmark, MailIcon, Wallet } from "lucide-react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu"
+import { ArrowBigDownDash, ArrowLeftRight, Banknote, House, Landmark, MailIcon, Wallet } from "lucide-react";
 import NavBar from "@/components/navbar/NavBar";
 
 
