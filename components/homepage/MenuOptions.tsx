@@ -18,7 +18,7 @@ const MenuOptions = ({ title, description, icon }: Props) => {
           <p className="text-gray-600">{description}</p>
         </div>
       </div>
-      <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200" />
+      <ChevronRight />
     </div>
   );
 };
