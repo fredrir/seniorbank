@@ -38,22 +38,20 @@ export default function Home() {
   ];
 
   return (
-    <section className="mx-auto container">
+    <section className="mx-auto container max-w-4xl">
       <h1 className="text-5xl font-bold mt-16 mb-8 text-seniorBankDarkBlue">
         Handlinger
       </h1>
 
-      <div className="flex flex-col items-center gap-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 max-w-7xl w-full gap-8">
-          {menuOptions.map((option, index) => (
-            <MenuOptions
-              title={option.title}
-              description={option.description}
-              icon={option.icon}
-              key={index}
-            />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
+        {menuOptions.map((option, index) => (
+          <MenuOptions
+            title={option.title}
+            description={option.description}
+            icon={option.icon}
+            key={index}
+          />
+        ))}
       </div>
     </section>
   );
