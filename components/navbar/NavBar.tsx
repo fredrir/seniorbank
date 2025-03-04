@@ -14,6 +14,8 @@ import Link from "next/link"; */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { House, Landmark, ArrowLeftRight, Wallet } from "lucide-react";
+import { cva } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
 const navBarItems = [
   {
@@ -38,6 +40,21 @@ const navBarItems = [
   }
 ]
 
+const navigationLinkVariants = cva(
+  "text-2xl flex flex-row items-center justify-center p-4 rounded-t-2xl transition-colors", {
+    variants: {
+      variant: {
+        default: "bg-seniorBankDarkBlue text-white font-bold border-seniorBankLightBlue active:bg-seniorBankLightBlue active:text-seniorBankDarkBlue",
+        active: "text-white hover:bg-seniorBankLightBlue hover:text-seniorBankDarkBlue active:bg-seniorBankDarkBlue active:text-white",
+      }
+    },
+    defaultVariants: {
+      variant: "default",
+    }
+  }
+)
+
+
 const NavBar = () => {
   const pathname = usePathname();
   return (
@@ -49,13 +66,7 @@ const NavBar = () => {
               <NavigationMenuItem>
                 <NavigationMenuLink asChild> 
                   <Link
-                  href={path} className={`text-2xl flex flex-row items-center justify-center p-4 rounded-t-2xl transition-colors
-                    ${
-                      pathname === path
-                        ? "bg-seniorBankDarkBlue text-white font-bold border-seniorBankLightBlue active:bg-seniorBankLightBlue active:text-seniorBankDarkBlue"
-                        : "text-white hover:bg-seniorBankLightBlue hover:text-seniorBankDarkBlue active:bg-seniorBankDarkBlue active:text-white"
-                    }`}
-                  >
+                    href={path} className={cn(navigationLinkVariants({variant: pathname === path ? "default" : "active"}))}>
                     <span className="flex flex-row items-center gap-2">{icon}{title}</span>
                   </Link>
                 </NavigationMenuLink>
