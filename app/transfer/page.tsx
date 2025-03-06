@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import {
@@ -16,9 +15,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Banknote } from "lucide-react"
+import Link from "next/link"
+import { Input } from "@/components/ui/input"
 
 
-export default function Home() {
+export default function Transfer() {
+
 return (
 	<section className="mx-auto container">
 		<h1 className="text-5xl font-bold mt-16 mb-8 text-seniorBankDarkBlue">
@@ -28,39 +31,49 @@ return (
 		<Card className="bg-[#D3D3EA] w-[480px] pt-14 px-5">
 			<CardContent className="text-seniorBankDarkBlue">
 				<Label>Fra konto:</Label>
-				<Select>
-					<SelectTrigger>
-						<SelectValue/>
-					</SelectTrigger>
-					<SelectContent>
-						<SelectItem value="konto1">Konto 1</SelectItem>
-						<SelectItem value="konto2">Konto 2</SelectItem>
-						<SelectItem value="konto3">Konto 3</SelectItem>
-					</SelectContent>
-				</Select>
+				<div className="mb-3">
+					<Select>
+						<SelectTrigger>
+							<SelectValue/>
+						</SelectTrigger>
+						<SelectContent >
+							<SelectItem value="konto1">Brukskonto - 18 932,54 kr</SelectItem>
+							<SelectItem value="konto2">Sparekonto - 829 182,92 kr</SelectItem>
+							<SelectItem value="konto3">Barnebarn  - 34 835 kr</SelectItem>
+						</SelectContent>
+					</Select>
+				</div>
 
 				<Label>Til konto:</Label>
-				<Select>
-					<SelectTrigger>
-						<SelectValue/>
-					</SelectTrigger>
-					<SelectContent>
-						<SelectItem value="konto1">Konto 1</SelectItem>
-						<SelectItem value="konto2">Konto 2</SelectItem>
-						<SelectItem value="konto3">Konto 3</SelectItem>
-					</SelectContent>
-				</Select>
+				<div className="mb-3">
+					<Select>
+						<SelectTrigger>
+							<SelectValue/>
+						</SelectTrigger>
+						<SelectContent>
+							<SelectItem value="konto1">Brukskonto - 18 932,54 kr</SelectItem>
+							<SelectItem value="konto2">Sparekonto - 829 182,92 kr</SelectItem>
+							<SelectItem value="konto3">Barnebarn  - 34 835 kr</SelectItem>
+						</SelectContent>
+					</Select>
+				</div>
 
 				<Label>Antall:</Label>
-				<Textarea/>
+				<div className="relative w-full">
+					<Input className="mb-3"/>
+					<Banknote className="absolute right-3 top-0 font-bold size-8"/>
+				</div>
 
 				<Label>Kommentar:</Label>
-				<Textarea className="h-32"/>
-			</CardContent>
-			<CardFooter>
-				<Button className="bg-seniorBankDarkBlue text-seniorbankWhite font-bold">Bekreft</Button>
-			</CardFooter>
-		</Card>
+				<Input className="h-32 mb-3"/>
+				</CardContent>
+				<CardFooter className="flex justify-end">
+					<Button asChild className="bg-seniorBankDarkBlue text-seniorbankWhite font-bold w-1/2 text-xl">
+						<Link href="/transfer/confirm">Bekreft
+						</Link>
+					</Button>
+				</CardFooter>
+			</Card>
 
 		</div>
 	</section>
