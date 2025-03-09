@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
+
 export default function Payment() {
     const accountOptions = [
         {
@@ -67,10 +69,11 @@ export default function Payment() {
                 </div>
               </div>
               <div className="flex justify-end items-center m-10">
-
-              <Button className="w-[45%] min-w-0 px-4 text-2xl flex flex-col">
-                Neste
-              </Button>
+                <Link href="payment2" className="block w-full ">
+                  <Button className="w-[45%] min-w-0 px-4 text-2xl flex flex-col float-right"> 
+                    Neste
+                  </Button>
+                </Link>
               </div>
               
             </div>
