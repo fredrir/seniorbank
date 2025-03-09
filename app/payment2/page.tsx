@@ -90,7 +90,7 @@ export default function Payment() {
               <Textarea placeholder="Skriv inn kommentar her ... " className="border-2 border-seniorBankDarkBlue bg-seniorbankWhite"/>
               </div> 
               <div className="flex justify-end items-center m-10">
-                <Link href="payment2" className="block w-full ">
+                <Link href="payment3" className="block w-full ">
                   <Button className="w-[45%] min-w-0 px-4 text-2xl flex flex-col float-right"> 
                     Neste
                   </Button>
