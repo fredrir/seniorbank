@@ -3,7 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "@/components/auth/SessionWrapper";
 import AuthLayout from "@/components/auth/AuthLayout";
-import NavBar from "@/components/all/NavBar";
+import { cn } from "@/lib/utils";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,11 +29,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-seniorbankWhite text-black `}
+        className={cn(
+          geistSans.className,
+          geistMono.className,
+          "antialiased text-primary bg-seniorbankWhite mx-auto px-2 md:px-0 max-w-4xl"
+        )}
       >
         <SessionWrapper>
           <AuthLayout>
-            <NavBar />
+            <Toaster />
             <div>{children} </div>
           </AuthLayout>
         </SessionWrapper>
