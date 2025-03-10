@@ -1,44 +1,16 @@
 import PaymentHistory from "./PaymentHistory";
+interface TransactionProps {
+  transactions: {
+    title?: string;
+    description: string;
+    amount?: string;
+    transactionAlert?: boolean;
+    warningAlert?: boolean;
+    date?: string;
+  }[];
+}
 
-const PaymentHistoryGrid = () => {
-  const transactions = [
-    {
-      title: "Rema 1000",
-      description: "Dagligvare",
-      amount: "-826.87 kr",
-    },
-    {
-      title: "SIT kantine",
-      description: "Dagligvare",
-      amount: "-45.87 kr",
-    },
-    {
-      title: "Transaksjon",
-      description: "Transaksjon",
-      amount: "14000.00 kr",
-      transactionAlert: true,
-    },
-    {
-      title: "Joker Stud.samf.",
-      description: "Dagligvare",
-      amount: "-72.46 kr",
-    },
-    {
-      description: "Onsdag",
-      date: "03 Januar 2025",
-    },
-    {
-      title: "Klippers",
-      description: "Kosmetikk",
-      amount: "-599.00 kr",
-    },
-    {
-      title: "Nigerian Prince",
-      description: "Kosmetikk",
-      amount: "-59999.00 kr",
-      warningAlert: true,
-    },
-  ];
+const PaymentHistoryGrid = ( {transactions}: TransactionProps) => {
 
   return (
     <section className="overflow-hidden border rounded-t-2xl bg-seniorBankLightBlue">
