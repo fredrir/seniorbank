@@ -71,7 +71,7 @@ export default async function Home() {
         <div className="absolute top-[300px]">
           <BankAccountCard
             title="Brukskonto"
-            number="1080 28 27364"
+            accountNumber="1080 28 27364"
             balance={18932.54}
             href="/accounts/x"
           />
