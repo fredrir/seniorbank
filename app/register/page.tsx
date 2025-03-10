@@ -69,7 +69,7 @@ export default function RegisterAccountPage() {
 
     toast.success("Brukeren er opprettet!");
 
-    redirect("/hjem");
+    redirect("/");
   };
 
   return (
