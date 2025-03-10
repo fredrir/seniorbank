@@ -1,20 +1,12 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {BanknoteIcon, ChevronDown } from "lucide-react";
 import { Check } from "lucide-react";
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea"
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, SelectGroup, SelectLabel } from "@radix-ui/react-select";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, SelectGroup } from "@/components/ui/select";
+import { useState } from "react";
 
 
 export default function Payment() {
@@ -32,6 +24,8 @@ export default function Payment() {
     //       description: "Overfør penger mellom egne kontoer",
     //     },
     //   ];
+    const [selectedAccount, setSelectedAccount] = useState("");
+
     return(
         <section>
           <div className="bg-seniorbankBlue text-white p-5">
@@ -56,19 +50,15 @@ export default function Payment() {
               <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-3 rounded-lg text-xl"> 
               <p>Fra konto: </p>
               <div className="w-full">
-                <Select>
-                  <SelectTrigger className="bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full ">
-                    <div className="relative p-2 ">
-                      <SelectValue placeholder="Velg en konto" className=""/>
-                      <ChevronDown className="absolute size-8 right-2 top-1/2 transform -translate-y-1/2 text-seniorBankDarkBlue" ></ChevronDown> 
-                    </div>
-                  
-                  </SelectTrigger>
-                  <SelectContent className="bg-white rounded-lg w-full shadow-md pr-28 pl-28  pt-3 pb-3 z-10 mt-1 text-xl">
-                    <SelectGroup className="flex flex-col items-center">
-                      <SelectItem value={"sparekonto"} className="">Sparekonto 830 726 kr</SelectItem>
-                      <SelectItem value={"barnebarn"}>Barnebarn 34 835 kr</SelectItem>
-                      <SelectItem value={"russetid"}>Russetid 10 835 kr</SelectItem>
+                <Select onValueChange={(value) => setSelectedAccount(value)}>
+                <SelectTrigger className="bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex items-center justify-between px-4 h-12">
+                  <SelectValue placeholder="Velg en konto" className="text-xl" />
+                </SelectTrigger>
+                  <SelectContent className="bg-white rounded-lg w-full shadow-md pt-3 pb-3 z-10 mt-1 text-xl">
+                    <SelectGroup className="flex flex-col items-center ">
+                      <SelectItem value={"sparekonto"} className="text-xl">Sparekonto 830 726 kr</SelectItem>
+                      <SelectItem value={"barnebarn"} className="text-xl">Barnebarn 34 835 kr</SelectItem>
+                      <SelectItem value={"russetid"} className="text-xl">Russetid 10 835 kr</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
