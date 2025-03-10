@@ -1,3 +1,5 @@
+import HeaderText from "@/components/all/HeaderText";
+import SubHeaderText from "@/components/all/SubHeaderText";
 import { BankAccountCard } from "@/components/homepage/BankAccountCard";
 import MenuOption from "@/components/homepage/MenuOptions";
 import { WarningSection } from "@/components/homepage/WarningSection";
@@ -19,6 +21,7 @@ export default async function Home() {
       title: "Konto oversikt",
       description: "Se oversikt over dine kontoer",
       icon: <Banknote className="size-16" />,
+      href: "/account-overview",
     },
     {
       title: "Betaling",
@@ -60,9 +63,9 @@ export default async function Home() {
         >
           <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
         </svg>
-        <h1 className="text-7xl font-bold my-8 text-white">
-          {session ? `Hei, ${session.user.name}` : "Hei, Navn Navnesen"}
-        </h1>
+        <HeaderText
+          title={session ? `Hei, ${session.user.name}` : "Hei, Navn Navnesen"}
+        />
         <p className="text-3xl text-white">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod incididunt.
@@ -71,7 +74,7 @@ export default async function Home() {
         <div className="absolute top-[300px]">
           <BankAccountCard
             title="Brukskonto"
-            number="1080 28 27364"
+            accountNumber="1080 28 27364"
             balance={18932.54}
             href="/accounts/x"
           />
@@ -79,9 +82,7 @@ export default async function Home() {
       </section>
 
       <section>
-        <h2 className="text-5xl font-bold mb-8 text-seniorBankDarkBlue">
-          Handlinger
-        </h2>
+        <SubHeaderText title="Handlinger" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
           {menuOptions.map((option, index) => (
@@ -89,6 +90,7 @@ export default async function Home() {
               title={option.title}
               description={option.description}
               icon={option.icon}
+              href={option.href}
               key={index}
             />
           ))}
