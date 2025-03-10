@@ -77,7 +77,7 @@ export default async function Home() {
             title="Brukskonto"
             accountNumber="1080 28 27364"
             balance={18932.54}
-            href="/accounts/x"
+            href="/account-overview/1080%2028%2027364"
           />
         </div>
       </section>
