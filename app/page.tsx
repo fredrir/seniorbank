@@ -1,7 +1,19 @@
-import MenuOptions from "@/components/homepage/MenuOptions";
-import { ArrowBigDownDash, Banknote, MailIcon, Wallet } from "lucide-react";
+import { BankAccountCard } from "@/components/homepage/BankAccountCard";
+import MenuOption from "@/components/homepage/MenuOptions";
+import { WarningSection } from "@/components/homepage/WarningSection";
+import {
+  ArrowBigDownDash,
+  Banknote,
+  HelpCircle,
+  MailIcon,
+  Settings,
+  Wallet,
+} from "lucide-react";
+import { getServerSession } from "next-auth";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession();
+
   const menuOptions = [
     {
       title: "Konto oversikt",
@@ -23,18 +35,57 @@ export default function Home() {
       description: "Les meldinger og varslinger fra banken",
       icon: <MailIcon className="size-16" />,
     },
+    {
+      title: "Spør om hjelp",
+      description: "Kontakt vår kundehjelp eller Trygghetskontakten",
+      icon: <HelpCircle className="size-16" />,
+    },
+
+    {
+      title: "Innstillinger",
+      description: "Endre på instillinger og infomasjon",
+      icon: <Settings className="size-16" />,
+    },
   ];
 
   return (
-    <section className="mx-auto container">
-      <h1 className="text-5xl font-bold mt-16 mb-8 text-seniorBankDarkBlue">
-        Handlinger
-      </h1>
+    <>
+      <section className="h-[450px]">
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          width={100}
+          height={100}
+          className="absolute top-0 left-0 w-full h-[500px] z-[-1] text-[#015aa4]"
+        >
+          <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
+        </svg>
+        <h1 className="text-7xl font-bold my-8 text-white">
+          {session ? `Hei, ${session.user.name}` : "Hei, Navn Navnesen"}
+        </h1>
+        <p className="text-3xl text-white">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod incididunt.
+        </p>
 
-      <div className="flex flex-col items-center gap-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 max-w-7xl w-full gap-8">
+        <div className="absolute top-[300px]">
+          <BankAccountCard
+            title="Brukskonto"
+            number="1080 28 27364"
+            balance={18932.54}
+            href="/accounts/x"
+          />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-5xl font-bold mb-8 text-seniorBankDarkBlue">
+          Handlinger
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
           {menuOptions.map((option, index) => (
-            <MenuOptions
+            <MenuOption
               title={option.title}
               description={option.description}
               icon={option.icon}
@@ -42,7 +93,11 @@ export default function Home() {
             />
           ))}
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section className="absolute left-0 right-0">
+        <WarningSection />
+      </section>
+    </>
   );
 }
