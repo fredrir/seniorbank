@@ -1,17 +1,5 @@
 import MenuOptions from "@/components/homepage/MenuOptions";
-import { ArrowBigDownDash, ArrowLeftRight, Banknote, BanknoteIcon, HomeIcon, House, Landmark, MailIcon, Wallet } from "lucide-react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu"
-import NavBar from "@/components/navbar/NavBar";
-
+import { ArrowBigDownDash, Banknote, MailIcon, Wallet } from "lucide-react";
 
 export default function Home() {
   const menuOptions = [
@@ -37,44 +25,8 @@ export default function Home() {
     },
   ];
 
-  const navBar = [
-    {
-      title: "Hjem",
-      icon: <House className="size-8"/>,
-      path: "/",
-    },
-    {
-      title: "Konto",
-      icon: <Landmark className="size-8" />,
-      path: "/konto",
-    },
-    {
-      title: "Overfør",
-      icon: <ArrowLeftRight className="size-8" />,
-      path: "/overfor",
-    },
-    {
-      title: "Betal",
-      icon: <Wallet className="size-8" />,
-      path: "/betal",
-    }
-
-    
-  ]
-
   return (
     <section /* className="mx-auto container" */>
-      <div className="bg-seniorbankBlue flex flex-row items-center justify-center p-5">
-        {navBar.map((option, index) => (
-          <NavBar
-            title={option.title}
-            icon={option.icon}
-            path={option.path}
-            key={index}
-          />
-        ))
-        }
-      </div>
       <div className="mx-auto container ">
         <h1 className="text-5xl font-bold mt-16 mb-8 text-seniorBankDarkBlue">
           Handlinger
@@ -93,7 +45,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      
     </section>
   );
 }
