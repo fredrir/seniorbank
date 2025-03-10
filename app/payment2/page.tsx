@@ -18,20 +18,20 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, SelectGr
 
 
 export default function Payment() {
-    const accountOptions = [
-        {
-          title: "Sparekonto",
-          description: "Se oversikt over dine kontoer",
-        },
-        {
-          title: "Brukskonto",
-          description: "Betale fakturaer og opprett AvtaleGiro",
-        },
-        {
-          title: "Feriekonto",
-          description: "Overfør penger mellom egne kontoer",
-        },
-      ];
+    // const accountOptions = [
+    //     {
+    //       title: "Sparekonto",
+    //       description: "Se oversikt over dine kontoer",
+    //     },
+    //     {
+    //       title: "Brukskonto",
+    //       description: "Betale fakturaer og opprett AvtaleGiro",
+    //     },
+    //     {
+    //       title: "Feriekonto",
+    //       description: "Overfør penger mellom egne kontoer",
+    //     },
+    //   ];
     return(
         <section>
           <div className="bg-seniorbankBlue text-white p-5">
@@ -64,7 +64,7 @@ export default function Payment() {
                     </div>
                   
                   </SelectTrigger>
-                  <SelectContent className="bg-white rounded-lg border-red-600 w-full shadow-md pr-28 pl-28  pt-3 pb-3 z-10 mt-1 text-xl">
+                  <SelectContent className="bg-white rounded-lg w-full shadow-md pr-28 pl-28  pt-3 pb-3 z-10 mt-1 text-xl">
                     <SelectGroup className="flex flex-col items-center">
                       <SelectItem value={"sparekonto"} className="">Sparekonto 830 726 kr</SelectItem>
                       <SelectItem value={"barnebarn"}>Barnebarn 34 835 kr</SelectItem>

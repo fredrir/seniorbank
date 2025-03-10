@@ -3,20 +3,20 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export default function Payment() {
-    const accountOptions = [
-        {
-          title: "Sparekonto",
-          description: "Se oversikt over dine kontoer",
-        },
-        {
-          title: "Brukskonto",
-          description: "Betale fakturaer og opprett AvtaleGiro",
-        },
-        {
-          title: "Feriekonto",
-          description: "Overfør penger mellom egne kontoer",
-        },
-      ];
+    // const accountOptions = [
+    //     {
+    //       title: "Sparekonto",
+    //       description: "Se oversikt over dine kontoer",
+    //     },
+    //     {
+    //       title: "Brukskonto",
+    //       description: "Betale fakturaer og opprett AvtaleGiro",
+    //     },
+    //     {
+    //       title: "Feriekonto",
+    //       description: "Overfør penger mellom egne kontoer",
+    //     },
+    //   ];
     return(
         <section>
           <div className="bg-seniorbankBlue text-white p-5">
