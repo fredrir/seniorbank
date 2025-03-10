@@ -21,7 +21,7 @@ const MenuOption = ({ title, description, icon }: Props) => {
         </div>
       </div>
       <div className="flex flex-col justify-center">
-        <ChevronRight className="size-16" />
+        <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200"  />
       </div>
     </div>
   );
