@@ -3,7 +3,7 @@ import { TriangleAlert } from 'lucide-react';
 
 const Alert = () => {
   return (
-    <div className="flex flex-row gap-4 text-seniorBankDarkBlue">
+    <div className="flex flex-row gap-4 text-[#001032]">
       <TriangleAlert className="size-16" />
       <div className="flex flex-col text-2xl">
         <p>Mistenkelig mottaker.</p>

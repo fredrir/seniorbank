@@ -8,14 +8,14 @@ interface SearchBarProps {
 
 const SearchBar = ({searchInput, handleChange}: SearchBarProps) => {
   return (
-    <div className="flex items-center border rounded-2xl bg-blue-500 pl-3">
+    <div className="flex items-center border rounded-2xl bg-[#4D8CBF] text-white">
       <Search className="size-8" />
       <input
         type="text"
         placeholder="Søk"
         onChange={handleChange}
         value={searchInput}
-        className="bg-blue-300 w-full p-4"
+        className="bg-[#4D8CBF] w-full p-4 placeholder:text-white"
       />
     </div>
   );

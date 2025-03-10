@@ -18,7 +18,7 @@ const PaymentHistoryGrid = ( {transactions}: TransactionProps) => {
         {transactions.map((transaction, index) => (
           <div
             key={index}
-            className={`border-b-4 border-b-seniorbankBlue ${transaction.warningAlert ? "bg-red-300" : transaction.transactionAlert ? "bg-green-300" : "bg-seniorBankLightBlue"
+            className={`border-b-4 border-b-[#4D8CBF] ${transaction.warningAlert ? "bg-[#F7C6C7]" : transaction.transactionAlert ? "bg-[#70C7AA]" : "bg-seniorBankLightBlue"
               }`}
           >
             <div className="">

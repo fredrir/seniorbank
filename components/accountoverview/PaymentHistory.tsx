@@ -12,7 +12,7 @@ interface Props {
 
 const PaymentHistory = ({ title, description, amount, transactionAlert, warningAlert, date }: Props) => {
   return (
-    <div className="flex flex-row justify-between p-4 items-center text-seniorBankDarkBlue">
+    <div className="flex flex-row justify-between p-4 items-center text-[#001032]">
       <div>
         <h2 className="text-5xl">{title}</h2>
         <p className="text-gray-500 font-bold text-3xl">{description}</p>

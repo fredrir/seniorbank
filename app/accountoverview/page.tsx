@@ -52,9 +52,9 @@ export default function AccountOverview() {
 
   return (
     <section className="mx-auto container my-8">
-      <div>
-        <p>Saldo</p>
-        <p>18 932.54kr</p>
+      <div className="items-center">
+        <h2 className="text-4xl">Saldo</h2>
+        <h1 className="text-7xl">18 932.54kr</h1>
         <SearchBar searchInput={searchInput} handleChange={handleChange} />
         <PaymentHistoryGrid transactions={transactions} />
       </div>
