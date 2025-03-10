@@ -3,7 +3,7 @@ import Link from "next/link";
 
 interface BankAccoundCardProps {
   title: string;
-  number: string
+  accountNumber: string
   balance: number
   href: string
 }
