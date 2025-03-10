@@ -56,7 +56,7 @@ export default function AccountOverviewPage() {
         >
           <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
         </svg>
-        <HeaderText title="Kontooversikt" />
+        <HeaderText title="Kontooversikt" className="" />
         <div className="flex flex-col items-center ">
           <article className="text-3xl text-white flex flex-row gap-2 items-center">
             <ShieldAlert className="size-64" />

@@ -7,3 +7,14 @@ export type BankAccount = {
   balance: number;
   type: "savings" | "loan";
 };
+
+export type Transaction = {
+  id: number;
+  amount: number;
+  date: string;
+  to: string;
+  from: string;
+  description: string;
+  accountNumber: string;
+  type: "payment" | "deposit";
+};

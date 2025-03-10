@@ -65,6 +65,7 @@ export default async function Home() {
         </svg>
         <HeaderText
           title={session ? `Hei, ${session.user.name}` : "Hei, Navn Navnesen"}
+          className="my-8"
         />
         <p className="text-3xl text-white">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

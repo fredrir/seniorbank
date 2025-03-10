@@ -24,7 +24,7 @@ const AccountCard = ({ account, index, length }: Props) => {
       <h3 className="text-seniorBankDarkBlue text-2xl lg:text-3xl font-bold">
         {account.title}
       </h3>
-      <div className="flex gap-2 items-center">
+      <div className="flex  items-center">
         <h3 className="text-seniorBankDarkBlue text-xl lg:text-2xl font-bold">
           {account.balance}
         </h3>
