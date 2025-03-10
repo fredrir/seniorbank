@@ -62,14 +62,18 @@ export default function RegisterAccountPage() {
     setStep(step - 1);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //TODO -> Midlertig console log
+
+    e.preventDefault();
 
     console.log(formData);
 
     toast.success("Brukeren er opprettet!");
 
     redirect("/");
+
+    return false
   };
 
   return (
