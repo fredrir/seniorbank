@@ -32,7 +32,7 @@ export default function RootLayout({
         className={cn(
           geistSans.className,
           geistMono.className,
-          "antialiased text-primary bg-seniorbankWhite mx-auto max-w-4xl"
+          "antialiased text-primary bg-seniorbankWhite mx-auto px-2 md:px-0 max-w-4xl"
         )}
       >
         <SessionWrapper>
