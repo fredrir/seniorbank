@@ -7,7 +7,6 @@ import {
   ArrowLeftRight,
   House,
   Landmark,
-  LogOut,
   LogOutIcon,
   Wallet,
 } from "lucide-react";
