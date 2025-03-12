@@ -29,7 +29,7 @@ export default function AccountOverview() {
       amount: "-72.46 kr",
     },
     {
-      description: "Onsdag",
+      day: "Onsdag",
       date: "03 Januar 2025",
     },
     {
@@ -51,13 +51,15 @@ export default function AccountOverview() {
   };
 
   return (
-    <section className="mx-auto container my-8">
-      <div className="items-center">
-        <h2 className="text-4xl">Saldo</h2>
-        <h1 className="text-7xl">18 932.54kr</h1>
+    <main className="p-4">
+      <div className="space-y-10">
+        <header className="text-center text-white p-2">
+          <h2 className="text-4xl">Saldo</h2>
+          <h1 className="text-7xl font-bold">18 932.54kr</h1>
+        </header>
         <SearchBar searchInput={searchInput} handleChange={handleChange} />
         <PaymentHistoryGrid transactions={transactions} />
       </div>
-    </section>
+    </main>
   );
 };

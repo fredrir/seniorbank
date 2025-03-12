@@ -6,18 +6,19 @@ interface SearchBarProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SearchBar = ({searchInput, handleChange}: SearchBarProps) => {
+const SearchBar = ({ searchInput, handleChange }: SearchBarProps) => {
   return (
-    <div className="flex items-center border rounded-2xl bg-[#4D8CBF] text-white">
-      <Search className="size-8" />
+    <label htmlFor="search-input" className="flex items-center border rounded-2xl bg-[#4D8CBF] cursor-pointer w-full text-white">
+      <Search className="size-8 m-2" />
       <input
+        id="search-input"
         type="text"
         placeholder="Søk"
         onChange={handleChange}
         value={searchInput}
-        className="bg-[#4D8CBF] w-full p-4 placeholder:text-white"
+        className="bg-[#4D8CBF] placeholder:text-white text-2xl cursor-pointer w-full outline-none"
       />
-    </div>
+    </label>
   );
 };
 
