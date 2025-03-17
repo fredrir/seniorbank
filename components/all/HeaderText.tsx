@@ -9,13 +9,13 @@ interface Props {
 
 const HeaderText = ({ title, className, href }: Props) => {
   return (
-    <span className="flex flex-row items-center group">
+    <span className="group flex flex-row items-center">
       {href && (
         <Link href={href}>
-          <ChevronLeft className="text-white size-20 group-hover:-translate-x-1 transition-transform duration-200" />
+          <ChevronLeft className="size-20 text-white transition-transform duration-200 group-hover:-translate-x-1" />
         </Link>
       )}
-      <h1 className={`text-6xl font-bold  text-white ${className}`}>{title}</h1>
+      <h1 className={`text-6xl font-bold text-white ${className}`}>{title}</h1>
     </span>
   );
 };

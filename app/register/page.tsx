@@ -73,13 +73,13 @@ export default function RegisterAccountPage() {
 
     redirect("/");
 
-    return false
+    return false;
   };
 
   return (
-    <main className="mx-auto container my-8">
+    <main className="container mx-auto my-8">
       <header
-        className={`flex flex-row gap-2 mt-8 items-center text-seniorBankDarkBlue `}
+        className={`mt-8 flex flex-row items-center gap-2 text-seniorBankDarkBlue`}
       >
         <button onClick={() => handlePreviousStep()}>
           <ChevronLeft
@@ -87,16 +87,16 @@ export default function RegisterAccountPage() {
           />
         </button>
 
-        <h2 className="text-4xl py-4 font-bold">
+        <h2 className="py-4 text-4xl font-bold">
           {step === 1 ? "Opprett ny bruker" : "Fyll ut din informasjon"}
         </h2>
       </header>
 
-      <div className="flex flex-col items-center mt-16">
+      <div className="mt-16 flex flex-col items-center">
         <div
           className={`${
             step === 1 ? "bg-inherit" : "bg-[#D3D3EA]"
-          } p-4 rounded-2xl w-full max-w-2xl`}
+          } w-full max-w-2xl rounded-2xl p-4`}
         >
           <ProgressBar totalSteps={3} currentStep={step} />
 

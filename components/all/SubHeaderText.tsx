@@ -4,7 +4,7 @@ interface Props {
 
 const SubHeaderText = ({ title }: Props) => {
   return (
-    <h2 className="text-5xl font-bold mb-8 text-seniorBankDarkBlue">{title}</h2>
+    <h2 className="mb-8 text-5xl font-bold text-seniorBankDarkBlue">{title}</h2>
   );
 };
 

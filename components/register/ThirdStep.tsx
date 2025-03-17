@@ -6,15 +6,18 @@ interface Props {
 
 const ThirdStep = ({ handleSubmit }: Props) => {
   return (
-    <div className="flex flex-col gap-8 items-center">
-      <h1 className="text-seniorBankDarkBlue text-3xl font-bold">
-        Godkjenn våre <a className="underline text-[#0000EE]" href="/asdf.txt">vilkår</a>
+    <div className="flex flex-col items-center gap-8">
+      <h1 className="text-3xl font-bold text-seniorBankDarkBlue">
+        Godkjenn våre{" "}
+        <a className="text-[#0000EE] underline" href="/asdf.txt">
+          vilkår
+        </a>
       </h1>
 
-      <form onSubmit={handleSubmit} className="space-y-6 w-full">
+      <form onSubmit={handleSubmit} className="w-full space-y-6">
         <Button
           type="submit"
-          className="bg-seniorBankDarkBlue text-white w-full py-2 rounded"
+          className="w-full rounded bg-seniorBankDarkBlue py-2 text-white"
         >
           Fullfør registrering
         </Button>

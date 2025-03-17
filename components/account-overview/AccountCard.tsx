@@ -13,23 +13,23 @@ const AccountCard = ({ account, index, length }: Props) => {
     <Link
       href={`/konto/${account.accountNumber}`}
       key={index}
-      className={`border-seniorBankLightBlue group w-full flex items-center justify-between py-6 px-4 ${
+      className={`group flex w-full items-center justify-between border-seniorBankLightBlue px-4 py-6 ${
         index === 0
           ? "border-b-[0.4rem]"
           : index === length - 1
-          ? ""
-          : "border-b-[0.4rem]"
+            ? ""
+            : "border-b-[0.4rem]"
       }`}
     >
-      <h3 className="text-seniorBankDarkBlue text-2xl lg:text-3xl font-bold">
+      <h3 className="text-2xl font-bold text-seniorBankDarkBlue lg:text-3xl">
         {account.title}
       </h3>
-      <div className="flex  items-center">
-        <h3 className="text-seniorBankDarkBlue text-xl lg:text-2xl font-bold">
+      <div className="flex items-center">
+        <h3 className="text-xl font-bold text-seniorBankDarkBlue lg:text-2xl">
           {account.balance}
         </h3>
 
-        <ChevronRight className="text-seniorBankDarkBlue size-12 group-hover:translate-x-1 transition-transform duration-200" />
+        <ChevronRight className="size-12 text-seniorBankDarkBlue transition-transform duration-200 group-hover:translate-x-1" />
       </div>
     </Link>
   );

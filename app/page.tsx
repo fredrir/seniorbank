@@ -64,6 +64,7 @@ export default async function Home() {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod incididunt.
         </p>
+    
 
         <div className="absolute top-[375px]">
           <BankAccountCard
@@ -78,7 +79,7 @@ export default async function Home() {
       <section>
         <SubHeaderText title="Handlinger" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
+        <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
           {menuOptions.map((option, index) => (
             <MenuOption
               title={option.title}

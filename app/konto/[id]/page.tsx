@@ -80,37 +80,37 @@ export default async function AccountPage(props: { params: tParams }) {
           preserveAspectRatio="none"
           width={100}
           height={100}
-          className="absolute top-0 left-0 w-full h-[1200px] z-[-1] text-[#015aa4]"
+          className="absolute left-0 top-0 z-[-1] h-[1200px] w-full text-[#015aa4]"
         >
           <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
         </svg>
         {/* TODO: Change to actual account from prisma */}
 
-        <div className="max-w-fit ">
+        <div className="max-w-fit">
           <HeaderText title="Brukskonto" href="/konto" />
-          <p className="text-end text-seniorBankLightBlue text-3xl ">
+          <p className="text-end text-3xl text-seniorBankLightBlue">
             {decodedId}
           </p>
         </div>
       </section>
-      <section className="flex flex-col mb-8 text-white items-center">
-        <h3 className="text-2xl  font-bold mb-4">Saldo</h3>
+      <section className="mb-8 flex flex-col items-center text-white">
+        <h3 className="mb-4 text-2xl font-bold">Saldo</h3>
         <h2 className="text-6xl font-bold">
           {mockAccount.balance.toLocaleString("no-NO", {
             style: "currency",
             currency: "NOK",
           })}
         </h2>
-        <div className="px-4 mb-4 mt-16 w-full">
+        <div className="mb-4 mt-16 w-full px-4">
           <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-white/70" />
             <Input
-              className="bg-[#4D8CBF] w-full border-none pl-10 text-white placeholder:text-white/70 rounded-full"
+              className="w-full rounded-full border-none bg-[#4D8CBF] pl-10 text-white placeholder:text-white/70"
               placeholder="Søk"
             />
           </div>
         </div>
-        <div className="flex flex-col w-full rounded-3xl">
+        <div className="flex w-full flex-col rounded-3xl">
           {mockTransactions.map((transaction, index) => (
             <div key={transaction.id}>
               <TransactionItem
@@ -126,7 +126,7 @@ export default async function AccountPage(props: { params: tParams }) {
               />
 
               {index === 3 && (
-                <div className="bg-[#b3cee4] border-b-2 border-[#4D8CBF] px-4 py-1 text-[#636363] text-sm flex justify-between">
+                <div className="flex justify-between border-b-2 border-[#4D8CBF] bg-[#b3cee4] px-4 py-1 text-sm text-[#636363]">
                   <span>Onsdag</span>
                   <span>03 januar 2025</span>
                 </div>

@@ -28,13 +28,13 @@ const TransactionItem = ({
 
   return (
     <div
-      className={`${bgColor} px-8 w-full border-[#4D8CBF] border-b-2 text-[#001032] py-3 flex justify-between`}
+      className={`${bgColor} flex w-full justify-between border-b-2 border-[#4D8CBF] px-8 py-3 text-[#001032]`}
     >
       <div>
-        <p className="font-medium text-2xl">{merchant}</p>
+        <p className="text-2xl font-medium">{merchant}</p>
         <p className="text-sm text-[#636363]">{category}</p>
       </div>
-      <p className={`font-medium `}>{formattedAmount}</p>
+      <p className={`font-medium`}>{formattedAmount}</p>
     </div>
   );
 };
