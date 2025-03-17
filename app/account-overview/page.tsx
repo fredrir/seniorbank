@@ -72,7 +72,7 @@ export default function AccountOverviewPage() {
           />
         </div>
       </section>
-      <section className="mb-8 mt-32 grid grid-cols-1 md:grid-cols-2 w-full gap-8 md:gap-16">
+      <section className="mb-8 mt-16 grid grid-cols-1 md:grid-cols-2 w-full gap-8 md:gap-16">
         <div>
           <SubHeaderText title="Sparekonto" />
 
