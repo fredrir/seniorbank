@@ -56,15 +56,23 @@ export default async function Home() {
     <>
       <BackgroundGraphic variant="top-halfcircle" className="text-[#015aa4]" />
       <section className="h-[450px] overflow-hidden">
-        <h1 className="text-7xl font-bold my-8 text-white">
-          {session ? `Hei, ${session.user.name}` : "Hei, Navn Navnesen"}
-        </h1>
+        <HeaderText
+          title={session ? `Hei, ${session.user.name}` : "Hei, Navn Navnesen"}
+          className="my-8"
+        />
         <p className="text-3xl text-white">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod incididunt.
         </p>
 
-        <div className="absolute top-[375px]"></div>
+        <div className="absolute top-[375px]">
+          <BankAccountCard
+            title="Brukskonto"
+            accountNumber="1080 28 27364"
+            balance={18932.54}
+            href="/account-overview/1080-28-27364"
+          />
+        </div>
       </section>
 
       <section>
