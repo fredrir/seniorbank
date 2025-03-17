@@ -87,7 +87,7 @@ export default async function AccountPage(props: { params: tParams }) {
         {/* TODO: Change to actual account from prisma */}
 
         <div className="max-w-fit ">
-          <HeaderText title="Brukskonto" href="/account-overview" />
+          <HeaderText title="Brukskonto" href="/konto" />
           <p className="text-end text-seniorBankLightBlue text-3xl ">
             {decodedId}
           </p>

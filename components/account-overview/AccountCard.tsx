@@ -11,7 +11,7 @@ interface Props {
 const AccountCard = ({ account, index, length }: Props) => {
   return (
     <Link
-      href={`/account-overview/${account.accountNumber}`}
+      href={`/konto/${account.accountNumber}`}
       key={index}
       className={`border-seniorBankLightBlue group w-full flex items-center justify-between py-6 px-4 ${
         index === 0

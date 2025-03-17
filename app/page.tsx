@@ -22,7 +22,7 @@ export default async function Home() {
       title: "Konto oversikt",
       description: "Se oversikt over dine kontoer",
       icon: <Banknote className="size-16" />,
-      href: "/account-overview",
+      href: "/konto",
     },
     {
       title: "Betaling",
@@ -70,7 +70,7 @@ export default async function Home() {
             title="Brukskonto"
             accountNumber="1080 28 27364"
             balance={18932.54}
-            href="/account-overview/1080-28-27364"
+            href="/konto/1080-28-27364"
           />
         </div>
       </section>

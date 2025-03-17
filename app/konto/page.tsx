@@ -68,7 +68,7 @@ export default function AccountOverviewPage() {
             title="Brukskonto"
             accountNumber="1080 28 27364"
             balance={18932.54}
-            href="/account-overview/1080-28-27364"
+            href="/konto/1080-28-27364"
           />
         </div>
       </section>
