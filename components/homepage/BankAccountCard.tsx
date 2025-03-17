@@ -15,7 +15,7 @@ const numberFormatter = Intl.NumberFormat("no-NB", {
 
 export function BankAccountCard(props: BankAccoundCardProps) {
   return (
-    <div className="bg-seniorBankLightBlue w-full flex mx-24 justify-between border-4 p-2 border-white rounded-3xl px-8 py-4">
+    <div className="mx-24 flex w-full justify-between rounded-3xl border-4 border-white bg-seniorBankLightBlue p-2 px-8 py-4">
       <div className="flex flex-col">
         <h3 className="text-4xl font-bold text-seniorBankDarkBlue">
           {props.title}

@@ -17,17 +17,17 @@ interface Props {
 
 const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
   return (
-    <div className="flex flex-col gap-8 w-full items-center">
-      <h2 className="text-seniorBankDarkBlue text-3xl font-bold">
+    <div className="flex w-full flex-col items-center gap-8">
+      <h2 className="text-3xl font-bold text-seniorBankDarkBlue">
         Personopplysninger
       </h2>
 
       <form onSubmit={handleNextStep} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="space-y-2">
             <label
               htmlFor="firstName"
-              className="block text-[#002776] font-bold text-lg"
+              className="block text-lg font-bold text-[#002776]"
             >
               Fornavn
             </label>
@@ -35,14 +35,14 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
               id="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className="w-full border border-[#005aa4] rounded p-2"
+              className="w-full rounded border border-[#005aa4] p-2"
             />
           </div>
 
           <div className="space-y-2">
             <label
               htmlFor="lastName"
-              className="block text-[#002776] font-bold text-lg"
+              className="block text-lg font-bold text-[#002776]"
             >
               Etternavn
             </label>
@@ -50,14 +50,14 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
               id="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className="w-full border border-[#005aa4] rounded p-2"
+              className="w-full rounded border border-[#005aa4] p-2"
             />
           </div>
 
           <div className="space-y-2">
             <label
               htmlFor="birthDate"
-              className="block text-[#002776] font-bold text-lg"
+              className="block text-lg font-bold text-[#002776]"
             >
               Fødselsdato
             </label>
@@ -66,14 +66,14 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
               value={formData.birthDate}
               onChange={handleChange}
               type="date"
-              className="w-full border border-[#005aa4] rounded p-2"
+              className="w-full rounded border border-[#005aa4] p-2"
             />
           </div>
 
           <div className="space-y-2">
             <label
               htmlFor="phoneNumber"
-              className="block text-[#002776] font-bold text-lg"
+              className="block text-lg font-bold text-[#002776]"
             >
               Telefonnummer
             </label>
@@ -82,14 +82,14 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
               value={formData.phoneNumber}
               type="number"
               onChange={handleChange}
-              className="w-full border border-[#005aa4] rounded p-2"
+              className="w-full rounded border border-[#005aa4] p-2"
             />
           </div>
 
           <div className="space-y-2">
             <label
               htmlFor="address"
-              className="block text-[#002776] font-bold text-lg"
+              className="block text-lg font-bold text-[#002776]"
             >
               Adresse
             </label>
@@ -97,14 +97,14 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
               id="address"
               value={formData.address}
               onChange={handleChange}
-              className="w-full border border-[#005aa4] rounded p-2"
+              className="w-full rounded border border-[#005aa4] p-2"
             />
           </div>
 
           <div className="space-y-2">
             <label
               htmlFor="email"
-              className="block text-[#002776] font-bold text-lg"
+              className="block text-lg font-bold text-[#002776]"
             >
               Epost
             </label>
@@ -113,7 +113,7 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
               type="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full border border-[#005aa4] rounded p-2"
+              className="w-full rounded border border-[#005aa4] p-2"
             />
           </div>
         </div>
@@ -121,7 +121,7 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
         <div className="pt-4">
           <Button
             type="submit"
-            className="w-full text-3xl rounded-xl bg-[#002776] hover:bg-[#001d5e] text-white font-medium py-4 "
+            className="w-full rounded-xl bg-[#002776] py-4 text-3xl font-medium text-white hover:bg-[#001d5e]"
           >
             Neste steg
           </Button>
