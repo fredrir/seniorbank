@@ -1,15 +1,16 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-import { ChevronRight } from "lucide-react"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+import { ChevronRight } from "lucide-react";
 
 const buttonVariants = cva(
   cn(
     "inline-flex relative items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-colors",
     "focus-visible:ring-1 focus-visible:ring-ring",
     "disabled:pointer-events-none disabled:opacity-50",
-    "[&_svg]:pointer-events-none font-extrabold"),
+    "[&_svg]:pointer-events-none font-extrabold",
+  ),
   {
     variants: {
       variant: {
@@ -29,19 +30,19 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
-)
+  },
+);
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-  chevron?: boolean
+  asChild?: boolean;
+  chevron?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, chevron, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+    const Comp = asChild ? Slot : "button";
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
@@ -50,14 +51,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {props.children}
 
-        {
-          chevron && 
-            <ChevronRight className="h-96 absolute right-4" />
-        }
+        {chevron && <ChevronRight className="absolute right-4 h-96" />}
       </Comp>
-    )
-  }
-)
-Button.displayName = "Button"
+    );
+  },
+);
+Button.displayName = "Button";
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };

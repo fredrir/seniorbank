@@ -47,8 +47,8 @@ const FirstStep = ({ setFormData, setStep }: Props) => {
   ];
 
   return (
-    <div className="flex flex-col gap-8 mt-8  items-center w-full">
-      <h3 className="text-3xl max-w-sm mt-16 font-bold text-seniorBankDarkBlue text-center">
+    <div className="mt-8 flex w-full flex-col items-center gap-8">
+      <h3 className="mt-16 max-w-sm text-center text-3xl font-bold text-seniorBankDarkBlue">
         Tilpass nettbanken til dine behov
       </h3>
       {difficulties.map((difficulty, index) => (
@@ -61,7 +61,7 @@ const FirstStep = ({ setFormData, setStep }: Props) => {
             setStep(2);
           }}
           key={index}
-          className="border-4 w-full max-w-2xl border-seniorBankDarkBlue hover:border-blue-500 bg-[#D3D3EA] rounded-2xl p-4 flex flex-col gap-4 relative group"
+          className="group relative flex w-full max-w-2xl flex-col gap-4 rounded-2xl border-4 border-seniorBankDarkBlue bg-[#D3D3EA] p-4 hover:border-blue-500"
         >
           <h2 className="text-4xl font-bold text-seniorBankDarkBlue">
             {difficulty.level}
@@ -71,7 +71,7 @@ const FirstStep = ({ setFormData, setStep }: Props) => {
             {difficulty.description.map((desc, index) => (
               <div
                 key={index}
-                className="text-seniorBankDarkBlue flex text-lg font-semibold"
+                className="flex text-lg font-semibold text-seniorBankDarkBlue"
               >
                 <span className="mr-2">•</span>
                 <span>{desc}</span>
@@ -79,7 +79,7 @@ const FirstStep = ({ setFormData, setStep }: Props) => {
             ))}
           </article>
 
-          <ChevronRight className="size-16 absolute top-4 right-4 text-seniorBankDarkBlue group-hover:translate-x-1 transition-transform duration-200" />
+          <ChevronRight className="absolute right-4 top-4 size-16 text-seniorBankDarkBlue transition-transform duration-200 group-hover:translate-x-1" />
         </button>
       ))}
     </div>

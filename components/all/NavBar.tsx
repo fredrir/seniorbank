@@ -38,20 +38,19 @@ const NavBar = () => {
     });
 
   return (
-    <div className="bg-seniorbankBlue w-full flex justify-center">
-      <nav className="max-w-4xl pb-4  flex flex-row items-center justify-between ">
+    <div className="flex w-full justify-center bg-seniorbankBlue">
+      <nav className="flex max-w-4xl flex-row items-center justify-between pb-4">
         <div />
-        <span className="flex flex-row items-center justify-center border-b-2 px-4 border-white">
+        <span className="flex flex-row items-center justify-center border-b-2 border-white px-4">
           {navLinks.map((link, index) => (
             <Link
               href={link.path}
               key={index}
-              className={`text-2xl flex flex-row items-center justify-center p-4 rounded-t-2xl transition-colors
-                  ${
-                    pathname === link.path
-                      ? "bg-seniorBankDarkBlue text-white font-bold border-seniorBankLightBlue active:bg-seniorBankLightBlue active:text-seniorBankDarkBlue"
-                      : "text-white hover:bg-seniorBankLightBlue hover:text-seniorBankDarkBlue active:bg-seniorBankDarkBlue active:text-white"
-                  }`}
+              className={`flex flex-row items-center justify-center rounded-t-2xl p-4 text-2xl transition-colors ${
+                pathname === link.path
+                  ? "border-seniorBankLightBlue bg-seniorBankDarkBlue font-bold text-white active:bg-seniorBankLightBlue active:text-seniorBankDarkBlue"
+                  : "text-white hover:bg-seniorBankLightBlue hover:text-seniorBankDarkBlue active:bg-seniorBankDarkBlue active:text-white"
+              }`}
             >
               <span className="flex flex-row items-center gap-2">
                 {link.icon}
@@ -62,7 +61,7 @@ const NavBar = () => {
         </span>
 
         <button
-          className="py-1 px-4 bg-[#D3D3EA] flex gap-1 hover:opacity-80 text-[#002776] rounded-lg text-2xl font-bold ml-4"
+          className="ml-4 flex gap-1 rounded-lg bg-[#D3D3EA] px-4 py-1 text-2xl font-bold text-[#002776] hover:opacity-80"
           onClick={handleLogout}
         >
           Logg ut
