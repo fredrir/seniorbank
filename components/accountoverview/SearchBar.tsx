@@ -16,7 +16,7 @@ const SearchBar = ({ searchInput, handleChange }: SearchBarProps) => {
         placeholder="Søk"
         onChange={handleChange}
         value={searchInput}
-        className="bg-[#4D8CBF] placeholder:text-white text-2xl cursor-pointer w-full outline-none"
+        className="bg-[#4D8CBF] placeholder:text-white text-2xl cursor-pointer outline-none"
       />
     </label>
   );
