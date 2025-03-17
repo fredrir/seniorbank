@@ -20,6 +20,7 @@ export default {
         seniorBankGreen: "#70C7A9",
         seniorBankLightPink: "#FDEBE8",
         seniorBankGrey: "#636363",
+        seniorBankRed: "#EC7B7C",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
