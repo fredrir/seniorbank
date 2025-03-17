@@ -25,7 +25,7 @@ const navLinks = [
   {
     title: "Betal",
     icon: <Wallet className="size-8" />,
-    path: "/betal",
+    path: "/payment",
   },
 ];
 
@@ -62,9 +62,7 @@ const NavBar = () => {
         </span>
 
         <button
-          className="py-1 px-4 bg-[#D3D3EA] flex gap-1 hover:opacity-80 text-[#002776] rounded-lg text-2xl font-bold ml-4"
-          onClick={handleLogout}
-        >
+          className="py-1 px-4 bg-[#D3D3EA] flex gap-1 hover:opacity-80 text-[#002776] rounded-lg text-2xl font-bold ml-4" onClick={handleLogout}>
           Logg ut
         </button>
       </nav>

@@ -20,10 +20,7 @@ interface PaymentSecondStepProps {
 }
 
 const PaymentSecondStep = ({ onClick, onGoBack }: PaymentSecondStepProps) => {
-  function setSelectedAccount(value: string): void {
-    throw new Error("Function not implemented.");
-  }
-
+  const [selectedAccount, setSelectedAccount] = useState<string | null>(null); 
   return (
 
     <section>
@@ -58,10 +55,6 @@ const PaymentSecondStep = ({ onClick, onGoBack }: PaymentSecondStepProps) => {
                 </SelectContent>
               </Select>
             </div>
-
-
-
-
             <p>Til konto: </p>
             <div className="relative">
               <Input id="name" placeholder="Skriv inn kontonummer her ..." className="border-2 pt-2 pb-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10" />
@@ -69,7 +62,7 @@ const PaymentSecondStep = ({ onClick, onGoBack }: PaymentSecondStepProps) => {
             <div className="relative">
               <p>Beløp</p>
               <Input id="name" placeholder="Skriv inn beløp her ..." className="border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10" />
-              <BanknoteIcon className="absolute size-8 right-2 top-2/3 transform -translate-y-1/2 text-seniorBankDarkBlue" />
+              <BanknoteIcon className="absolute size-8 right-2 top-3/4 transform -translate-y-1/2 text-seniorBankDarkBlue" />
             </div>
             <p>Kommentar: </p>
             <Textarea placeholder="Skriv inn kommentar her ... " className="border-2 border-seniorBankDarkBlue bg-seniorbankWhite" />
