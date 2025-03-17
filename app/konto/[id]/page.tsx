@@ -1,5 +1,6 @@
 import TransactionItem from "@/components/account-overview/TransactionItem";
 import HeaderText from "@/components/all/HeaderText";
+import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
 import { Input } from "@/components/ui/input";
 import { BankAccount, tParams, Transaction } from "@/lib/types";
 import { Search } from "lucide-react";
@@ -75,15 +76,10 @@ export default async function AccountPage(props: { params: tParams }) {
   return (
     <>
       <section className="mb-16 md:mb-32">
-        <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          width={100}
-          height={100}
-          className="absolute left-0 top-0 z-[-1] h-[1200px] w-full text-[#015aa4]"
-        >
-          <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
-        </svg>
+        <BackgroundGraphic
+          variant="top-halfcircle"
+          className="text-[#015aa4]"
+        />
         {/* TODO: Change to actual account from prisma */}
 
         <div className="max-w-fit">
@@ -95,7 +91,7 @@ export default async function AccountPage(props: { params: tParams }) {
       </section>
       <section className="mb-8 flex flex-col items-center text-white">
         <h3 className="mb-4 text-2xl font-bold">Saldo</h3>
-        <h2 className="text-6xl font-bold">
+        <h2 className="text-4xl font-bold md:text-6xl">
           {mockAccount.balance.toLocaleString("no-NO", {
             style: "currency",
             currency: "NOK",

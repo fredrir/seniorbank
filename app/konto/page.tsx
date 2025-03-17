@@ -2,6 +2,7 @@ import AccountCard from "@/components/account-overview/AccountCard";
 import HeaderText from "@/components/all/HeaderText";
 import SubHeaderText from "@/components/all/SubHeaderText";
 import { BankAccountCard } from "@/components/homepage/BankAccountCard";
+import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
 import { BankAccount } from "@/lib/types";
 import { ShieldAlert } from "lucide-react";
 
@@ -11,19 +12,19 @@ const savingAccounts: BankAccount[] = [
   {
     title: "Sparekonto",
     accountNumber: "1080 28 27364",
-    balance: 18932.54,
+    balance: 830726,
     type: "savings",
   },
   {
     title: "Barnebarn",
     accountNumber: "1080 28 27364",
-    balance: 18932.54,
+    balance: 34835,
     type: "savings",
   },
   {
     title: "Russetid",
     accountNumber: "1080 28 27364",
-    balance: 18932.54,
+    balance: 10835,
     type: "savings",
   },
 ];
@@ -32,13 +33,13 @@ const loanAccounts: BankAccount[] = [
   {
     title: "Boliglån",
     accountNumber: "1080 28 27364",
-    balance: 18932.54,
+    balance: 830726,
     type: "loan",
   },
   {
     title: "Studielån",
     accountNumber: "1080 28 27364",
-    balance: 18932.54,
+    balance: 10835,
     type: "loan",
   },
 ];
@@ -46,20 +47,15 @@ const loanAccounts: BankAccount[] = [
 export default function AccountOverviewPage() {
   return (
     <>
-      <section className="h-[450px]">
-        <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          width={100}
-          height={100}
-          className="absolute left-0 top-0 z-[-1] h-[500px] w-full text-[#015aa4]"
-        >
-          <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
-        </svg>
-        <HeaderText title="Kontooversikt" className="" />
+      <section>
+        <BackgroundGraphic
+          variant="inverse-topwave"
+          className="text-[#015aa4]"
+        />
+        <HeaderText title="Kontooversikt" className="mt-8" />
         <div className="flex flex-col items-center">
-          <article className="flex flex-row items-center gap-2 text-3xl text-white">
-            <ShieldAlert className="size-64" />
+          <article className="flex flex-row items-center gap-2 text-lg text-white md:text-2xl">
+            <ShieldAlert className="size-52" />
             Vær oppmerksom på uvanlige transaksjoner. Banken eller politiet vil
             aldri be deg om å overføre penger til en annen konto.
           </article>

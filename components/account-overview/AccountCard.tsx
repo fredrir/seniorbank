@@ -21,15 +21,23 @@ const AccountCard = ({ account, index, length }: Props) => {
             : "border-b-[0.4rem]"
       }`}
     >
-      <h3 className="text-2xl font-bold text-seniorBankDarkBlue lg:text-3xl">
-        {account.title}
-      </h3>
+      <span className="flex flex-col">
+        <h3 className="text-2xl font-bold text-seniorBankDarkBlue">
+          {account.title}
+        </h3>
+        <h3>{account.accountNumber}</h3>
+      </span>
       <div className="flex items-center">
-        <h3 className="text-xl font-bold text-seniorBankDarkBlue lg:text-2xl">
-          {account.balance}
+        <h3 className="text-xl font-bold text-seniorBankDarkBlue">
+          {account.balance.toLocaleString("nb-NO", {
+            style: "currency",
+            currency: "NOK",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          })}
         </h3>
 
-        <ChevronRight className="size-12 text-seniorBankDarkBlue transition-transform duration-200 group-hover:translate-x-1" />
+        <ChevronRight className="size-10 text-seniorBankDarkBlue transition-transform duration-200 group-hover:translate-x-1" />
       </div>
     </Link>
   );
