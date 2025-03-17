@@ -23,34 +23,48 @@ export default async function Home() {
       description: "Se oversikt over dine kontoer",
       icon: <Banknote className="size-16" />,
       href: "/konto",
+      availableFor: ["EASY", "MEDIUM", "HARD"],
     },
     {
       title: "Betaling",
       description: "Betale fakturaer og opprett AvtaleGiro",
       icon: <Wallet className="size-16" />,
+      availableFor: ["MEDIUM", "HARD"],
     },
     {
       title: "Overfør",
       description: "Overfør penger mellom egne kontoer",
       icon: <ArrowBigDownDash className="size-16" />,
+      availableFor: ["EASY", "MEDIUM", "HARD"],
     },
     {
       title: "Meldinger",
       description: "Les meldinger og varslinger fra banken",
       icon: <MailIcon className="size-16" />,
+      availableFor: ["HARD"],
     },
     {
       title: "Spør om hjelp",
       description: "Kontakt vår kundehjelp eller Trygghetskontakten",
       icon: <HelpCircle className="size-16" />,
+      availableFor: ["EASY", "MEDIUM", "HARD"],
     },
 
     {
       title: "Innstillinger",
       description: "Endre på instillinger og infomasjon",
       icon: <Settings className="size-16" />,
+      availableFor: ["HARD"],
     },
   ];
+
+
+  //TODO  get user difficulty
+  const difficulty = "HARD";
+
+  const filteredMenuOptions = menuOptions.filter((option) =>
+    option.availableFor.includes(difficulty)
+  );
 
   return (
     <>
@@ -79,8 +93,10 @@ export default async function Home() {
       <section>
         <SubHeaderText title="Handlinger" />
 
-        <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
-          {menuOptions.map((option, index) => (
+
+
+        <div className={`grid w-full grid-cols-1 gap-8 ${difficulty === "EASY" ? "" : "md:grid-cols-2"}`}>
+          {filteredMenuOptions.map((option, index) => (
             <MenuOption
               title={option.title}
               description={option.description}
