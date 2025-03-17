@@ -47,7 +47,7 @@ const FirstStep = ({ setFormData, setStep }: Props) => {
   ];
 
   return (
-    <div className="mt-8 flex w-full flex-col items-center gap-8">
+    <div className="flex w-full flex-col items-center gap-8">
       <h3 className="mt-16 max-w-sm text-center text-3xl font-bold text-seniorBankDarkBlue">
         Tilpass nettbanken til dine behov
       </h3>
