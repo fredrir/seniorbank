@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import PaymentHistoryGrid from "@/components/accountoverview/PaymentHistoryGrid";
 import SearchBar from "@/components/accountoverview/SearchBar";
+import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
 
 export default function AccountOverview() {
   const [searchInput, setSearchInput] = useState("");
@@ -51,7 +52,8 @@ export default function AccountOverview() {
   };
 
   return (
-    <main className="p-4">
+    <main>
+      <BackgroundGraphic variant="top-halfcircle" className="text-[#015aa4]" />
       <div className="space-y-10">
         <header className="text-center text-white p-2">
           <h2 className="text-4xl">Saldo</h2>

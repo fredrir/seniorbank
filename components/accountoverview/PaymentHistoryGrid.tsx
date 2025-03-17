@@ -14,7 +14,7 @@ interface TransactionProps {
 const PaymentHistoryGrid = ({ transactions }: TransactionProps) => {
 
   return (
-    <section className="overflow-hidden border rounded-t-2xl bg-seniorBankLightBlue">
+    <section className="overflow-hidden border rounded-t-2xl bg-seniorBankLightBlue border-seniorBankLightBlue">
       <div className="grid grid-cols-1">
         {transactions.map((transaction, index) => (
           <div
