@@ -5,6 +5,7 @@ import SessionWrapper from "@/components/auth/SessionWrapper";
 import AuthLayout from "@/components/auth/AuthLayout";
 import { cn } from "@/lib/utils";
 import { Toaster } from "react-hot-toast";
+import NavBar from "@/components/all/NavBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,13 +33,14 @@ export default function RootLayout({
         className={cn(
           geistSans.className,
           geistMono.className,
-          "antialiased text-primary bg-seniorbankWhite mx-auto px-2 md:px-0 max-w-4xl"
+          "antialiased text-primary bg-seniorbankWhite "
         )}
       >
         <SessionWrapper>
           <AuthLayout>
             <Toaster />
-            <div>{children} </div>
+            <NavBar />
+            <div className="mx-auto px-2 md:px-0 max-w-4xl">{children} </div>
           </AuthLayout>
         </SessionWrapper>
       </body>
