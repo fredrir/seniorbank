@@ -1,36 +1,14 @@
-"use client";
 import { ReactNode } from "react";
-import { signIn, useSession } from "next-auth/react";
-import { Button } from "../ui/button";
+import Link from "next/link";
 import { ShieldIcon, LockIcon } from "lucide-react";
+import { getServerSession } from "next-auth";
 
 interface AuthLayoutProps {
   children: ReactNode;
 }
 
-const AuthLayout = ({ children }: AuthLayoutProps) => {
-  const { data: session, status } = useSession();
-
-  const handleLogin = () =>
-    signIn("auth0", {
-      callbackUrl: "/",
-    });
-
-  if (status === "loading") {
-    return (
-      <div className="flex-grow min-h-screen text-black bg-seniorbankWhite flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block animate-spin border-seniorbankBlue rounded-full h-16 w-16 border-y-2  mb-4"></div>
-          <h2 className="text-2xl font-semibold text-seniorbankBlue">
-            Laster inn banken...
-          </h2>
-          <p className="text-blue-400 mt-2">
-            Vennligst vent mens vi henter informasjonen din
-          </p>
-        </div>
-      </div>
-    );
-  }
+const AuthLayout = async ({ children }: AuthLayoutProps) => {
+  const session = await getServerSession();
 
   if (!session) {
     return (
@@ -42,13 +20,13 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
             Sikker tilgang til din økonomi
           </p>
         </div>
-        <Button
-          onClick={() => handleLogin()}
-          className="bg-white text-rif-darkBlue hover:bg-blue-100"
+        <Link
+          href="/api/auth/signin"
+          className="flex flex-row justify-center bg-seniorBankDarkBlue text-white px-4 py-2 rounded-lg items-center hover:bg-blue-700"
         >
           <LockIcon className="mr-2 h-4 w-4" />
           Logg inn
-        </Button>
+        </Link>
       </div>
     );
   } else {
