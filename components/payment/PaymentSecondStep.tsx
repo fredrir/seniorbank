@@ -57,11 +57,11 @@ const PaymentSecondStep = ({ onClick, onGoBack }: PaymentSecondStepProps) => {
             </div>
             <p>Til konto: </p>
             <div className="relative">
-              <Input id="name" placeholder="Skriv inn kontonummer her ..." className="border-2 pt-2 pb-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10" />
+              <Input id="name" placeholder="Skriv inn kontonummer her ..." className="border-2 pt-2 pb-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10" type ="number" />
             </div>
             <div className="relative">
               <p>Beløp</p>
-              <Input id="name" placeholder="Skriv inn beløp her ..." className="border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10" />
+              <Input id="name" placeholder="Skriv inn beløp her ..." className="border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10" type ="number"/>
               <BanknoteIcon className="absolute size-8 right-2 top-3/4 transform -translate-y-1/2 text-seniorBankDarkBlue" />
             </div>
             <p>Kommentar: </p>
