@@ -56,11 +56,9 @@ const registerAccount = async ({
       },
     });
 
-    console.log(session);
-
     return true;
   } catch (error) {
-    console.error("Error in registerAccount", error);
+    console.error("Error in registering account", error);
     return false;
   }
 };
