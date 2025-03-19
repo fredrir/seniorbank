@@ -11,10 +11,38 @@ export const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    // async signIn({ account }): Promise<string | boolean> {
+    // async signIn({ account }): Promise<string | boolean> {  
     // },
-    // async jwt({ token, user, account }) {
-    // },
-    // async session({ session, token }) {},
+
+
+    async jwt({ token, user, account }) {
+
+
+
+        try{
+
+          if (account && user){
+
+
+              const dbUser = await prisma.user.findUnique({
+                  where: {
+                      email: user.email
+
+                  },});
+
+
+                  
+
+
+
+          }
+
+        }
+
+
+
+
+    },
+    async session({ session, token }) {},
   },
 };

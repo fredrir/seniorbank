@@ -1,23 +1,28 @@
 import { Difficulty } from "@prisma/client";
-import { DefaultSession, DefaultUser } from "next-auth";
+import { Account, DefaultSession, DefaultUser } from "next-auth";
 
 declare module "next-auth" {
   interface Session {
     user: {
-      name?: string | null;
-      email?: string | null;
-      image?: string | null;
-      difficulty?: Difficulty | null;
+      name: string | null;
+      email: string | null;
+      hasRegistered: boolean;
+      accounts: Account[];
+      difficulty: Difficulty | null;
     } & DefaultSession["user"];
   }
 
   interface User extends DefaultUser {
-    difficulty?: Difficulty;
+    difficulty: Difficulty;
+    hasRegistered: boolean;
+    accounts: Account[];
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    difficulty?: string;
+    difficulty: Difficulty;
+    hasRegistered: boolean;
+    accounts: Account[];
   }
 }
