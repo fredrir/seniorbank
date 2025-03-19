@@ -4,11 +4,11 @@ import { Account, DefaultSession, DefaultUser } from "next-auth";
 declare module "next-auth" {
   interface Session {
     user: {
-      name: string | null;
-      email: string | null;
+      name: string;
+      email: string;
       hasRegistered: boolean;
       accounts: Account[];
-      difficulty: Difficulty | null;
+      difficulty: Difficulty;
     } & DefaultSession["user"];
   }
 
@@ -21,8 +21,12 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
   interface JWT {
-    difficulty: Difficulty;
-    hasRegistered: boolean;
-    accounts: Account[];
+    user: {
+      name: string;
+      email: string;
+      hasRegistered: boolean;
+      accounts: Account[];
+      difficulty: Difficulty;
+    };
   }
 }
