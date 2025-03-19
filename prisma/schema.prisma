@@ -32,12 +32,14 @@ model User {
 }
 
 model BankAccount {
-  id                   String        @id @default(cuid())
+  id                   String        @id
   name                 String
   category             String?
-  userId               String
-  user                 User          @relation(fields: [userId], references: [id])
+  userId               String?
+  user                 User?          @relation(fields: [userId], references: [id])
   balance              Int
+  main                 Boolean @default(false)
+  countryCode          String
   outgoingTransactions Transaction[] @relation("FromAccount")
   ingoingTransactions  Transaction[] @relation("ToAccount")
 }
@@ -49,5 +51,7 @@ model Transaction {
   toAccountId   String
   toAccount     BankAccount @relation(fields: [toAccountId], references: [id], name: "ToAccount")
   amount        Int
-  createdAt     DateTime
+  dueDate       DateTime
+
+  createdAt     DateTime   @default(now())
 }
