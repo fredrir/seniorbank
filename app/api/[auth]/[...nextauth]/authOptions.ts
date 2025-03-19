@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
               email: user.email as string,
               birthDate: dbUser.birthDate as Date,
               phoneNumber: dbUser.phoneNumber as string,
-              address: dbUser.adress as string,
+              address: dbUser.address as string,
               hasRegistered: dbUser.hasRegistered,
               difficulty: dbUser.difficulty,
               bankAccounts: dbUser.accounts,

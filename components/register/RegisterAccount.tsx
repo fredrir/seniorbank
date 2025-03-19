@@ -7,6 +7,7 @@ import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
+import registerAccount from "@/lib/actions/registerAccount";
 
 export default function RegisterAccountPage() {
   const [step, setStep] = useState(1);
@@ -62,12 +63,12 @@ export default function RegisterAccountPage() {
     setStep(step - 1);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     //TODO -> Midlertig console log
 
     e.preventDefault();
 
-    console.log(formData);
+    await registerAccount(formData);
 
     toast.success("Brukeren er opprettet!");
 

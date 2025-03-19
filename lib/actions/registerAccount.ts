@@ -3,6 +3,7 @@ import { authOptions } from "@/app/api/[auth]/[...nextauth]/authOptions";
 import { getServerSession } from "next-auth";
 import { prisma } from "../db";
 import { Difficulty } from "@prisma/client";
+import toast from "react-hot-toast";
 
 interface Props {
   firstName: string;
@@ -14,7 +15,15 @@ interface Props {
   difficulty: string;
 }
 
-const registerAccount = async (props: Props) => {
+const registerAccount = async ({
+  firstName,
+  lastName,
+  birthDate,
+  phoneNumber,
+  address,
+  email,
+  difficulty,
+}: Props) => {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -27,6 +36,16 @@ const registerAccount = async (props: Props) => {
     },
   });
   if (user) {
+    toast.error("Brukeren eksisterer allerede");
+    return null;
+  }
+
+  if (
+    difficulty !== "EASY" &&
+    difficulty !== "MEDIUM" &&
+    difficulty !== "HARD"
+  ) {
+    toast.error("Vanskelighetsgraden er ugyldig");
     return null;
   }
 
@@ -34,14 +53,17 @@ const registerAccount = async (props: Props) => {
 
   await prisma.user.create({
     data: {
-      name: `${props.firstName} ${props.lastName}`,
-      birthDate: props.birthDate,
-      phoneNumber: props.phoneNumber,
-      address: props.address,
-      email: props.email,
-      difficulty: props.difficulty as Difficulty,
+      name: `${firstName} ${lastName}`,
+      birthDate: birthDate,
+      phoneNumber: phoneNumber,
+      address: address,
+      email: email,
+      difficulty: difficulty as Difficulty,
     },
   });
+
+  toast.success("Brukeren er opprettet!");
+  return;
 };
 
 export default registerAccount;
