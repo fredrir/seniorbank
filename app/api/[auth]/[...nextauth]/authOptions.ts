@@ -12,16 +12,11 @@ export const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    // async signIn({ account }): Promise<string | boolean> {
-    // },
-
     async jwt({ token, user, account }) {
       try {
         if (account && user) {
           const dbUser = await prisma.user.findUnique({
-            where: {
-              email: user.email as string,
-            },
+            where: { email: user.email as string },
             include: {
               accounts: true,
             },
@@ -30,35 +25,32 @@ export const authOptions: NextAuthOptions = {
           if (dbUser) {
             token.user = {
               ...user,
-              hasRegistered: true,
+              name: user.name as string,
+              email: user.email as string,
+              hasRegistered: dbUser.hasRegistered,
               difficulty: dbUser.difficulty,
-              accounts: dbUser.accounts,
-            };
-          } else {
-            token.user = {
-              ...user,
-              hasRegistered: false,
-              difficulty: null,
-              accounts: [],
+              bankAccounts: dbUser.accounts,
             };
           }
-          return token;
         }
       } catch (error) {
         console.error("Error in jwt callback", error);
+        throw new Error("Error in jwt callback");
       }
+      return token;
     },
+
     async session({ session, token }) {
       try {
-        if (session.user) {
+        if (session.user && token.user) {
           session.user.difficulty = token.user.difficulty;
           session.user.hasRegistered = token.user.hasRegistered;
-          session.user.accounts = token.user.accounts;
+          session.user.bankAccounts = token.user.bankAccounts;
         }
       } catch (error) {
         console.error("Error in session callback", error);
+        throw new Error("Error in session callback");
       }
-
       return session;
     },
   },

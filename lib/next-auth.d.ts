@@ -1,5 +1,6 @@
+import { BankAccount } from "@prisma/client";
 import { Difficulty } from "@prisma/client";
-import { Account, DefaultSession, DefaultUser } from "next-auth";
+import { DefaultSession, DefaultUser } from "next-auth";
 
 declare module "next-auth" {
   interface Session {
@@ -7,7 +8,7 @@ declare module "next-auth" {
       name: string;
       email: string;
       hasRegistered: boolean;
-      accounts: Account[];
+      bankAccounts: BankAccount[];
       difficulty: Difficulty;
     } & DefaultSession["user"];
   }
@@ -15,17 +16,17 @@ declare module "next-auth" {
   interface User extends DefaultUser {
     difficulty: Difficulty;
     hasRegistered: boolean;
-    accounts: Account[];
+    bankAccounts: BankAccount[];
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    user: {
+    user?: {
       name: string;
       email: string;
       hasRegistered: boolean;
-      accounts: Account[];
+      bankAccounts: BankAccount[];
       difficulty: Difficulty;
     };
   }
