@@ -4,6 +4,7 @@ import { BankAccountCard } from "@/components/homepage/BankAccountCard";
 import MenuOption from "@/components/homepage/MenuOptions";
 import { WarningSection } from "@/components/homepage/WarningSection";
 import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
+import { prisma } from "@/lib/db";
 import {
   ArrowBigDownDash,
   Banknote,
@@ -16,7 +17,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/[auth]/[...nextauth]/authOptions";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
 
   const menuOptions = [
     {
