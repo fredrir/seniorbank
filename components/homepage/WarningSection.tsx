@@ -15,8 +15,8 @@ export function WarningSection() {
             <ShieldAlert className="size-16 md:size-24" />
           </div>
           <div className="flex flex-col align-middle">
-            <p className="mt-2 font-bold text-seniorbankWhite md:text-xl">
-              Husk: Banken eller politiet vil aldri be deg om å overføre penger
+            <p className="mt-2 text-seniorbankWhite md:text-xl">
+              <strong>Husk</strong>: Banken eller politiet vil aldri be deg om å overføre penger
               til en ukjent konto. Hvis du er usikker, ta kontakt med banken din
               eller din trygghetskontakt
             </p>
