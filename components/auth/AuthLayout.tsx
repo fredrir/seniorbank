@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import Link from "next/link";
 import { ShieldIcon, LockIcon } from "lucide-react";
 import { getServerSession } from "next-auth";
+import RegisterAccountPage from "../register/RegisterAccount";
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -29,6 +30,8 @@ const AuthLayout = async ({ children }: AuthLayoutProps) => {
         </Link>
       </div>
     );
+  } else if (!session.user.hasRegistered) {
+    return <RegisterAccountPage />;
   } else {
     return <>{children}</>;
   }
