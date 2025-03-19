@@ -20,16 +20,31 @@ enum Difficulty {
 }
 
 model User {
-  id         String     @id @default(cuid())
-  email      String     @unique
-  name       String?
-  difficulty Difficulty @default(EASY)
-  accounts   Account[]
+  id            String        @id @default(cuid())
+  email         String        @unique
+  name          String?
+  difficulty    Difficulty    @default(EASY)
+  hasRegistered Boolean       @default(false)
+  accounts      BankAccount[]
 }
 
-model Account {
-  id      String @id @default(cuid())
-  userId  String
-  user    User   @relation(fields: [userId], references: [id])
-  balance Int
+model BankAccount {
+  id                   String        @id @default(cuid())
+  name                 String
+  category             String?
+  userId               String
+  user                 User          @relation(fields: [userId], references: [id])
+  balance              Int
+  outgoingTransactions Transaction[] @relation("FromAccount")
+  ingoingTransactions  Transaction[] @relation("ToAccount")
+}
+
+model Transaction {
+  id            String      @id @default(cuid())
+  fromAccountId String
+  fromAccount   BankAccount @relation(fields: [fromAccountId], references: [id], name: "FromAccount")
+  toAccountId   String
+  toAccount     BankAccount @relation(fields: [toAccountId], references: [id], name: "ToAccount")
+  amount        Int
+  createdAt     DateTime
 }

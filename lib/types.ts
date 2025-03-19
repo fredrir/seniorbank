@@ -5,7 +5,6 @@ export type BankAccount = {
   title: string;
   accountNumber: string;
   balance: number;
-  type: "savings" | "loan";
 };
 
 export type Transaction = {
