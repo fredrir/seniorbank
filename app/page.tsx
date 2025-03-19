@@ -7,10 +7,11 @@ import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
 import {
   ArrowBigDownDash,
   Banknote,
+  ChevronDown,
   HelpCircle,
   MailIcon,
   Settings,
-  Wallet,
+  Wallet
 } from "lucide-react";
 import { getServerSession } from "next-auth";
 
@@ -66,6 +67,14 @@ export default async function Home() {
     option.availableFor.includes(difficulty)
   );
 
+
+  const hiddenMenuOptions = menuOptions.filter((option) => 
+    !option.availableFor.includes(difficulty)
+  );
+
+  //const [showHidden, setShowHidden] = useState(false); 
+
+
   return (
     <>
       <BackgroundGraphic variant="top-halfcircle" className="text-[#015aa4]" />
@@ -107,6 +116,18 @@ export default async function Home() {
           ))}
         </div>
       </section>
+
+
+      <div>
+      <button className="text-seniorBankDarkBlue font-bold text-4xl py-20 flex items-center gap-2">
+        {hiddenMenuOptions.length > 0 && (
+          <>
+            Flere handlinger
+            <ChevronDown className="size-8" /> 
+          </>
+        )}
+      </button>
+    </div>
 
       <WarningSection />
     </>
