@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import PaymentHistoryGrid from "@/components/accountoverview/PaymentHistoryGrid";
-import SearchBar from "@/components/accountoverview/SearchBar";
+import PaymentHistoryGrid from "@/components/paymenthistory/PaymentHistorySection";
+import SearchBar from "@/components/paymenthistory/SearchBar";
 import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
 
 export default function AccountOverview() {
@@ -43,6 +43,14 @@ export default function AccountOverview() {
       description: "Kosmetikk",
       amount: "-59999.00 kr",
       warningAlert: true,
+      alertMessage: "Mistenkelig mottaker. Trygghetskontakt er varslet.",
+    },
+    {
+      title: "Barnebarn",
+      description: "Transaksjon",
+      amount: "-5000.00 kr",
+      warningAlert: true,
+      alertMessage: "Venter på godkjenning fra trygghetskontakt.",
     },
   ];
 
@@ -55,13 +63,13 @@ export default function AccountOverview() {
     <main>
       <BackgroundGraphic variant="top-halfcircle" className="text-[#015aa4]" />
       <div className="space-y-10">
-        <header className="text-center text-white p-2">
-          <h2 className="text-4xl">Saldo</h2>
-          <h1 className="text-7xl font-bold">18 932.54kr</h1>
+        <header className="p-2 text-center text-white">
+          <h2 className="text-3xl md:text-4xl">Saldo</h2>
+          <h1 className="text-5xl font-bold md:text-7xl">18 932.54kr</h1>
         </header>
         <SearchBar searchInput={searchInput} handleChange={handleChange} />
         <PaymentHistoryGrid transactions={transactions} />
       </div>
     </main>
   );
-};
+}

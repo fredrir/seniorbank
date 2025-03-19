@@ -1,4 +1,4 @@
-import PaymentHistory from "./PaymentHistory";
+import PaymentHistory from "./PaymentHistoryItem";
 interface TransactionProps {
   transactions: {
     title?: string;
@@ -8,19 +8,24 @@ interface TransactionProps {
     warningAlert?: boolean;
     date?: string;
     day?: string;
+    alertMessage?: string;
   }[];
 }
 
 const PaymentHistoryGrid = ({ transactions }: TransactionProps) => {
-
   return (
-    <section className="overflow-hidden border rounded-t-2xl bg-seniorBankLightBlue border-seniorBankLightBlue">
-      <div className="grid grid-cols-1">
+    <section className="overflow-hidden rounded-t-2xl border border-seniorBankLightBlue bg-seniorBankLightBlue">
+      <div className="">
         {transactions.map((transaction, index) => (
           <div
             key={index}
-            className={`border-b-4 border-b-[#4D8CBF] ${transaction.warningAlert ? "bg-[#F7C6C7]" : transaction.transactionAlert ? "bg-[#70C7AA]" : "bg-seniorBankLightBlue"
-              }`}
+            className={`border-b-4 border-b-[#4D8CBF] ${
+              transaction.warningAlert
+                ? "bg-[#F7C6C7]"
+                : transaction.transactionAlert
+                  ? "bg-[#70C7AA]"
+                  : "bg-seniorBankLightBlue"
+            }`}
           >
             <PaymentHistory
               title={transaction.title}
@@ -30,6 +35,7 @@ const PaymentHistoryGrid = ({ transactions }: TransactionProps) => {
               warningAlert={transaction.warningAlert}
               date={transaction.date}
               day={transaction.day}
+              alertMessage={transaction.alertMessage}
             />
           </div>
         ))}
