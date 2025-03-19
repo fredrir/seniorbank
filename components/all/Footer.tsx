@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
                 <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>Eldrebanken</h1>
             </div>
             
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '150px', textAlign: 'left' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '200px', textAlign: 'left' }}>
                 {/* Kontakt Column */}
                 <div>
                     <h4 style={{ fontWeight: 'bold', marginBottom: '20px', fontSize: '1.25rem' }}>Kontakt</h4>

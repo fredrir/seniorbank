@@ -2,6 +2,7 @@ import AccountCard from "@/components/account-overview/AccountCard";
 import HeaderText from "@/components/all/HeaderText";
 import SubHeaderText from "@/components/all/SubHeaderText";
 import { BankAccountCard } from "@/components/homepage/BankAccountCard";
+import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
 import { BankAccount } from "@/lib/types";
 import { ShieldAlert } from "lucide-react";
 
@@ -105,6 +106,10 @@ export default function AccountOverviewPage() {
       <section className="my-16 md:my-32">
         <SubHeaderText title="Fond" />
       </section>
+      <BackgroundGraphic
+        variant="bottom-halfcircle"
+        className="text-[#015aa4]"
+      />
     </>
   );
 }
