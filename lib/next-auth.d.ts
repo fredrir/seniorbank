@@ -25,18 +25,3 @@ declare module "next-auth" {
     address?: string;
   }
 }
-
-declare module "next-auth/jwt" {
-  interface JWT {
-    user?: {
-      name: string;
-      email: string;
-      birthDate?: Date;
-      phoneNumber?: string;
-      address?: string;
-      hasRegistered: boolean;
-      bankAccounts: BankAccount[];
-      difficulty: Difficulty;
-    };
-  }
-}

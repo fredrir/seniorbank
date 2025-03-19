@@ -12,43 +12,23 @@ export const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user, account }) {
-      try {
-        if (account && user) {
-          const dbUser = await prisma.user.findUnique({
-            where: { email: user.email as string },
-            include: {
-              accounts: true,
-            },
-          });
+    async session({ session }) {
+      const user = await prisma.user.findUnique({
+        where: { email: session.user.email as string },
+        include: {
+          accounts: true,
+        },
+      });
 
-          if (dbUser) {
-            token.user = {
-              ...user,
-              name: user.name as string,
-              email: user.email as string,
-              birthDate: dbUser.birthDate as Date,
-              phoneNumber: dbUser.phoneNumber as string,
-              address: dbUser.address as string,
-              hasRegistered: dbUser.hasRegistered,
-              difficulty: dbUser.difficulty,
-              bankAccounts: dbUser.accounts,
-            };
-          }
-        }
-      } catch (error) {
-        console.error("Error in jwt callback", error);
-        throw new Error("Error in jwt callback");
-      }
-      return token;
-    },
-
-    async session({ session, token }) {
       try {
-        if (session.user && token.user) {
-          session.user.difficulty = token.user.difficulty;
-          session.user.hasRegistered = token.user.hasRegistered;
-          session.user.bankAccounts = token.user.bankAccounts;
+        if (session.user && user) {
+          session.user.name = user.name as string;
+          session.user.email = user.email;
+          session.user.birthDate = user.birthDate ?? undefined;
+          session.user.address = user.address ?? undefined;
+          session.user.difficulty = user.difficulty;
+          session.user.hasRegistered = user.hasRegistered;
+          session.user.bankAccounts = user.accounts;
         }
       } catch (error) {
         console.error("Error in session callback", error);

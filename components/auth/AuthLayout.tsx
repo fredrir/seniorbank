@@ -3,13 +3,14 @@ import Link from "next/link";
 import { ShieldIcon, LockIcon } from "lucide-react";
 import { getServerSession } from "next-auth";
 import RegisterAccountPage from "../register/RegisterAccount";
+import { authOptions } from "@/app/api/[auth]/[...nextauth]/authOptions";
 
 interface AuthLayoutProps {
   children: ReactNode;
 }
 
 const AuthLayout = async ({ children }: AuthLayoutProps) => {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   if (!session) {
     return (

@@ -6,7 +6,6 @@ import ThirdStep from "@/components/register/ThirdStep";
 import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
 import registerAccount from "@/lib/actions/registerAccount";
 
 export default function RegisterAccountPage() {
@@ -64,17 +63,17 @@ export default function RegisterAccountPage() {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //TODO -> Midlertig console log
-
     e.preventDefault();
 
-    await registerAccount(formData);
+    const response = await registerAccount(formData);
 
-    toast.success("Brukeren er opprettet!");
-
-    redirect("/");
-
-    return false;
+    if (!response) {
+      toast.error("Noe gikk galt. Prøv igjen senere.");
+      return;
+    } else {
+      toast.success("Brukeren er opprettet!");
+      window.location.reload();
+    }
   };
 
   return (

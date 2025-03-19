@@ -3,7 +3,6 @@ import { authOptions } from "@/app/api/[auth]/[...nextauth]/authOptions";
 import { getServerSession } from "next-auth";
 import { prisma } from "../db";
 import { Difficulty } from "@prisma/client";
-import toast from "react-hot-toast";
 
 interface Props {
   firstName: string;
@@ -24,46 +23,46 @@ const registerAccount = async ({
   email,
   difficulty,
 }: Props) => {
-  const session = await getServerSession(authOptions);
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return false;
+    }
 
-  if (!session) {
-    return null;
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email: session.user.email,
+      },
+    });
+    if (existingUser) {
+      return false;
+    }
+
+    if (!["EASY", "MEDIUM", "HARD"].includes(difficulty)) {
+      return false;
+    }
+
+    // TODO: add fixtures or any other logic you need here
+
+    await prisma.user.create({
+      data: {
+        name: `${firstName} ${lastName}`,
+        birthDate: `${birthDate}T00:00:00.000Z`,
+        phoneNumber,
+        address,
+        email,
+        hasRegistered: true,
+        difficulty: difficulty as Difficulty,
+      },
+    });
+
+    console.log(session);
+
+    return true;
+  } catch (error) {
+    console.error("Error in registerAccount", error);
+    return false;
   }
-
-  const user = await prisma.user.findUnique({
-    where: {
-      email: session.user.email,
-    },
-  });
-  if (user) {
-    toast.error("Brukeren eksisterer allerede");
-    return null;
-  }
-
-  if (
-    difficulty !== "EASY" &&
-    difficulty !== "MEDIUM" &&
-    difficulty !== "HARD"
-  ) {
-    toast.error("Vanskelighetsgraden er ugyldig");
-    return null;
-  }
-
-  //TODO add fixtures
-
-  await prisma.user.create({
-    data: {
-      name: `${firstName} ${lastName}`,
-      birthDate: birthDate,
-      phoneNumber: phoneNumber,
-      address: address,
-      email: email,
-      difficulty: difficulty as Difficulty,
-    },
-  });
-
-  toast.success("Brukeren er opprettet!");
-  return;
 };
 
 export default registerAccount;

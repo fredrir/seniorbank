@@ -13,9 +13,10 @@ import {
   Wallet,
 } from "lucide-react";
 import { getServerSession } from "next-auth";
+import { authOptions } from "./api/[auth]/[...nextauth]/authOptions";
 
 export default async function Home() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   const menuOptions = [
     {
@@ -57,7 +58,7 @@ export default async function Home() {
       <BackgroundGraphic variant="top-halfcircle" className="text-[#015aa4]" />
       <section className="h-[450px] overflow-hidden">
         <HeaderText
-          title={session ? `Hei, ${session.user}` : "Hei, Navn Navnesen"}
+          title={session ? `Hei, ${session.user.name}` : "Hei, Navn Navnesen"}
           className="my-8"
         />
         <p className="text-3xl text-white">
