@@ -25,7 +25,7 @@ model User {
   name          String?
   birthDate     DateTime?
   phoneNumber   String?
-  adress        String?
+  address       String?
   difficulty    Difficulty    @default(EASY)
   hasRegistered Boolean       @default(false)
   accounts      BankAccount[]

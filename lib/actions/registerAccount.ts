@@ -30,6 +30,8 @@ const registerAccount = async (props: Props) => {
     return null;
   }
 
+  //TODO add fixtures
+
   await prisma.user.create({
     data: {
       name: `${props.firstName} ${props.lastName}`,

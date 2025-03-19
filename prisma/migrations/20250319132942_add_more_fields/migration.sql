@@ -11,7 +11,7 @@ ALTER TABLE "BankAccount" DROP CONSTRAINT "BankAccount_userId_fkey";
 ALTER TABLE "BankAccount" ALTER COLUMN "userId" SET NOT NULL;
 
 -- AlterTable
-ALTER TABLE "User" ADD COLUMN     "adress" TEXT,
+ALTER TABLE "User" ADD COLUMN     "address" TEXT,
 ADD COLUMN     "birthDate" TIMESTAMP(3),
 ADD COLUMN     "phoneNumber" TEXT;
 

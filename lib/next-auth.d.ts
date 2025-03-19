@@ -7,6 +7,9 @@ declare module "next-auth" {
     user: {
       name: string;
       email: string;
+      birthDate?: Date;
+      phoneNumber?: string;
+      address?: string;
       hasRegistered: boolean;
       bankAccounts: BankAccount[];
       difficulty: Difficulty;
@@ -17,6 +20,9 @@ declare module "next-auth" {
     difficulty: Difficulty;
     hasRegistered: boolean;
     bankAccounts: BankAccount[];
+    birthDate?: Date;
+    phoneNumber?: string;
+    address?: string;
   }
 }
 
@@ -25,6 +31,9 @@ declare module "next-auth/jwt" {
     user?: {
       name: string;
       email: string;
+      birthDate?: Date;
+      phoneNumber?: string;
+      address?: string;
       hasRegistered: boolean;
       bankAccounts: BankAccount[];
       difficulty: Difficulty;
