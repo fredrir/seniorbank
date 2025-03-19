@@ -54,7 +54,6 @@ export default async function AccountPage(props: { params: tParams }) {
         >
           <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
         </svg>
-        {/* TODO: Change to actual account from prisma */}
 
         <div className="max-w-fit">
           <HeaderText title="Brukskonto" href="/konto" />

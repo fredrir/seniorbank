@@ -30,10 +30,9 @@ export default async function AccountOverviewPage() {
           </article>
 
           <BankAccountCard
-            title="Brukskonto"
-            accountNumber="1080 28 27364"
-            balance={18932.54}
-            href="/konto/1080-28-27364"
+            bankAccount={session?.user.bankAccounts.find(
+              (account) => account.main,
+            )}
           />
         </div>
       </section>
