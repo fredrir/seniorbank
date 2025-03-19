@@ -43,6 +43,7 @@ export default async function Home() {
       title: "Spør om hjelp",
       description: "Kontakt vår kundehjelp eller Trygghetskontakten",
       icon: <HelpCircle className="size-16" />,
+      href: "/kontaktside",
     },
 
     {
