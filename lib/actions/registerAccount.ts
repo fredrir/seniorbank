@@ -3,6 +3,7 @@ import { authOptions } from "@/app/api/[auth]/[...nextauth]/authOptions";
 import { getServerSession } from "next-auth";
 import { prisma } from "../db";
 import { Difficulty } from "@prisma/client";
+import { createFixturesForUser } from "../fixtures";
 
 interface Props {
   firstName: string;
@@ -42,9 +43,7 @@ const registerAccount = async ({
       return false;
     }
 
-    // TODO: add fixtures or any other logic you need here
-
-    await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         name: `${firstName} ${lastName}`,
         birthDate: `${birthDate}T00:00:00.000Z`,
@@ -56,7 +55,7 @@ const registerAccount = async ({
       },
     });
 
-    console.log(session);
+    await createFixturesForUser(user.id)
 
     return true;
   } catch (error) {

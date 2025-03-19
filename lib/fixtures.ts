@@ -22,7 +22,7 @@ async function findOrCreateExternalBankAccount(name: string, category: string, c
   return await prisma.bankAccount.create({ data: { name, id: randomBankAccountNumber(), balance: 0, category, countryCode } })
 }
 
-async function createFixturesForUser(userId: string) {
+export async function createFixturesForUser(userId: string) {
   const mainAccountId = randomSparebank1BankAccountNumber();
 
   await prisma.bankAccount.createMany({ data: [
