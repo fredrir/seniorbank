@@ -9,7 +9,7 @@ function randomBankAccountNumber() {
 }
 
 function randomSparebank1BankAccountNumber() {
-  return `1080 ${randomNDigitNumber(2)} ${5}`
+  return `1080 ${randomNDigitNumber(2)} ${randomNDigitNumber(5)}`
 }
 
 async function findOrCreateExternalBankAccount(name: string, category: string, countryCode: string) {
