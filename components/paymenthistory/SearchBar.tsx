@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Search } from "lucide-react";
 
 interface SearchBarProps {
@@ -12,7 +11,7 @@ const SearchBar = ({ searchInput, handleChange }: SearchBarProps) => {
       htmlFor="search-input"
       className="flex w-full cursor-pointer items-center rounded-2xl border-2 border-[#4D8CBF] bg-[#4D8CBF] px-2 text-white hover:border-seniorBankLightBlue"
     >
-      <Search className="m-2 size-6 md:size-8" />
+      <Search className="m-2 w-6 h-6 md:w-8 md:h-8" />
       <input
         id="search-input"
         type="text"

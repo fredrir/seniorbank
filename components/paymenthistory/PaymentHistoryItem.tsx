@@ -16,7 +16,6 @@ const PaymentHistory = ({
   title,
   description,
   amount,
-  transactionAlert,
   warningAlert,
   date,
   day,
