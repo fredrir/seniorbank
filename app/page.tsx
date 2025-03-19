@@ -8,6 +8,7 @@ import {
   ArrowBigDownDash,
   Banknote,
   ChevronDown,
+  ChevronRight,
   HelpCircle,
   MailIcon,
   Settings,
@@ -61,7 +62,7 @@ export default async function Home() {
 
 
   //TODO  get user difficulty
-  const difficulty = "HARD";
+  const difficulty = "MEDIUM";
 
   const filteredMenuOptions = menuOptions.filter((option) =>
     option.availableFor.includes(difficulty)
@@ -119,15 +120,40 @@ export default async function Home() {
 
 
       <div>
-      <button className="text-seniorBankDarkBlue font-bold text-4xl py-20 flex items-center gap-2">
+      <button className="">
         {hiddenMenuOptions.length > 0 && (
-          <>
-            Flere handlinger
-            <ChevronDown className="size-8" /> 
-          </>
+          <details>
+           <summary className="text-seniorBankDarkBlue font-bold text-4xl py-20 flex items-center gap-2">
+           Flere handlinger
+           <ChevronDown className="size-16" />
+            </summary> 
+
+
+
+            <div className="mt-2 flex flex-col gap-8">
+            {hiddenMenuOptions.map((option, index) => (
+              <a
+                key={`hidden-${index}`}
+                href={option.href}
+                className="flex items-center gap-8 p-6 rounded-2xl py-4 shadow hover:border-blue-500 border-4 border-seniorBankLightBlue"
+              >
+                {option.icon}
+                <div className="flex flex-col gap-4 items-start">
+                  <h1 className="font-bold text-2xl">{option.title}</h1>
+                  <p className="text-gray-600 ">{option.description}</p>
+                </div>
+
+                <div className="flex flex-col justify-center">
+                <ChevronRight className="size-16 transition-transform duration-200 group-hover:translate-x-1" />
+              </div>
+              </a>
+            ))}
+          </div>
+          </details>
         )}
       </button>
     </div>
+
 
       <WarningSection />
     </>
