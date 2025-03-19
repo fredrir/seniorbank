@@ -6,6 +6,7 @@ import AuthLayout from "@/components/auth/AuthLayout";
 import { cn } from "@/lib/utils";
 import { Toaster } from "react-hot-toast";
 import NavBar from "@/components/all/NavBar";
+import Footer from "@/components/all/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
             <Toaster />
             <NavBar />
             <div className="mx-auto max-w-4xl px-2 md:px-0">{children} </div>
+            <Footer />
           </AuthLayout>
         </SessionWrapper>
       </body>

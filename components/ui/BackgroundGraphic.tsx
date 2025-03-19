@@ -35,7 +35,7 @@ export function BackgroundGraphic({
           width={100}
           height={100}
           className={cn(
-            "absolute left-0 z-[-1] h-[200px] w-full md:h-[400px]",
+            "absolute left-0 z-[-1] h-[900px] w-full",
             className,
           )}
         >
