@@ -15,6 +15,7 @@ export default function Payment() {
     // acconuntID: 0 TODO: When connected to the account database
   });  
   const handleNext = () => {
+    const accountNumber = formData.toAccount.trim();
     if (step === 2){
       if(formData.comment.trim() ==="" ){
         toast.error("Fyll inn kommentarer")
@@ -26,6 +27,10 @@ export default function Payment() {
       }
       if(formData.toAccount.trim() ===""){
         toast.error("Fyll inn kontonummer")
+        return;
+      }
+      if (accountNumber.length < 8 || accountNumber.length > 18) {
+        toast.error("Kontonummer må være mellom 8 og 18 sifre");
         return;
       }
     };
