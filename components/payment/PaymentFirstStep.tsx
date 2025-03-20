@@ -1,5 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import { Button } from "../ui/button";
+import { ProgressBar } from "../all/ProgressBar";
 
 interface PaymentFirstStepProps {
   onClick: () => void;
@@ -19,22 +20,7 @@ const PaymentFirstStep = ({ onClick }: PaymentFirstStepProps) => {
           </h1>
 
           <div className="w-[90%] mx-auto border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
-            <div className="flex items-center space-x-4 text-seniorBankGrey text-2xl justify-center mt-7 mb-7">
-              <div className="flex items-center justify-center w-14 h-14 bg-seniorBankLightGreen border-2 border-seniorBankGreen rounded-full font-bold">
-                {" "}
-                1{" "}
-              </div>
-              <div className="w-12 h-1 bg-seniorBankLightPink"></div>
-              <div className="flex items-center justify-center w-14 h-14 bg-seniorBankLightPink rounded-full font-bold">
-                {" "}
-                2
-              </div>
-              <div className="w-12 h-1  bg-seniorBankLightPink"></div>
-              <div className="flex items-center justify-center w-14 h-14 bg-seniorBankLightPink rounded-full font-bold">
-                3
-              </div>
-            </div>
-
+            <ProgressBar totalSteps={3} currentStep={1} />
             <h1 className="text-seniorBankDarkBlue font-bold text-xl pl-10">
               Velg konto du vil betale fra:{" "}
             </h1>
