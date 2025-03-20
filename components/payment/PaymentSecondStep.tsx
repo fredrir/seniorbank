@@ -37,24 +37,22 @@ const PaymentSecondStep = ({
   const [selectedAccount, setSelectedAccount] = useState<string | null>(null);
   return (
     <section>
-      <div className="w-2/3 mx-auto">
         <h1 className="text-seniorBankDarkBlue font-bold text-4xl mt-5">
           Betal
         </h1>
-
-        <div className="w-[90%] mx-auto border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
+        <div className="border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
           <ProgressBar totalSteps={3} currentStep={2} />
-          <h1 className="text-seniorBankDarkBlue font-bold text-xl pl-10">
+          <h1 className="text-seniorBankDarkBlue font-bold text-3xl pl-10">
             Trygghetskontakt vil bli varslet{" "}
           </h1>
-          <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-3 rounded-lg text-xl">
+          <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-3 rounded-lg text-3xl">
             <p>Fra konto: </p>
             <div className="w-full">
               <Select onValueChange={(value) => setSelectedAccount(value)}>
                 <SelectTrigger className="bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex items-center justify-between px-4 h-12">
                   <SelectValue
                     placeholder="Velg en konto"
-                    className="text-xl"
+                    className="!text-2xl placeholder:text-2xl"
                   />
                 </SelectTrigger>
                 <SelectContent className="bg-white rounded-lg w-full shadow-md pt-3 pb-3 z-10 mt-1 text-xl">
@@ -82,7 +80,7 @@ const PaymentSecondStep = ({
                 inputMode="numeric"
                 pattern="\d*"
                 placeholder="Skriv inn kontonummer her ..."
-                className="border-2 pt-2 pb-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10"
+                className="border-2 pt-2 pb-2 border-seniorBankDarkBlue h-20 !text-2xl bg-seniorbankWhite pr-10  placeholder:text-2xl"
               />
             </div>
             <div className="relative">
@@ -95,7 +93,7 @@ const PaymentSecondStep = ({
                 inputMode="numeric"
                 pattern="\d*"
                 placeholder="Skriv inn beløp her ..."
-                className="border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10"
+                className="border-2 border-seniorBankDarkBlue h-20 bg-seniorbankWhite pr-10 !text-2xl placeholder:text-2xl"
               />
               <BanknoteIcon className="absolute size-8 right-2 top-3/4 transform -translate-y-1/2 text-seniorBankDarkBlue" />
             </div>
@@ -105,25 +103,24 @@ const PaymentSecondStep = ({
               value={formData.comment}
               onChange={handleChange}
               placeholder="Skriv inn kommentar her ... "
-              className="border-2 border-seniorBankDarkBlue bg-seniorbankWhite"
+              className="border-2 border-seniorBankDarkBlue h-20 bg-seniorbankWhite !text-2xl placeholder:text-2xl"
             />
           </div>
           <div className="flex items-stretch m-10 justify-between">
             <Button
-              className="w-[45%] min-w-0 px-4 text-2xl flex flex-col float-left"
+              className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-left"
               onClick={onGoBack}
             >
               Tilbake
             </Button>
             <Button
-              className="w-[45%] min-w-0 px-4 text-2xl flex flex-col float-right"
+              className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-right"
               onClick={handleNext}
             >
               Neste
             </Button>
           </div>
         </div>
-      </div>
     </section>
   );
 };

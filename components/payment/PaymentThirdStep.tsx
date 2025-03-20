@@ -21,20 +21,19 @@ const PaymentThirdStep = ({
   return (
     <>
       <section>
-        <div className="w-2/3 mx-auto">
           <h1 className="text-seniorBankDarkBlue font-bold text-4xl mt-5">
             Betal
           </h1>
 
-          <div className="w-[90%] mx-auto border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
+          <div className="border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
             <ProgressBar totalSteps={3} currentStep={3} />
             <h1 className="text-seniorBankDarkBlue font-bold text-3xl text-center">
               Bekreft betaling{" "}
             </h1>
-            <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-3 rounded-lg text-xl">
-              <div className="flex justify-between w-full items-center">
+            <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-3 rounded-lg text-3xl">
+              <div className="flex justify-between w-full items-center mb-6">
                 <p>Du er i ferd med å betale:</p>
-                <p className="text-2xl">{formData.amount}</p>
+                <p className="text-3xl  items-center">{formData.amount}</p>
               </div>
               <p>Fra konto:</p>
               <div className={styling}>
@@ -52,18 +51,18 @@ const PaymentThirdStep = ({
                 <p>{formData.comment}</p>
                 <p className="text-2xl"></p>
               </div>
-              <p className="text-center">
+              <p className="text-center mt-6">
                 Dette vil varsle Trygghetskontakten din.
               </p>
-              <div className="flex items-stretch justify-between">
+              <div className="flex items-stretch justify-between mt-6">
                 <Button
-                  className="w-[45%] min-w-0 px-4 text-2xl flex flex-col float-left"
+                  className="w-[45%] min-w-0 px-4 p-8 text-2xl flex flex-col float-left"
                   onClick={onGoBack}
                 >
                   Tilbake
                 </Button>
                 <Button
-                  className="w-[45%] min-w-0 px-4 text-2xl flex flex-col float-right"
+                  className="w-[45%] min-w-0 px-4 p-8 text-2xl flex flex-col float-right"
                   onClick={onClick}
                 >
                   Bekreft
@@ -71,7 +70,6 @@ const PaymentThirdStep = ({
               </div>
             </div>
           </div>
-        </div>
       </section>
     </>
   );
