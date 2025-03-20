@@ -46,6 +46,11 @@ const PaymentThirdStep = ({formData, onClick, onGoBack }: PaymentThirdStepProps)
                 <p>{formData.toAccount}</p>
                 <p className="text-2xl"></p>
               </div>
+              <p>Kommentar:</p>
+              <div className="bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex justify-between items-center p-4">
+                <p>{formData.comment}</p>
+                <p className="text-2xl"></p>
+              </div>
               <p className="text-center">Dette vil varsle Trygghetskontakten din.</p>
               <div className="flex items-stretch justify-between">
                 <Button className="w-[45%] min-w-0 px-4 text-2xl flex flex-col float-left" onClick={onGoBack}>

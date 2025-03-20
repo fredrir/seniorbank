@@ -40,6 +40,7 @@ export default function Payment() {
     //TODO: Temp console log
     console.log(formData);
     toast.success("Kommentar er sendt inn")
+    setStep(step+1);
   }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
@@ -91,7 +92,7 @@ export default function Payment() {
     stepComponent = <PaymentThirdStep  formData={formData} onClick={handleSubmit} onGoBack={handleGoBack}/>
   }
   if (step === 4) {
-    stepComponent = <PaymentFourtStep  onClick={handleReset}/>
+    stepComponent = <PaymentFourtStep formData={formData} onClick={handleReset}/>
   }
   return (
     <section>

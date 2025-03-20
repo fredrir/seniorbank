@@ -3,8 +3,13 @@ import { Button } from "../ui/button";
 
 interface PaymentFourthStepProps {
   onClick: () => void; 
+  formData: {
+    comment: string;
+    amount: string;
+    toAccount: string;
+  }
 }
-const PaymentFourtStep = ({ onClick }: PaymentFourthStepProps ) => {
+const PaymentFourtStep = ({ formData, onClick }: PaymentFourthStepProps ) => {
   return (
     <>
       <section>
@@ -25,7 +30,7 @@ const PaymentFourtStep = ({ onClick }: PaymentFourthStepProps ) => {
             <div className=" flex justify-center">
               <div className="grid grid-cols-1 gap-3 content-end font-bold text-seniorBankDarkBlue rounded-lg text-xl bg-seniorbankWhite border-2 border-seniorBankDarkBlue w-[85%] p-4 mt-4">
                 <div>
-                  <p>Betalt sum:</p> <p className="indent-4">5000 kr</p>
+                  <p>Betalt sum:</p> <p className="indent-4">{formData.amount}</p>
                   <p className="text-2xl"></p>
                 </div>
                 <div>
@@ -33,8 +38,11 @@ const PaymentFourtStep = ({ onClick }: PaymentFourthStepProps ) => {
                   <p className="text-2xl"></p>
                 </div>
                 <div>
-                  <p>Til konto:</p> <p className="indent-4">1111.22.33334</p>
+                  <p>Til konto:</p> <p className="indent-4">{formData.toAccount}</p>
                   <p className="text-2xl"></p>
+                </div>
+                <div>
+                  <p>Kommentar:</p> <p className="indent-4"> {formData.comment}</p>
                 </div>
               </div>
             </div>
