@@ -3,9 +3,10 @@ import { Button } from "../ui/button";
 
 interface PaymentFirstStepProps {
   onClick: () => void; 
+ 
 }
 
-const PaymentFirstStep = ({ onClick }: PaymentFirstStepProps) => {
+const PaymentFirstStep = ({onClick }: PaymentFirstStepProps) => {
   return (
     <>
       <section>
@@ -23,36 +24,20 @@ const PaymentFirstStep = ({ onClick }: PaymentFirstStepProps) => {
             </div> 
              
             <h1 className="text-seniorBankDarkBlue font-bold text-xl pl-10">Velg konto du vil betale fra: </h1>
-            <div className="grid grid-cols-1 m-10 shadow-md font-bold text-seniorBankDarkBlue gap-1 text-2xl rounded-lg"> 
-              <div className="bg-seniorBankWhitePurple border-4 rounded-t-lg hover:border-blue-500 cursor-pointer group border-seniorBankWhitePurple  ps-4 flex flex-row gap-4 justify-between">
-                <div className="flex flex-col justify-center">
-                  <h1 className="">Sparekonto</h1>
-                </div>
-                <div className="flex items-center ml-auto justify-center">
-                  <p> 830 726 </p>
-                  <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200" />
-                </div>
-              </div>
-
-              <div className="bg-seniorBankWhitePurple border-4 hover:border-blue-500 cursor-pointer group border-seniorBankWhitePurple   ps-4 flex flex-row gap-4 justify-between">
-                <div className="flex flex-col justify-center">
-                  <h1 className="">Barnebarn</h1>
-                </div>
-                <div className="flex items-center ml-auto justify-center">
-                  <p> 34 835 </p>
-                  <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200" />
-                </div>
-              </div>
-
-              <div className="bg-seniorBankWhitePurple border-4 hover:border-blue-500 cursor-pointer group  border-seniorBankWhitePurple  ps-4 flex flex-row gap-4 justify-between rounded-b-lg">
-                <div className="flex flex-col justify-center">
-                  <h1 className="">Russetid</h1>
-                </div>
-                <div className="flex items-center ml-auto justify-center">
-                  <p> 10 835 </p>
-                  <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200" />
-                </div>
-              </div>
+            
+            <div className="grid grid-cols-1 m-10 shadow-md font-bold text-seniorBankDarkBlue gap-1 text-2xl rounded-lg justify-between"> 
+              <Button className="bg-seniorBankWhitePurple border-4 hover:border-blue-500 hover:text-seniorbankWhite cursor-pointer group border-seniorBankWhitePurple text-seniorBankDarkBlue  ps-4 flex flex-row gap-4 justify-between">
+                Sparekonto 830 726
+                <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200" />
+              </Button>
+              <Button className="bg-seniorBankWhitePurple border-4 hover:border-blue-500 hover:text-seniorbankWhite cursor-pointer group border-seniorBankWhitePurple text-seniorBankDarkBlue ps-4 flex flex-row gap-4 justify-between"> 
+                Barnebarn 34 835
+                <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200" />
+              </Button>
+              <Button className="bg-seniorBankWhitePurple border-4 hover:border-blue-500 hover:text-seniorbankWhite cursor-pointer group border-seniorBankWhitePurple text-seniorBankDarkBlue ps-4 flex flex-row gap-4 justify-between"> 
+                Russetid 10 835
+                <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200" />
+              </Button>
             </div>
 
          

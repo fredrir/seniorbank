@@ -11,7 +11,8 @@ export default function Payment() {
   const [formData, setFormData] = useState({
     comment: "",
     amount: "",
-    toAccount: ""
+    toAccount: "",
+    // acconuntID: 0 TODO: When connected to the account database
   });  
   const handleNext = () => {
     if (step === 2){
@@ -30,6 +31,12 @@ export default function Payment() {
     };
     setStep(step+1);
   }
+  // const handleAccountID = (selectedAccountID: number) => {
+  //   setFormData({
+  //     ...formData,
+  //     acconuntID: selectedAccountID
+  //   });
+  // } TODO: When connected to the account database
   const handleGoBack = () => {
     setStep(step-1);
   }
