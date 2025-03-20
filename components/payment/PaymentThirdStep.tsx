@@ -13,6 +13,7 @@ interface PaymentThirdStepProps {
 
 
 const PaymentThirdStep = ({formData, onClick, onGoBack }: PaymentThirdStepProps) => {
+  const styling = "bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex justify-between items-center p-4";
   return (
     <>
       <section>
@@ -36,18 +37,18 @@ const PaymentThirdStep = ({formData, onClick, onGoBack }: PaymentThirdStepProps)
                 <p className="text-2xl">{formData.amount}</p>
               </div>
               <p>Fra konto:</p>
-              <div className="bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex justify-between items-center p-4">
+              <div className={styling}>
                 <p>Sparekonto</p>
                 <p className="text-2xl">830 726 kr</p>
               </div>
 
               <p>Til konto:</p>
-              <div className="bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex justify-between items-center p-4">
+              <div className={styling}>
                 <p>{formData.toAccount}</p>
                 <p className="text-2xl"></p>
               </div>
               <p>Kommentar:</p>
-              <div className="bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex justify-between items-center p-4">
+              <div className={styling}>
                 <p>{formData.comment}</p>
                 <p className="text-2xl"></p>
               </div>
