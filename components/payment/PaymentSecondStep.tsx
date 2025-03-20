@@ -15,11 +15,15 @@ import {
   SelectGroup,
 } from "@/components/ui/select";
 interface PaymentSecondStepProps {
-  onClick: () => void;
+  formData: {
+    comment: string;
+  }
+  handleNext: () => void;
   onGoBack: () => void;
+  handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const PaymentSecondStep = ({ onClick, onGoBack }: PaymentSecondStepProps) => {
+const PaymentSecondStep = ({ formData,handleChange, handleNext, onGoBack }: PaymentSecondStepProps) => {
   const [selectedAccount, setSelectedAccount] = useState<string | null>(null); 
   return (
 
@@ -65,14 +69,16 @@ const PaymentSecondStep = ({ onClick, onGoBack }: PaymentSecondStepProps) => {
               <BanknoteIcon className="absolute size-8 right-2 top-3/4 transform -translate-y-1/2 text-seniorBankDarkBlue" />
             </div>
             <p>Kommentar: </p>
-            <Textarea placeholder="Skriv inn kommentar her ... " className="border-2 border-seniorBankDarkBlue bg-seniorbankWhite" />
+            <Textarea id="comment" value={formData.comment} onChange={handleChange}
+            placeholder="Skriv inn kommentar her ... " className="border-2 border-seniorBankDarkBlue bg-seniorbankWhite" 
+            />
           </div>
           <div className="flex items-stretch m-10 justify-between">
             
             <Button className="w-[45%] min-w-0 px-4 text-2xl flex flex-col float-left" onClick={onGoBack}>
               Tilbake
             </Button>
-            <Button className="w-[45%] min-w-0 px-4 text-2xl flex flex-col float-right" onClick={onClick}>
+            <Button className="w-[45%] min-w-0 px-4 text-2xl flex flex-col float-right" onClick={handleNext}>
               Neste
             </Button>
           </div>
