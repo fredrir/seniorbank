@@ -7,6 +7,8 @@ interface PaymentFirstStepProps {
 }
 
 const PaymentFirstStep = ({onClick }: PaymentFirstStepProps) => {
+  const buttonClassStyling = "bg-seniorBankWhitePurple border-4 hover:border-blue-500 hover:text-seniorbankWhite cursor-pointer group border-seniorBankWhitePurple text-seniorBankDarkBlue  ps-4 flex flex-row gap-4 justify-between";
+  const chevronClassStyling="size-16 group-hover:translate-x-1 transition-transform duration-200";
   return (
     <>
       <section>
@@ -25,18 +27,18 @@ const PaymentFirstStep = ({onClick }: PaymentFirstStepProps) => {
              
             <h1 className="text-seniorBankDarkBlue font-bold text-xl pl-10">Velg konto du vil betale fra: </h1>
             
-            <div className="grid grid-cols-1 m-10 shadow-md font-bold text-seniorBankDarkBlue gap-1 text-2xl rounded-lg justify-between"> 
-              <Button className="bg-seniorBankWhitePurple border-4 hover:border-blue-500 hover:text-seniorbankWhite cursor-pointer group border-seniorBankWhitePurple text-seniorBankDarkBlue  ps-4 flex flex-row gap-4 justify-between">
+            <div className="grid grid-cols-1 m-10 shadow-md font-bold text-seniorBankDarkBlue gap-1 text-2xl rounded-lg justify-between "> 
+              <Button className={buttonClassStyling}>
                 Sparekonto 830 726
-                <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200" />
+                <ChevronRight className={chevronClassStyling} />
               </Button>
-              <Button className="bg-seniorBankWhitePurple border-4 hover:border-blue-500 hover:text-seniorbankWhite cursor-pointer group border-seniorBankWhitePurple text-seniorBankDarkBlue ps-4 flex flex-row gap-4 justify-between"> 
+              <Button className={buttonClassStyling}> 
                 Barnebarn 34 835
-                <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200" />
+                <ChevronRight className={chevronClassStyling} />
               </Button>
-              <Button className="bg-seniorBankWhitePurple border-4 hover:border-blue-500 hover:text-seniorbankWhite cursor-pointer group border-seniorBankWhitePurple text-seniorBankDarkBlue ps-4 flex flex-row gap-4 justify-between"> 
+              <Button className={buttonClassStyling}> 
                 Russetid 10 835
-                <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200" />
+                <ChevronRight className={chevronClassStyling} />
               </Button>
             </div>
 
