@@ -10,16 +10,21 @@ export default function Payment() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     comment: "",
-    amount: ""
+    amount: "",
+    toAccount: ""
   });  
   const handleNext = () => {
     if (step === 2){
       if(formData.comment.trim() ==="" ){
-        toast.error("Fyll ut kommentarer")
+        toast.error("Fyll inn kommentarer")
         return;
       }
       if(formData.amount.trim() ===""){
-        toast.error("Fyll ut beløp")
+        toast.error("Fyll inn beløp")
+        return;
+      }
+      if(formData.toAccount.trim() ===""){
+        toast.error("Fyll inn kontonummer")
         return;
       }
     };
@@ -39,7 +44,7 @@ export default function Payment() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     const { id, value } = e.target;
-    if (id === "amount") {
+    if (id === "amount") { //TODO: Add restrictions so that the amount cannot be larger than the amount on the account
       if (value === "" || /^[0-9]*\.?[0-9]*$/.test(value)) {
         setFormData((prevData) => ({
           ...prevData,
@@ -48,7 +53,21 @@ export default function Payment() {
       } else {
         toast.error("Beløpet må være et tall!");
       }
-    } else {
+    } else if (id === "toAccount") {
+      if (value === "" || /^[0-9]{0,18}$/.test(value)) {
+        setFormData((prevData) => ({
+          ...prevData,
+          [id]: value, 
+        }));
+      } else if (value.length < 8 || value.length > 18){
+        toast.error("Kontonummer må være et tall mellom 8 til 18");
+      }
+      else {
+        toast.error("Kontonummer må være et tall mellom 8 til 18");
+      }
+    }
+    
+    else {
       setFormData((prevData) => ({
         ...prevData,
         [id]: value,

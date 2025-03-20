@@ -18,6 +18,7 @@ interface PaymentSecondStepProps {
   formData: {
     comment: string;
     amount: string;
+    toAccount: string;
   }
   handleNext: () => void;
   onGoBack: () => void;
@@ -62,7 +63,7 @@ const PaymentSecondStep = ({ formData,handleChange, handleNext, onGoBack }: Paym
             </div>
             <p>Til konto: </p>
             <div className="relative">
-              <Input id="name" placeholder="Skriv inn kontonummer her ..." className="border-2 pt-2 pb-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10" type ="number" />
+              <Input  id="toAccount" value={formData.toAccount} onChange={handleChange} type="text" inputMode="numeric" pattern="\d*"  placeholder="Skriv inn kontonummer her ..." className="border-2 pt-2 pb-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10"/>
             </div>
             <div className="relative">
               <p>Beløp</p>
