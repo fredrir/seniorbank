@@ -20,6 +20,7 @@ interface PaymentSecondStepProps {
     comment: string;
     amount: string;
     toAccount: string;
+    fromAccount: string;
   };
   handleNext: () => void;
   onGoBack: () => void;
@@ -47,28 +48,8 @@ const PaymentSecondStep = ({
           </h1>
           <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-3 rounded-lg text-3xl">
             <p>Fra konto: </p>
-            <div className="w-full">
-              <Select onValueChange={(value) => setSelectedAccount(value)}>
-                <SelectTrigger className="bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex items-center justify-between px-4 h-12">
-                  <SelectValue
-                    placeholder="Velg en konto"
-                    className="!text-2xl placeholder:text-2xl"
-                  />
-                </SelectTrigger>
-                <SelectContent className="bg-white rounded-lg w-full shadow-md pt-3 pb-3 z-10 mt-1 text-xl">
-                  <SelectGroup className="flex flex-col items-center ">
-                    <SelectItem value={"sparekonto"} className="text-xl">
-                      Sparekonto 830 726 kr
-                    </SelectItem>
-                    <SelectItem value={"barnebarn"} className="text-xl">
-                      Barnebarn 34 835 kr
-                    </SelectItem>
-                    <SelectItem value={"russetid"} className="text-xl">
-                      Russetid 10 835 kr
-                    </SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+            <div className="border-2 border-seniorBankDarkBlue h-20 bg-seniorbankWhite ps-3 pr-10 !text-2xl flex items-center rounded-md">
+              <p>{formData.fromAccount}</p>
             </div>
             <p>Til konto: </p>
             <div className="relative">

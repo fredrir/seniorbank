@@ -4,9 +4,10 @@ import { ProgressBar } from "../all/ProgressBar";
 
 interface PaymentFirstStepProps {
   onClick: () => void;
+  onSelectAccount: (account: string) => void;
 }
 
-const PaymentFirstStep = ({ onClick }: PaymentFirstStepProps) => {
+const PaymentFirstStep = ({ onClick, onSelectAccount }: PaymentFirstStepProps) => {
   const buttonClassStyling =
     "bg-seniorBankWhitePurple border-4 hover:border-blue-500 text-3xl hover:text-seniorbankWhite cursor-pointer group border-seniorBankWhitePurple text-seniorBankDarkBlue p-16 ps-4  flex flex-row gap-4 justify-between";
   const chevronClassStyling =
@@ -25,15 +26,15 @@ const PaymentFirstStep = ({ onClick }: PaymentFirstStepProps) => {
             </h1>
 
             <div className="grid grid-cols-1 m-10 shadow-md font-bold  text-seniorBankDarkBlue gap-1 text-3xl rounded-lg justify-between ">
-              <Button className={buttonClassStyling}>
+              <Button className={buttonClassStyling} onClick={() => onSelectAccount("Sparekonto 830 726")}>
                 Sparekonto 830 726
-                <ChevronRight className={chevronClassStyling} />
+                <ChevronRight className={chevronClassStyling}/>
               </Button>
-              <Button className={buttonClassStyling}>
+              <Button className={buttonClassStyling} onClick={() => onSelectAccount("Barnebarn 34 835")}>
                 Barnebarn 34 835
                 <ChevronRight className={chevronClassStyling} />
               </Button>
-              <Button className={buttonClassStyling}>
+              <Button className={buttonClassStyling} onClick={() => onSelectAccount("Russetid 10 835")}>
                 Russetid 10 835
                 <ChevronRight className={chevronClassStyling} />
               </Button>

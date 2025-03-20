@@ -17,7 +17,7 @@ const PaymentThirdStep = ({
   onGoBack,
 }: PaymentThirdStepProps) => {
   const styling =
-    "bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex justify-between items-center p-4";
+    "bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex justify-between h-20  items-center p-4";
   return (
     <>
       <section>
@@ -31,7 +31,7 @@ const PaymentThirdStep = ({
               Bekreft betaling{" "}
             </h1>
             <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-3 rounded-lg text-3xl">
-              <div className="flex justify-between w-full items-center mb-6">
+              <div className="flex justify-between w-full  items-center mb-6">
                 <p>Du er i ferd med å betale:</p>
                 <p className="text-3xl  items-center">{formData.amount}</p>
               </div>

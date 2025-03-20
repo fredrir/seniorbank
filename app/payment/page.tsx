@@ -12,6 +12,7 @@ export default function Payment() {
     comment: "",
     amount: "",
     toAccount: "",
+    fromAccount: ""
     // acconuntID: 0 TODO: When connected to the account database
   });  
   const handleNext = () => {
@@ -54,6 +55,13 @@ export default function Payment() {
     toast.success("Kommentar er sendt inn")
     setStep(step+1);
   }
+  const handleSelectAccount = (account: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      fromAccount: account,
+    }));
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     const { id, value } = e.target;
@@ -91,7 +99,7 @@ export default function Payment() {
   let stepComponent; 
 
   if (step === 1) {
-    stepComponent = <PaymentFirstStep onClick={handleNext}/>;
+    stepComponent = <PaymentFirstStep onSelectAccount={handleSelectAccount} onClick={handleNext} />;
   }
 
   if (step === 2) {
