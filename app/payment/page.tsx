@@ -88,10 +88,10 @@ export default function Payment() {
     onGoBack={handleGoBack}/>
   }
   if (step === 3) {
-    stepComponent = <PaymentThirdStep onClick={handleSubmit} onGoBack={handleGoBack}/>
+    stepComponent = <PaymentThirdStep  formData={formData} onClick={handleSubmit} onGoBack={handleGoBack}/>
   }
   if (step === 4) {
-    stepComponent = <PaymentFourtStep onClick={handleReset}/>
+    stepComponent = <PaymentFourtStep  onClick={handleReset}/>
   }
   return (
     <section>

@@ -3,9 +3,16 @@ import { Button } from "../ui/button";
 interface PaymentThirdStepProps {
   onClick: () => void;
   onGoBack: () => void;
+  formData: {
+    comment: string;
+    amount: string;
+    toAccount: string;
+  }
+
 }
 
-const PaymentThirdStep = ({ onClick, onGoBack }: PaymentThirdStepProps) => {
+
+const PaymentThirdStep = ({formData, onClick, onGoBack }: PaymentThirdStepProps) => {
   return (
     <>
       <section>
@@ -26,7 +33,7 @@ const PaymentThirdStep = ({ onClick, onGoBack }: PaymentThirdStepProps) => {
             <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-3 rounded-lg text-xl">
               <div className="flex justify-between w-full items-center">
                 <p>Du er i ferd med å betale:</p>
-                <p className="text-2xl">5000 kr</p>
+                <p className="text-2xl">{formData.amount}</p>
               </div>
               <p>Fra konto:</p>
               <div className="bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex justify-between items-center p-4">
@@ -36,7 +43,7 @@ const PaymentThirdStep = ({ onClick, onGoBack }: PaymentThirdStepProps) => {
 
               <p>Til konto:</p>
               <div className="bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex justify-between items-center p-4">
-                <p>1111.22.33334</p>
+                <p>{formData.toAccount}</p>
                 <p className="text-2xl"></p>
               </div>
               <p className="text-center">Dette vil varsle Trygghetskontakten din.</p>
