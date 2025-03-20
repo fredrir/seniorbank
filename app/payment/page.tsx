@@ -9,13 +9,17 @@ import toast from "react-hot-toast";
 export default function Payment() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    comment: ""
+    comment: "",
+    amount: ""
   });  
   const handleNext = () => {
-    if (step === 2 && formData.comment.trim() ===""){
-      if(formData.comment === "")
-      {
+    if (step === 2){
+      if(formData.comment.trim() ==="" ){
         toast.error("Fyll ut kommentarer")
+        return;
+      }
+      if(formData.amount.trim() ===""){
+        toast.error("Fyll ut beløp")
         return;
       }
     };
@@ -35,11 +39,22 @@ export default function Payment() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     const { id, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: value,  
-    }));
-  };  
+    if (id === "amount") {
+      if (value === "" || /^[0-9]*\.?[0-9]*$/.test(value)) {
+        setFormData((prevData) => ({
+          ...prevData,
+          [id]: value, 
+        }));
+      } else {
+        toast.error("Beløpet må være et tall!");
+      }
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [id]: value,
+      }));
+    }
+  };
 
   let stepComponent; 
 

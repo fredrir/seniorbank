@@ -17,10 +17,11 @@ import {
 interface PaymentSecondStepProps {
   formData: {
     comment: string;
+    amount: string;
   }
   handleNext: () => void;
   onGoBack: () => void;
-  handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
 const PaymentSecondStep = ({ formData,handleChange, handleNext, onGoBack }: PaymentSecondStepProps) => {
@@ -65,7 +66,7 @@ const PaymentSecondStep = ({ formData,handleChange, handleNext, onGoBack }: Paym
             </div>
             <div className="relative">
               <p>Beløp</p>
-              <Input id="name" placeholder="Skriv inn beløp her ..." className="border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10" type ="number"/>
+              <Input id="amount" value={formData.amount} onChange={handleChange} type="text" inputMode="numeric" pattern="\d*"  placeholder="Skriv inn beløp her ..." className="border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10"/>
               <BanknoteIcon className="absolute size-8 right-2 top-3/4 transform -translate-y-1/2 text-seniorBankDarkBlue" />
             </div>
             <p>Kommentar: </p>
