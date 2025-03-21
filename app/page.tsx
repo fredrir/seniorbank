@@ -13,9 +13,10 @@ import {
   Wallet,
 } from "lucide-react";
 import { getServerSession } from "next-auth";
+import { authOptions } from "./api/[auth]/[...nextauth]/authOptions";
 
 export default async function Home() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   const menuOptions = [
     {
@@ -64,14 +65,12 @@ export default async function Home() {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod incididunt.
         </p>
-    
 
         <div className="absolute top-[375px]">
           <BankAccountCard
-            title="Brukskonto"
-            accountNumber="1080 28 27364"
-            balance={18932.54}
-            href="/konto/1080-28-27364"
+            bankAccount={session?.user.bankAccounts.find(
+              (account) => account.main,
+            )}
           />
         </div>
       </section>

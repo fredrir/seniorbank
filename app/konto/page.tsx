@@ -2,48 +2,13 @@ import AccountCard from "@/components/account-overview/AccountCard";
 import HeaderText from "@/components/all/HeaderText";
 import SubHeaderText from "@/components/all/SubHeaderText";
 import { BankAccountCard } from "@/components/homepage/BankAccountCard";
-import { BankAccount } from "@/lib/types";
 import { ShieldAlert } from "lucide-react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/[auth]/[...nextauth]/authOptions";
 
-//TODO mock data
+export default async function AccountOverviewPage() {
+  const session = await getServerSession(authOptions);
 
-const savingAccounts: BankAccount[] = [
-  {
-    title: "Sparekonto",
-    accountNumber: "1080 28 27364",
-    balance: 18932.54,
-    type: "savings",
-  },
-  {
-    title: "Barnebarn",
-    accountNumber: "1080 28 27364",
-    balance: 18932.54,
-    type: "savings",
-  },
-  {
-    title: "Russetid",
-    accountNumber: "1080 28 27364",
-    balance: 18932.54,
-    type: "savings",
-  },
-];
-
-const loanAccounts: BankAccount[] = [
-  {
-    title: "Boliglån",
-    accountNumber: "1080 28 27364",
-    balance: 18932.54,
-    type: "loan",
-  },
-  {
-    title: "Studielån",
-    accountNumber: "1080 28 27364",
-    balance: 18932.54,
-    type: "loan",
-  },
-];
-
-export default function AccountOverviewPage() {
   return (
     <>
       <section className="h-[450px]">
@@ -65,38 +30,23 @@ export default function AccountOverviewPage() {
           </article>
 
           <BankAccountCard
-            title="Brukskonto"
-            accountNumber="1080 28 27364"
-            balance={18932.54}
-            href="/konto/1080-28-27364"
+            bankAccount={session?.user.bankAccounts.find(
+              (account) => account.main,
+            )}
           />
         </div>
       </section>
-      <section className="mb-8 mt-16 grid w-full grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
+      <section className="mb-8 mt-16 flex w-full flex-col">
         <div>
           <SubHeaderText title="Sparekonto" />
 
           <div className="rounded-[2.5rem] border-[0.4rem] border-seniorBankLightBlue">
-            {savingAccounts.map((account, index) => (
+            {session?.user.bankAccounts.map((account, index) => (
               <AccountCard
                 account={account}
                 key={index}
                 index={index}
-                length={savingAccounts.length}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <SubHeaderText title="Lån" />
-          <div className="rounded-[2.5rem] border-[0.4rem] border-seniorBankLightBlue">
-            {loanAccounts.map((account, index) => (
-              <AccountCard
-                account={account}
-                key={index}
-                index={index}
-                length={loanAccounts.length}
+                length={session.user.bankAccounts.length}
               />
             ))}
           </div>
