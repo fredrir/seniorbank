@@ -29,7 +29,6 @@ const PaymentSecondStep = ({
   handleNext,
   onGoBack,
 }: PaymentSecondStepProps) => {
-  const [selectedAccount, setSelectedAccount] = useState<string | null>(null);
   return (
     <section>
         <h1 className="text-seniorBankDarkBlue font-bold text-4xl mt-5">
