@@ -5,7 +5,6 @@ import PaymentSecondStep from "@/components/payment/PaymentSecondStep";
 import PaymentThirdStep from "@/components/payment/PaymentThirdStep";
 import PaymentFourtStep from "@/components/payment/PaymentFourthStep";
 import toast from "react-hot-toast";
-import AccountView from "@/components/payment/AccountView";
 
 export default function Payment() {
   const [step, setStep] = useState(1);
@@ -60,6 +59,10 @@ export default function Payment() {
 
   const handleReset = () => {
     setStep(1);
+    formData.comment = "",
+    formData.amount = "",
+    formData.toAccount = "",
+    formData.fromAccount = ""
   };
 
   const handleSubmit = () => {
