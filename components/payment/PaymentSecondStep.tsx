@@ -2,18 +2,12 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { BanknoteIcon, ChevronDown, Check } from "lucide-react";
-import Link from "next/link";
+import { BanknoteIcon} from "lucide-react";
+
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-  SelectGroup,
-} from "@/components/ui/select";
+
+ 
 import { ProgressBar } from "../all/ProgressBar";
 interface PaymentSecondStepProps {
   formData: {

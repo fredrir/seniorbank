@@ -1,4 +1,3 @@
-import { ChevronRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { ProgressBar } from "../all/ProgressBar";
 import AccountView from "./AccountView";

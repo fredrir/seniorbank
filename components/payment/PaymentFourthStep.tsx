@@ -1,4 +1,3 @@
-import { Check } from "lucide-react";
 import { Button } from "../ui/button";
 import { ProgressBar } from "../all/ProgressBar";
 
