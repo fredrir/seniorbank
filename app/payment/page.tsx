@@ -33,10 +33,6 @@ export default function Payment() {
   const handleNext = () => {
     const accountNumber = formData.toAccount.trim();
     if (step === 2){
-      if(formData.comment.trim() ==="" ){
-        toast.error("Fyll inn kommentarer")
-        return;
-      }
       if(formData.amount.trim() ===""){
         toast.error("Fyll inn beløp")
         return;
