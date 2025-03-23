@@ -5,6 +5,7 @@ import PaymentSecondStep from "@/components/payment/PaymentSecondStep";
 import PaymentThirdStep from "@/components/payment/PaymentThirdStep";
 import PaymentFourtStep from "@/components/payment/PaymentFourthStep";
 import toast from "react-hot-toast";
+import AccountView from "@/components/payment/AccountView";
 
 export default function Payment() {
   const [step, setStep] = useState(1);
@@ -13,8 +14,23 @@ export default function Payment() {
     amount: "",
     toAccount: "",
     fromAccount: ""
-    // acconuntID: 0 TODO: When connected to the account database
   });  
+
+  const accountOptions = [
+    {
+      title: "Sparekonto",
+      amount: 830726,
+    },
+    {
+      title: "Barnebarn",
+      amount: 34835,
+    },
+    {
+      title: "Russetid",
+      amount: 10835,
+    },
+  ];
+
   const handleNext = () => {
     const accountNumber = formData.toAccount.trim();
     if (step === 2){
@@ -36,26 +52,25 @@ export default function Payment() {
       }
     };
     setStep(step+1);
-  }
-  // const handleAccountID = (selectedAccountID: number) => {
-  //   setFormData({
-  //     ...formData,
-  //     acconuntID: selectedAccountID
-  //   });
-  // } TODO: When connected to the account database
+  };
+
   const handleGoBack = () => {
     setStep(step-1);
-  }
+  };
+
   const handleReset = () => {
     setStep(1);
-  }
+  };
+
   const handleSubmit = () => {
     //TODO: Temp console log
     console.log(formData);
     toast.success("Kommentar er sendt inn")
     setStep(step+1);
-  }
+  };
+
   const handleSelectAccount = (account: string) => {
+    console.log("Selected account:", account);
     setFormData((prevData) => ({
       ...prevData,
       fromAccount: account,
@@ -87,7 +102,6 @@ export default function Payment() {
         toast.error("Kontonummer må være et tall mellom 8 til 18");
       }
     }
-    
     else {
       setFormData((prevData) => ({
         ...prevData,
@@ -99,8 +113,8 @@ export default function Payment() {
   let stepComponent; 
 
   if (step === 1) {
-    stepComponent = <PaymentFirstStep onSelectAccount={handleSelectAccount} onClick={handleNext} />;
-  }
+    stepComponent = <PaymentFirstStep onSelectAccount={handleSelectAccount} onClick={handleNext}  accountOptions={accountOptions} />;
+  };
 
   if (step === 2) {
     stepComponent = <PaymentSecondStep formData={formData} 
