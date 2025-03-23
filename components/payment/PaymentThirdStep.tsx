@@ -32,7 +32,7 @@ const PaymentThirdStep = ({
             <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-3 rounded-lg text-3xl">
               <div className="flex justify-between w-full  items-center mb-6">
                 <p>Du er i ferd med å betale:</p>
-                <p className="text-3xl  items-center">{formData.amount}</p>
+                <p className="text-3xl  items-center">{formData.amount} kr</p>
               </div>
               <p>Fra konto:</p>
               <div className={styling}>
