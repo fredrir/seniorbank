@@ -68,7 +68,7 @@ export default function Payment() {
   const handleSubmit = () => {
     //TODO: Temp console log
     console.log(formData);
-    toast.success("Kommentar er sendt inn")
+    toast.success("Betalingen er gjennomført.")
     setStep(step+1);
   };
 
@@ -90,7 +90,7 @@ export default function Payment() {
           [id]: value, 
         }));
       } else {
-        toast.error("Beløpet må være et tall!");
+        toast.error("Beløpet må være et tall.");
       }
     } else if (id === "toAccount") {
       if (value === "" || /^[0-9]{0,18}$/.test(value)) {
@@ -99,10 +99,10 @@ export default function Payment() {
           [id]: value, 
         }));
       } else if (value.length < 8 || value.length > 18){
-        toast.error("Kontonummer må være et tall mellom 8 til 18");
+        toast.error("Kontonummer må være et tall mellom 8 til 18.");
       }
       else {
-        toast.error("Kontonummer må være et tall mellom 8 til 18");
+        toast.error("Kontonummer må være et tall mellom 8 til 18.");
       }
     }
     else {
