@@ -121,11 +121,11 @@ export default function Payment() {
   let stepComponent; 
 
   if (step === 1) {
-    stepComponent = <PaymentFirstStep onSelectAccount={handleSelectFromAccount} onClick={handleNext}  accountOptions={accountOptions} />;
+    stepComponent = <PaymentFirstStep onSelectAccount={handleSelectFromAccount} onClick={handleNext} accountOptions={accountOptions} selectedAccount={formData.fromAccount} />;
   };
 
   if (step ===2){
-    stepComponent = <MediumPaymentSecondStep onSelectAccount={handleSelectToAccount} onClick={handleNext}  approvedAccountOptions={approvedAccountOptions} onGoBack={handleGoBack}/>
+    stepComponent = <MediumPaymentSecondStep onSelectAccount={handleSelectToAccount} onClick={handleNext}  approvedAccountOptions={approvedAccountOptions} onGoBack={handleGoBack} selectedAccount={formData.toAccount}/>
   }
 if (step === 3) {
     stepComponent = <MediumPaymentThirdStep handleChange={handleChange}   formData={formData} onSelectAccount={handleSelectToAccount} onGoBack={handleGoBack} onClick={handleNext}  approvedAccountOptions={approvedAccountOptions}/>

@@ -7,13 +7,15 @@ interface MediumPaymentSecondStep {
   onSelectAccount: (account: string) => void;
   onGoBack: () => void;
   approvedAccountOptions: { title: string; accountNumber: number }[];
-}
+  selectedAccount: string;
+} 
 
 const MediumPaymentSecondStep = ({
   onClick,
   onSelectAccount,
   approvedAccountOptions,
   onGoBack,
+  selectedAccount,
 }: MediumPaymentSecondStep) => {
   return (
     <>
@@ -43,8 +45,9 @@ const MediumPaymentSecondStep = ({
             <Button
               className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-right"
               onClick={onClick}
+              disabled={!selectedAccount}
             >
-              Neste
+              {!selectedAccount ? "Du må velge en konto" : "Neste"}
             </Button>
           </div>
         </div>
