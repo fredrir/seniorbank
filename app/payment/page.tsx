@@ -112,7 +112,7 @@ export default function Payment() {
   let stepComponent; 
 
   if (step === 1) {
-    stepComponent = <PaymentFirstStep onSelectAccount={handleSelectAccount} onClick={handleNext}  accountOptions={accountOptions} />;
+    stepComponent = <PaymentFirstStep onSelectAccount={handleSelectAccount} onClick={handleNext}  accountOptions={accountOptions} selectedAccount={formData.fromAccount} />;
   };
 
   if (step === 2) {

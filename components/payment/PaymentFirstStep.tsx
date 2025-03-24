@@ -6,12 +6,14 @@ interface PaymentFirstStepProps {
   onClick: () => void;
   onSelectAccount: (account: string) => void;
   accountOptions: { title: string; amount: number }[];
+  selectedAccount: string;
 }
 
 const PaymentFirstStep = ({
   onClick,
   onSelectAccount,
   accountOptions,
+  selectedAccount,
 }: PaymentFirstStepProps) => {
   return (
     <>
@@ -28,7 +30,9 @@ const PaymentFirstStep = ({
                 amount={option.amount}
                 key={index}
                 onClick={() => onSelectAccount(option.title)}
+                
               />
+              
             ))}
           </div>
 
@@ -36,8 +40,9 @@ const PaymentFirstStep = ({
             <Button
               className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-right"
               onClick={onClick}
+              disabled={!selectedAccount}
             >
-              Neste
+              {!selectedAccount ? "Du må velge en konto" : "Neste"}
             </Button>
           </div>
         </div>

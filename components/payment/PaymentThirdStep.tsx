@@ -7,6 +7,7 @@ interface PaymentThirdStepProps {
     comment: string;
     amount: string;
     toAccount: string;
+    fromAccount: string;
   };
 }
 
@@ -32,8 +33,7 @@ const PaymentThirdStep = ({
               </div>
               <p>Fra konto:</p>
               <div className={styling}>
-                <p>Sparekonto</p>
-                <p className="text-2xl">830 726 kr</p>
+                {formData.fromAccount}
               </div>
 
               <p>Til konto:</p>
