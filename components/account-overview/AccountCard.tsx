@@ -1,4 +1,4 @@
-import { BankAccount } from "@/lib/types";
+import { BankAccount } from "@prisma/client";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ interface Props {
 const AccountCard = ({ account, index, length }: Props) => {
   return (
     <Link
-      href={`/konto/${account.accountNumber}`}
+      href={`/konto/${account.id}`}
       key={index}
       className={`group flex w-full items-center justify-between border-seniorBankLightBlue px-4 py-6 ${
         index === 0
@@ -22,7 +22,7 @@ const AccountCard = ({ account, index, length }: Props) => {
       }`}
     >
       <h3 className="text-2xl font-bold text-seniorBankDarkBlue lg:text-3xl">
-        {account.title}
+        {account.name}
       </h3>
       <div className="flex items-center">
         <h3 className="text-xl font-bold text-seniorBankDarkBlue lg:text-2xl">

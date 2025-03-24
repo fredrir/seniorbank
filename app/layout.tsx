@@ -36,9 +36,9 @@ export default function RootLayout({
           "bg-seniorbankWhite text-primary antialiased",
         )}
       >
+        <Toaster />
         <SessionWrapper>
           <AuthLayout>
-            <Toaster />
             <NavBar />
             <div className="mx-auto max-w-4xl px-2 md:px-0">{children} </div>
           </AuthLayout>

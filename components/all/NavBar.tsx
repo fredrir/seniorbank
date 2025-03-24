@@ -38,10 +38,9 @@ const NavBar = () => {
     });
 
   return (
-    <div className="flex w-full justify-center bg-seniorbankBlue">
-      <nav className="flex max-w-4xl flex-row items-center justify-between pb-4">
-        <div />
-        <span className="flex flex-row items-center justify-center border-b-2 border-white px-4">
+    <div className="flex w-full justify-between items-center bg-seniorbankBlue px-4">
+      <nav className="flex flex-row items-center justify-center flex-1">
+        <span className="flex flex-row items-center justify-center border-b-2 border-white">
           {navLinks.map((link, index) => (
             <Link
               href={link.path}
@@ -59,14 +58,13 @@ const NavBar = () => {
             </Link>
           ))}
         </span>
-
-        <button
-          className="ml-4 flex gap-1 rounded-lg bg-[#D3D3EA] px-4 py-1 text-2xl font-bold text-[#002776] hover:opacity-80"
-          onClick={handleLogout}
-        >
-          Logg ut
-        </button>
       </nav>
+      <button
+        className="ml-8 flex gap-1 rounded-lg bg-[#D3D3EA] px-6 py-2 text-2xl font-bold text-[#002776] hover:opacity-80"
+        onClick={handleLogout}
+      >
+        Logg ut
+      </button>
     </div>
   );
 };

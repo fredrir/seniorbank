@@ -20,6 +20,7 @@ const FirstStep = ({ setFormData, setStep }: Props) => {
     {
       id: 1,
       level: "Basis nivå",
+      enum: "EASY",
       description: [
         "De fleste funksjoner er forenklet",
         "Kun bassifunksjoner som saldooversikt og betaling av faste regninger",
@@ -30,6 +31,7 @@ const FirstStep = ({ setFormData, setStep }: Props) => {
     {
       id: 2,
       level: "Moderert kontroll",
+      enum: "MEDIUM",
       description: [
         "Litt flere muligheter, som å betale nye regninger og overføre mellom egne kontoer",
         "Advarsler ved ukjente mottakere eller større transaksjoner",
@@ -39,6 +41,7 @@ const FirstStep = ({ setFormData, setStep }: Props) => {
     {
       id: 3,
       level: "Full frihet",
+      enum: "HARD",
       description: [
         "Alle funksjoner tilgjengelige, inkludert investeringer, uten bekrensninger",
         "Du kan fortsatt velge å varsle din trygghetskontakt ved større eller uvanlige transaksjoner",
@@ -56,7 +59,7 @@ const FirstStep = ({ setFormData, setStep }: Props) => {
           onClick={() => {
             setFormData((prev) => ({
               ...prev,
-              difficulty: difficulty.level,
+              difficulty: difficulty.enum,
             }));
             setStep(2);
           }}
