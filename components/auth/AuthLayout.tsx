@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
-import Link from "next/link";
-import { ShieldIcon, LockIcon } from "lucide-react";
+import { ShieldIcon } from "lucide-react";
 import { getServerSession } from "next-auth";
 import RegisterAccountPage from "../register/RegisterAccount";
 import { authOptions } from "@/app/api/[auth]/[...nextauth]/authOptions";
+import LoginButton from "./LoginButton";
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -22,13 +22,7 @@ const AuthLayout = async ({ children }: AuthLayoutProps) => {
             Sikker tilgang til din økonomi
           </p>
         </div>
-        <Link
-          href="/api/auth/signin"
-          className="flex flex-row items-center justify-center rounded-lg bg-seniorBankDarkBlue px-4 py-2 text-white hover:bg-blue-700"
-        >
-          <LockIcon className="mr-2 h-4 w-4" />
-          Logg inn
-        </Link>
+        <LoginButton />
       </div>
     );
   } else if (!session.user.hasRegistered) {
