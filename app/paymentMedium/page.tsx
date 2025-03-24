@@ -56,10 +56,12 @@ export default function Payment() {
 
   const handleReset = () => {
     setStep(1);
-    formData.comment = "",
-    formData.amount = "",
-    formData.toAccount = "",
-    formData.fromAccount = ""
+    setFormData({
+      comment:"",
+      amount:"",
+      toAccount:"",
+      fromAccount:"",
+    });
   };
 
   const handleSubmit = () => {
