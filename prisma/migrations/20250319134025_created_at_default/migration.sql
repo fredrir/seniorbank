@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Transaction" ALTER COLUMN "createdAt" SET DEFAULT CURRENT_TIMESTAMP;

@@ -33,14 +33,14 @@ export default function RootLayout({
         className={cn(
           geistSans.className,
           geistMono.className,
-          "antialiased text-primary bg-seniorbankWhite "
+          "bg-seniorbankWhite text-primary antialiased",
         )}
       >
+        <Toaster />
         <SessionWrapper>
           <AuthLayout>
-            <Toaster />
             <NavBar />
-            <div className="mx-auto px-2 md:px-0 max-w-4xl">{children} </div>
+            <div className="mx-auto max-w-4xl px-2 md:px-0">{children} </div>
           </AuthLayout>
         </SessionWrapper>
       </body>

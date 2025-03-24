@@ -1,6 +1,9 @@
+import HeaderText from "@/components/all/HeaderText";
+import SubHeaderText from "@/components/all/SubHeaderText";
 import { BankAccountCard } from "@/components/homepage/BankAccountCard";
 import MenuOption from "@/components/homepage/MenuOptions";
 import { WarningSection } from "@/components/homepage/WarningSection";
+import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
 import {
   ArrowBigDownDash,
   Banknote,
@@ -10,94 +13,107 @@ import {
   Wallet,
 } from "lucide-react";
 import { getServerSession } from "next-auth";
+import { authOptions } from "./api/[auth]/[...nextauth]/authOptions";
+import HiddenMenuOptions from "@/components/homepage/HiddenMenuOptions";
 
 export default async function Home() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   const menuOptions = [
     {
       title: "Konto oversikt",
       description: "Se oversikt over dine kontoer",
       icon: <Banknote className="size-16" />,
+      href: "/konto",
+      availableFor: ["EASY", "MEDIUM", "HARD"],
     },
     {
       title: "Betaling",
       description: "Betale fakturaer og opprett AvtaleGiro",
       icon: <Wallet className="size-16" />,
+      availableFor: ["MEDIUM", "HARD"],
     },
     {
       title: "Overfør",
       description: "Overfør penger mellom egne kontoer",
       icon: <ArrowBigDownDash className="size-16" />,
+      availableFor: ["EASY", "MEDIUM", "HARD"],
     },
     {
       title: "Meldinger",
       description: "Les meldinger og varslinger fra banken",
       icon: <MailIcon className="size-16" />,
+      availableFor: ["HARD"],
     },
     {
       title: "Spør om hjelp",
       description: "Kontakt vår kundehjelp eller Trygghetskontakten",
       icon: <HelpCircle className="size-16" />,
+      availableFor: ["EASY", "MEDIUM", "HARD"],
+      href: "/kontaktside",
     },
 
     {
       title: "Innstillinger",
       description: "Endre på instillinger og infomasjon",
       icon: <Settings className="size-16" />,
+      availableFor: ["HARD"],
     },
   ];
 
+  const filteredMenuOptions = menuOptions.filter((option) =>
+    option.availableFor.includes(session?.user.difficulty as string),
+  );
+
+  const hiddenMenuOptions = menuOptions.filter(
+    (option) =>
+      !option.availableFor.includes(session?.user.difficulty as string),
+  );
+
   return (
     <>
-      <section className="h-[450px]">
-        <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          width={100}
-          height={100}
-          className="absolute top-0 left-0 w-full h-[500px] z-[-1] text-[#015aa4]"
-        >
-          <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
-        </svg>
-        <h1 className="text-7xl font-bold my-8 text-white">
-          {session ? `Hei, ${session.user.name}` : "Hei, Navn Navnesen"}
-        </h1>
+      <BackgroundGraphic variant="top-halfcircle" className="text-[#015aa4]" />
+      <section className="h-[450px] overflow-hidden">
+        <HeaderText
+          title={session ? `Hei, ${session.user.name}` : "Hei, Navn Navnesen"}
+          className="my-8"
+        />
         <p className="text-3xl text-white">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod incididunt.
         </p>
 
-        <div className="absolute top-[300px]">
+        <div className="absolute top-[375px]">
           <BankAccountCard
-            title="Brukskonto"
-            accountNumber="1080 28 27364"
-            balance={18932.54}
-            href="/accounts/x"
+            bankAccount={session?.user.bankAccounts.find(
+              (account) => account.main,
+            )}
           />
         </div>
       </section>
 
       <section>
-        <h2 className="text-5xl font-bold mb-8 text-seniorBankDarkBlue">
-          Handlinger
-        </h2>
+        <SubHeaderText title="Handlinger" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
-          {menuOptions.map((option, index) => (
+        <div
+          className={`grid w-full grid-cols-1 gap-8 ${session?.user.difficulty === "EASY" ? "" : "md:grid-cols-2"}`}
+        >
+          {filteredMenuOptions.map((option, index) => (
             <MenuOption
               title={option.title}
               description={option.description}
               icon={option.icon}
+              href={option.href}
               key={index}
             />
           ))}
         </div>
       </section>
 
-      <section className="absolute left-0 right-0">
-        <WarningSection />
-      </section>
+      {session?.user.difficulty !== "HARD" && (
+        <HiddenMenuOptions hiddenMenuOptions={hiddenMenuOptions} />
+      )}
+      <WarningSection />
     </>
   );
 }
