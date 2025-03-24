@@ -7,15 +7,14 @@ import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
 import {
   ArrowBigDownDash,
   Banknote,
-  ChevronDown,
-  ChevronRight,
   HelpCircle,
   MailIcon,
   Settings,
-  Wallet
+  Wallet,
 } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/[auth]/[...nextauth]/authOptions";
+import HiddenMenuOptions from "@/components/homepage/HiddenMenuOptions";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -61,21 +60,14 @@ export default async function Home() {
     },
   ];
 
-
-  //TODO  get user difficulty
-  const difficulty = "MEDIUM";
-
   const filteredMenuOptions = menuOptions.filter((option) =>
-    option.availableFor.includes(difficulty)
+    option.availableFor.includes(session?.user.difficulty as string),
   );
 
-
-  const hiddenMenuOptions = menuOptions.filter((option) => 
-    !option.availableFor.includes(difficulty)
+  const hiddenMenuOptions = menuOptions.filter(
+    (option) =>
+      !option.availableFor.includes(session?.user.difficulty as string),
   );
-
-  //const [showHidden, setShowHidden] = useState(false); 
-
 
   return (
     <>
@@ -102,9 +94,9 @@ export default async function Home() {
       <section>
         <SubHeaderText title="Handlinger" />
 
-
-
-        <div className={`grid w-full grid-cols-1 gap-8 ${difficulty === "EASY" ? "" : "md:grid-cols-2"}`}>
+        <div
+          className={`grid w-full grid-cols-1 gap-8 ${session?.user.difficulty === "EASY" ? "" : "md:grid-cols-2"}`}
+        >
           {filteredMenuOptions.map((option, index) => (
             <MenuOption
               title={option.title}
@@ -117,43 +109,9 @@ export default async function Home() {
         </div>
       </section>
 
-
-      <div>
-      <button className="">
-        {hiddenMenuOptions.length > 0 && (
-          <details>
-           <summary className="text-seniorBankDarkBlue font-bold text-4xl py-20 flex items-center gap-2">
-           Flere handlinger
-           <ChevronDown className="size-16" />
-            </summary> 
-
-
-
-            <div className="mt-2 flex flex-col gap-8">
-            {hiddenMenuOptions.map((option, index) => (
-              <a
-                key={`hidden-${index}`}
-                href={option.href}
-                className="flex items-center gap-8 p-6 rounded-2xl py-4 shadow hover:border-blue-500 border-4 border-seniorBankLightBlue"
-              >
-                {option.icon}
-                <div className="flex flex-col gap-4 items-start">
-                  <h1 className="font-bold text-2xl">{option.title}</h1>
-                  <p className="text-gray-600 ">{option.description}</p>
-                </div>
-
-                <div className="flex flex-col justify-center">
-                <ChevronRight className="size-16 transition-transform duration-200 group-hover:translate-x-1" />
-              </div>
-              </a>
-            ))}
-          </div>
-          </details>
-        )}
-      </button>
-    </div>
-
-
+      {session?.user.difficulty !== "HARD" && (
+        <HiddenMenuOptions hiddenMenuOptions={hiddenMenuOptions} />
+      )}
       <WarningSection />
     </>
   );
