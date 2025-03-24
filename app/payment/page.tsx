@@ -129,6 +129,18 @@ export default function Payment() {
   }
   return (
     <section>
+      <h1 className="text-white font-bold text-4xl mt-5">
+          Betal
+        </h1>
+      <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          width={100}
+          height={100}
+          className="absolute top-0 left-0 w-full h-[500px] z-[-1] text-[#015aa4]"
+        >
+          <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
+        </svg>
       {stepComponent}
     </section>
 

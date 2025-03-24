@@ -16,10 +16,6 @@ const PaymentFirstStep = ({
   return (
     <>
       <section>
-        <h1 className="text-seniorBankDarkBlue font-bold text-4xl mt-5">
-          Betal
-        </h1>
-
         <div className=" border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
           <ProgressBar totalSteps={3} currentStep={1} />
           <h1 className="text-seniorBankDarkBlue font-bold text-3xl pl-10">

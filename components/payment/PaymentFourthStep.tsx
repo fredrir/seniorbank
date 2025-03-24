@@ -14,10 +14,6 @@ const PaymentFourtStep = ({ formData, onClick }: PaymentFourthStepProps) => {
   return (
     <>
       <section>
-          <h1 className="text-seniorBankDarkBlue font-bold text-4xl mt-5">
-            Betal
-          </h1>
-
           <div className="border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6 ">
             <ProgressBar totalSteps={3} currentStep={4} />
             <h1 className="text-seniorBankDarkBlue font-bold text-3xl text-center">
