@@ -26,13 +26,12 @@ const PaymentFirstStep = ({
           <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-1 text-3xl rounded-lg justify-between">
             {accountOptions.map((option, index) => (
               <AccountView
+                key={index}
                 title={option.title}
                 amount={option.amount}
-                key={index}
                 onClick={() => onSelectAccount(option.title)}
-                
+                isSelected={selectedAccount === option.title} // Pass selection state
               />
-              
             ))}
           </div>
 

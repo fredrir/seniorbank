@@ -6,15 +6,21 @@ interface Props {
   onClick: () => void;
   title: string;
   amount: number;
+  isSelected?: boolean;
 
 }
 
-const AccountView = ({ title, amount, onClick }: Props) => {
+const AccountView = ({ title, amount, onClick, isSelected }: Props) => {
   return (
     <div className="grid grid-cols-1 m-2 shadow-md font-bold  text-seniorBankDarkBlue text-3xl rounded-lg justify-between ">
       <Button 
-        className="bg-seniorBankWhitePurple border-4 hover:border-blue-500 text-3xl hover:text-seniorbankWhite cursor-pointer group border-seniorBankWhitePurple text-seniorBankDarkBlue p-16 ps-4 flex flex-row gap-4 justify-between items-center w-full"
-        onClick={onClick} 
+        className={`border-4 hover:border-blue-500 text-3xl hover:text-seniorbankWhite cursor-pointer group 
+        border-seniorBankWhitePurple text-seniorBankDarkBlue p-16 ps-4 flex flex-row gap-4 justify-between items-center w-full
+        ${isSelected ? "bg-seniorBankGreen border-seniorBankGreen text-white" : "bg-seniorBankWhitePurple"}
+      `}
+      onClick={onClick}
+        // className="bg-seniorBankWhitePurple border-4 hover:border-blue-500 text-3xl hover:text-seniorbankWhite cursor-pointer group border-seniorBankWhitePurple text-seniorBankDarkBlue p-16 ps-4 flex flex-row gap-4 justify-between items-center w-full"
+        // onClick={onClick} 
       >
         
           <div className="flex felx-row gap-4">
