@@ -1,21 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "@/components/auth/SessionWrapper";
 import AuthLayout from "@/components/auth/AuthLayout";
 import { cn } from "@/lib/utils";
 import { Toaster } from "react-hot-toast";
 import NavBar from "@/components/all/NavBar";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Seniorbank",
@@ -29,13 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          geistSans.className,
-          geistMono.className,
-          "bg-seniorbankWhite text-primary antialiased",
-        )}
-      >
+      <body className={cn("bg-seniorbankWhite text-primary antialiased")}>
         <Toaster />
         <SessionWrapper>
           <AuthLayout>
