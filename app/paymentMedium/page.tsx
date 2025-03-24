@@ -97,19 +97,6 @@ export default function Payment() {
         toast.error("Beløpet må være et tall.");
       }
     }
-    //  else if (id === "toAccount") {
-    //   if (value === "" || /^[0-9]{0,18}$/.test(value)) {
-    //     setFormData((prevData) => ({
-    //       ...prevData,
-    //       [id]: value, 
-    //     }));
-    //   } else if (value.length < 8 || value.length > 18){
-    //     toast.error("Kontonummer må være et tall mellom 8 til 18.");
-    //   }
-    //   else {
-    //     toast.error("Kontonummer må være et tall mellom 8 til 18.");
-    //   }
-    // }
     else {
       setFormData((prevData) => ({
         ...prevData,
@@ -128,7 +115,7 @@ export default function Payment() {
     stepComponent = <MediumPaymentSecondStep onSelectAccount={handleSelectToAccount} onClick={handleNext}  approvedAccountOptions={approvedAccountOptions} onGoBack={handleGoBack} selectedAccount={formData.toAccount}/>
   }
 if (step === 3) {
-    stepComponent = <MediumPaymentThirdStep handleChange={handleChange}   formData={formData} onSelectAccount={handleSelectToAccount} onGoBack={handleGoBack} onClick={handleNext}  approvedAccountOptions={approvedAccountOptions}/>
+    stepComponent = <MediumPaymentThirdStep handleChange={handleChange}   formData={formData}  onGoBack={handleGoBack} onClick={handleNext}  approvedAccountOptions={approvedAccountOptions}/>
   }
   if (step === 4) {
     stepComponent = <MediumPaymentFourthStep formData={formData} onClick={handleSubmit} onGoBack={handleGoBack} />

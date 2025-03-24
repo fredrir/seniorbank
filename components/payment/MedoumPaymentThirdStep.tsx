@@ -1,6 +1,5 @@
 import { Button } from "../ui/button";
 import { ProgressBar } from "../all/ProgressBar";
-import ApprovedAccountView from "./ApprovedAccountView";
 import { BanknoteIcon } from "lucide-react";
 import { Input } from "../ui/input";
 
@@ -9,7 +8,6 @@ interface MediumPaymentThirdStepProps {
     amount: string;
   };
   onClick: () => void;
-  onSelectAccount: (account: string) => void;
   onGoBack: () => void;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -20,8 +18,6 @@ interface MediumPaymentThirdStepProps {
 const MediumPaymentThirdStep = ({
   onClick,
   formData,
-  onSelectAccount,
-  approvedAccountOptions,
   handleChange,
   onGoBack,
 }: MediumPaymentThirdStepProps) => {
