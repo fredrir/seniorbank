@@ -13,6 +13,7 @@ interface MediumPaymentThirdStepProps {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   approvedAccountOptions: { title: string; accountNumber: number }[];
+  selectedAmount: string;
 }
 
 const MediumPaymentThirdStep = ({
@@ -20,6 +21,7 @@ const MediumPaymentThirdStep = ({
   formData,
   handleChange,
   onGoBack,
+  selectedAmount
 }: MediumPaymentThirdStepProps) => {
   return (
     <>
@@ -42,7 +44,7 @@ const MediumPaymentThirdStep = ({
                 placeholder="Skriv inn beløp her ..."
                 className="border-2 border-seniorBankDarkBlue h-20 bg-seniorbankWhite pr-10 !text-2xl placeholder:text-2xl"
               />
-              <BanknoteIcon className="absolute size-8 right-2 top-3/4 transform -translate-y-1/2 text-seniorBankDarkBlue" />
+              <BanknoteIcon className="absolute size-20 right-2 top-9 text-seniorBankDarkBlue" />
             </div>
           </div>
           <div className="flex items-stretch m-10 justify-between">
@@ -55,8 +57,9 @@ const MediumPaymentThirdStep = ({
             <Button
               className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-right"
               onClick={onClick}
+              disabled={!selectedAmount}
             >
-              Neste
+              {!selectedAmount ? "Skrive inn et beløp" : "Neste"}
             </Button>
           </div>
         </div>

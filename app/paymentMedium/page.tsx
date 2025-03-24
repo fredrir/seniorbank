@@ -115,7 +115,7 @@ export default function Payment() {
     stepComponent = <MediumPaymentSecondStep onSelectAccount={handleSelectToAccount} onClick={handleNext}  approvedAccountOptions={approvedAccountOptions} onGoBack={handleGoBack} selectedAccount={formData.toAccount}/>
   }
 if (step === 3) {
-    stepComponent = <MediumPaymentThirdStep handleChange={handleChange}   formData={formData}  onGoBack={handleGoBack} onClick={handleNext}  approvedAccountOptions={approvedAccountOptions}/>
+    stepComponent = <MediumPaymentThirdStep handleChange={handleChange}   formData={formData}  onGoBack={handleGoBack} onClick={handleNext}  approvedAccountOptions={approvedAccountOptions} selectedAmount={formData.amount}/>
   }
   if (step === 4) {
     stepComponent = <MediumPaymentFourthStep formData={formData} onClick={handleSubmit} onGoBack={handleGoBack} />
