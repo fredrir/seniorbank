@@ -5,26 +5,22 @@ import { BankAccountCard } from "@/components/homepage/BankAccountCard";
 import { ShieldAlert } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/[auth]/[...nextauth]/authOptions";
+import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
 
 export default async function AccountOverviewPage() {
   const session = await getServerSession(authOptions);
 
   return (
     <>
-      <section className="h-[450px]">
-        <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          width={100}
-          height={100}
-          className="absolute left-0 top-0 z-[-1] h-[500px] w-full text-[#015aa4]"
-        >
-          <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
-        </svg>
-        <HeaderText title="Kontooversikt" className="" />
+      <section>
+        <BackgroundGraphic
+          variant="inverse-topwave"
+          className="text-[#015aa4]"
+        />
+        <HeaderText title="Kontooversikt" className="mt-8" />
         <div className="flex flex-col items-center">
-          <article className="flex flex-row items-center gap-2 text-3xl text-white">
-            <ShieldAlert className="size-64" />
+          <article className="flex flex-row items-center gap-2 text-lg text-white md:text-2xl">
+            <ShieldAlert className="size-52" />
             Vær oppmerksom på uvanlige transaksjoner. Banken eller politiet vil
             aldri be deg om å overføre penger til en annen konto.
           </article>

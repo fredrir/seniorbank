@@ -81,11 +81,13 @@ export default function RegisterAccountPage() {
       <header
         className={`mt-8 flex flex-row items-center gap-2 text-seniorBankDarkBlue`}
       >
-        <button onClick={() => handlePreviousStep()}>
-          <ChevronLeft
-            className={`size-16 ${step === 1 ? "text-white" : "text-inherit"}`}
-          />
-        </button>
+        {step !== 1 && (
+          <button onClick={() => handlePreviousStep()}>
+            <ChevronLeft
+              className={`size-16 ${step === 1 ? "text-white" : "text-inherit"}`}
+            />
+          </button>
+        )}
 
         <h2 className="py-4 text-4xl font-bold">
           {step === 1 ? "Opprett ny bruker" : "Fyll ut din informasjon"}
@@ -95,10 +97,12 @@ export default function RegisterAccountPage() {
       <div className="mt-16 flex flex-col items-center">
         <div
           className={`${
-            step === 1 ? "bg-inherit" : "bg-[#D3D3EA]"
+            step !== 1 && "bg-[#D3D3EA]"
           } w-full max-w-2xl rounded-2xl p-4`}
         >
-          <ProgressBar totalSteps={3} currentStep={step} />
+          <div className={`${step === 1 && "rounded-2xl bg-[#D3D3EA]"}`}>
+            <ProgressBar totalSteps={3} currentStep={step} />
+          </div>
 
           {step === 1 && (
             <FirstStep setFormData={setFormData} setStep={setStep} />

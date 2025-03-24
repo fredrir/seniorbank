@@ -17,7 +17,10 @@ export function BankAccountCard({ bankAccount }: BankAccoundCardProps) {
   }
 
   return (
-    <div className="mx-24 flex w-full justify-between rounded-3xl border-4 border-white bg-seniorBankLightBlue p-2 px-8 py-4">
+    <Link
+      href={`/konto/${bankAccount.id}`}
+      className="group mx-24 flex w-full flex-col justify-between rounded-3xl border-4 border-white bg-seniorBankLightBlue p-2 px-8 py-4 md:flex-row"
+    >
       <div className="flex flex-col">
         <h3 className="text-4xl font-bold text-seniorBankDarkBlue">
           {bankAccount.name}
@@ -32,15 +35,16 @@ export function BankAccountCard({ bankAccount }: BankAccoundCardProps) {
           {numberFormatter.format(bankAccount.balance)}
         </h3>
 
-        <Link href={`/konto/${bankAccount.id}`}>
-          <div className="flex flex-row items-center justify-end">
-            <p className="text-lg font-bold text-seniorBankDarkBlue">
-              Trykk for å se konto
-            </p>
-            <ChevronRight className="text-seniorBankDarkBlue" size={32} />
-          </div>
-        </Link>
+        <div className="flex flex-row items-center justify-end">
+          <p className="text-lg font-bold text-seniorBankDarkBlue">
+            Trykk for å se konto
+          </p>
+          <ChevronRight
+            className="text-seniorBankDarkBlue transition-transform duration-200 group-hover:translate-x-1"
+            size={32}
+          />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }

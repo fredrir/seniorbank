@@ -12,8 +12,8 @@ export default function Payment() {
     comment: "",
     amount: "",
     toAccount: "",
-    fromAccount: ""
-  });  
+    fromAccount: "",
+  });
 
   const accountOptions = [
     {
@@ -32,40 +32,40 @@ export default function Payment() {
 
   const handleNext = () => {
     const accountNumber = formData.toAccount.trim();
-    if (step === 2){
-      if(formData.amount.trim() ===""){
-        toast.error("Fyll inn beløp")
+    if (step === 2) {
+      if (formData.amount.trim() === "") {
+        toast.error("Fyll inn beløp");
         return;
       }
-      if(formData.toAccount.trim() ===""){
-        toast.error("Fyll inn kontonummer")
+      if (formData.toAccount.trim() === "") {
+        toast.error("Fyll inn kontonummer");
         return;
       }
       if (accountNumber.length < 8 || accountNumber.length > 18) {
         toast.error("Kontonummer må være mellom 8 og 18 sifre");
         return;
       }
-    };
-    setStep(step+1);
+    }
+    setStep(step + 1);
   };
 
   const handleGoBack = () => {
-    setStep(step-1);
+    setStep(step - 1);
   };
 
   const handleReset = () => {
     setStep(1);
-    formData.comment = "",
-    formData.amount = "",
-    formData.toAccount = "",
-    formData.fromAccount = ""
+    formData.comment = "";
+    formData.amount = "";
+    formData.toAccount = "";
+    formData.fromAccount = "";
   };
 
   const handleSubmit = () => {
     //TODO: Temp console log
     console.log(formData);
-    toast.success("Betalingen er gjennomført.")
-    setStep(step+1);
+    toast.success("Betalingen er gjennomført.");
+    setStep(step + 1);
   };
 
   const handleSelectAccount = (account: string) => {
@@ -76,14 +76,17 @@ export default function Payment() {
     }));
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     e.preventDefault();
     const { id, value } = e.target;
-    if (id === "amount") { //TODO: Add restrictions so that the amount cannot be larger than the amount on the account
+    if (id === "amount") {
+      //TODO: Add restrictions so that the amount cannot be larger than the amount on the account
       if (value === "" || /^[0-9]*\.?[0-9]*$/.test(value)) {
         setFormData((prevData) => ({
           ...prevData,
-          [id]: value, 
+          [id]: value,
         }));
       } else {
         toast.error("Beløpet må være et tall.");
@@ -92,16 +95,14 @@ export default function Payment() {
       if (value === "" || /^[0-9]{0,18}$/.test(value)) {
         setFormData((prevData) => ({
           ...prevData,
-          [id]: value, 
+          [id]: value,
         }));
-      } else if (value.length < 8 || value.length > 18){
+      } else if (value.length < 8 || value.length > 18) {
+        toast.error("Kontonummer må være et tall mellom 8 til 18.");
+      } else {
         toast.error("Kontonummer må være et tall mellom 8 til 18.");
       }
-      else {
-        toast.error("Kontonummer må være et tall mellom 8 til 18.");
-      }
-    }
-    else {
+    } else {
       setFormData((prevData) => ({
         ...prevData,
         [id]: value,
@@ -109,40 +110,55 @@ export default function Payment() {
     }
   };
 
-  let stepComponent; 
+  let stepComponent;
 
   if (step === 1) {
-    stepComponent = <PaymentFirstStep onSelectAccount={handleSelectAccount} onClick={handleNext}  accountOptions={accountOptions} />;
-  };
+    stepComponent = (
+      <PaymentFirstStep
+        onSelectAccount={handleSelectAccount}
+        onClick={handleNext}
+        accountOptions={accountOptions}
+      />
+    );
+  }
 
   if (step === 2) {
-    stepComponent = <PaymentSecondStep formData={formData} 
-    handleNext={handleNext}  
-    handleChange={handleChange} 
-    onGoBack={handleGoBack}/>
+    stepComponent = (
+      <PaymentSecondStep
+        formData={formData}
+        handleNext={handleNext}
+        handleChange={handleChange}
+        onGoBack={handleGoBack}
+      />
+    );
   }
   if (step === 3) {
-    stepComponent = <PaymentThirdStep  formData={formData} onClick={handleSubmit} onGoBack={handleGoBack}/>
+    stepComponent = (
+      <PaymentThirdStep
+        formData={formData}
+        onClick={handleSubmit}
+        onGoBack={handleGoBack}
+      />
+    );
   }
   if (step === 4) {
-    stepComponent = <PaymentFourtStep formData={formData} onClick={handleReset}/>
+    stepComponent = (
+      <PaymentFourtStep formData={formData} onClick={handleReset} />
+    );
   }
   return (
     <section>
-      <h1 className="text-white font-bold text-4xl mt-5">
-          Betal
-        </h1>
+      <h1 className="mt-5 text-4xl font-bold text-white">Betal</h1>
       <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          width={100}
-          height={100}
-          className="absolute top-0 left-0 w-full h-[500px] z-[-1] text-[#015aa4]"
-        >
-          <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
-        </svg>
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        width={100}
+        height={100}
+        className="absolute left-0 top-0 z-[-1] h-[500px] w-full text-[#015aa4]"
+      >
+        <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
+      </svg>
       {stepComponent}
     </section>
-
   );
 }

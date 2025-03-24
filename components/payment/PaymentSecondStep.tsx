@@ -1,13 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { BanknoteIcon} from "lucide-react";
+import { BanknoteIcon } from "lucide-react";
 
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 
- 
 import { ProgressBar } from "../all/ProgressBar";
 interface PaymentSecondStepProps {
   formData: {
@@ -19,7 +17,7 @@ interface PaymentSecondStepProps {
   handleNext: () => void;
   onGoBack: () => void;
   handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
 }
 
@@ -31,68 +29,67 @@ const PaymentSecondStep = ({
 }: PaymentSecondStepProps) => {
   return (
     <section>
-
-        <div className="border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
-          <ProgressBar totalSteps={3} currentStep={2} />
-          <h1 className="text-seniorBankDarkBlue font-bold text-3xl pl-10">
-            Trygghetskontakt vil bli varslet{" "}
-          </h1>
-          <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-3 rounded-lg text-3xl">
-            <p>Fra konto: </p>
-            <div className="border-2 border-seniorBankDarkBlue h-20 bg-seniorbankWhite ps-3 pr-10 !text-2xl flex items-center rounded-md">
-              <p>{formData.fromAccount}</p>
-            </div>
-            <p>Til konto: </p>
-            <div className="relative">
-              <Input
-                id="toAccount"
-                value={formData.toAccount}
-                onChange={handleChange}
-                type="text"
-                inputMode="numeric"
-                pattern="\d*"
-                placeholder="Skriv inn kontonummer her ..."
-                className="border-2 pt-2 pb-2 border-seniorBankDarkBlue h-20 !text-2xl bg-seniorbankWhite pr-10  placeholder:text-2xl"
-              />
-            </div>
-            <div className="relative">
-              <p>Beløp</p>
-              <Input
-                id="amount"
-                value={formData.amount}
-                onChange={handleChange}
-                type="text"
-                inputMode="numeric"
-                pattern="\d*"
-                placeholder="Skriv inn beløp her ..."
-                className="border-2 border-seniorBankDarkBlue h-20 bg-seniorbankWhite pr-10 !text-2xl placeholder:text-2xl"
-              />
-              <BanknoteIcon className="absolute size-8 right-2 top-3/4 transform -translate-y-1/2 text-seniorBankDarkBlue" />
-            </div>
-            <p>Kommentar: </p>
-            <Textarea
-              id="comment"
-              value={formData.comment}
+      <div className="mt-6 rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple">
+        <ProgressBar totalSteps={3} currentStep={2} />
+        <h1 className="pl-10 text-3xl font-bold text-seniorBankDarkBlue">
+          Trygghetskontakt vil bli varslet{" "}
+        </h1>
+        <div className="m-10 grid grid-cols-1 gap-3 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
+          <p>Fra konto: </p>
+          <div className="flex h-20 items-center rounded-md border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10 ps-3 !text-2xl">
+            <p>{formData.fromAccount}</p>
+          </div>
+          <p>Til konto: </p>
+          <div className="relative">
+            <Input
+              id="toAccount"
+              value={formData.toAccount}
               onChange={handleChange}
-              placeholder="Skriv inn kommentar her ... "
-              className="border-2 border-seniorBankDarkBlue h-20 bg-seniorbankWhite !text-2xl placeholder:text-2xl"
+              type="text"
+              inputMode="numeric"
+              pattern="\d*"
+              placeholder="Skriv inn kontonummer her ..."
+              className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pb-2 pr-10 pt-2 !text-2xl placeholder:text-2xl"
             />
           </div>
-          <div className="flex items-stretch m-10 justify-between">
-            <Button
-              className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-left"
-              onClick={onGoBack}
-            >
-              Tilbake
-            </Button>
-            <Button
-              className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-right"
-              onClick={handleNext}
-            >
-              Neste
-            </Button>
+          <div className="relative">
+            <p>Beløp</p>
+            <Input
+              id="amount"
+              value={formData.amount}
+              onChange={handleChange}
+              type="text"
+              inputMode="numeric"
+              pattern="\d*"
+              placeholder="Skriv inn beløp her ..."
+              className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10 !text-2xl placeholder:text-2xl"
+            />
+            <BanknoteIcon className="absolute right-2 top-3/4 size-8 -translate-y-1/2 transform text-seniorBankDarkBlue" />
           </div>
+          <p>Kommentar: </p>
+          <Textarea
+            id="comment"
+            value={formData.comment}
+            onChange={handleChange}
+            placeholder="Skriv inn kommentar her ... "
+            className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite !text-2xl placeholder:text-2xl"
+          />
         </div>
+        <div className="m-10 flex items-stretch justify-between">
+          <Button
+            className="float-left flex w-[45%] min-w-0 flex-col p-8 px-4 text-2xl"
+            onClick={onGoBack}
+          >
+            Tilbake
+          </Button>
+          <Button
+            className="float-right flex w-[45%] min-w-0 flex-col p-8 px-4 text-2xl"
+            onClick={handleNext}
+          >
+            Neste
+          </Button>
+        </div>
+      </div>
     </section>
   );
 };

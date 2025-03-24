@@ -36,6 +36,7 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
               value={formData.firstName}
               onChange={handleChange}
               className="w-full rounded border border-[#005aa4] p-2"
+              required
             />
           </div>
 
@@ -51,6 +52,7 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
               value={formData.lastName}
               onChange={handleChange}
               className="w-full rounded border border-[#005aa4] p-2"
+              required
             />
           </div>
 
@@ -67,6 +69,7 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
               onChange={handleChange}
               type="date"
               className="w-full rounded border border-[#005aa4] p-2"
+              required
             />
           </div>
 
@@ -83,6 +86,7 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
               type="number"
               onChange={handleChange}
               className="w-full rounded border border-[#005aa4] p-2"
+              required
             />
           </div>
 
@@ -98,6 +102,7 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
               value={formData.address}
               onChange={handleChange}
               className="w-full rounded border border-[#005aa4] p-2"
+              required
             />
           </div>
 
@@ -114,6 +119,7 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
               value={formData.email}
               onChange={handleChange}
               className="w-full rounded border border-[#005aa4] p-2"
+              required
             />
           </div>
         </div>

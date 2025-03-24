@@ -15,7 +15,9 @@ const HeaderText = ({ title, className, href }: Props) => {
           <ChevronLeft className="size-20 text-white transition-transform duration-200 group-hover:-translate-x-1" />
         </Link>
       )}
-      <h1 className={`text-6xl font-bold text-white ${className}`}>{title}</h1>
+      <h1 className={`text-4xl font-bold text-white md:text-6xl ${className}`}>
+        {title}
+      </h1>
     </span>
   );
 };
