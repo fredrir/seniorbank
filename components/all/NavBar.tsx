@@ -25,7 +25,7 @@ const navLinks = [
   {
     title: "Betal",
     icon: <Wallet className="size-8" />,
-    path: "/betal",
+    path: "/payment",
   },
 ];
 
@@ -38,8 +38,8 @@ const NavBar = () => {
     });
 
   return (
-    <div className="flex w-full justify-between items-center bg-seniorbankBlue px-4">
-      <nav className="flex flex-row items-center justify-center flex-1">
+    <div className="relative w-full bg-seniorbankBlue px-4">
+      <nav className="flex w-full items-center justify-center">
         <span className="flex flex-row items-center justify-center border-b-2 border-white">
           {navLinks.map((link, index) => (
             <Link
@@ -60,7 +60,7 @@ const NavBar = () => {
         </span>
       </nav>
       <button
-        className="ml-8 flex gap-1 rounded-lg bg-[#D3D3EA] px-6 py-2 text-2xl font-bold text-[#002776] hover:opacity-80"
+        className="absolute right-2 top-2 ml-8 rounded-lg bg-[#D3D3EA] px-6 py-2 text-2xl font-bold text-[#002776] hover:opacity-80"
         onClick={handleLogout}
       >
         Logg ut
