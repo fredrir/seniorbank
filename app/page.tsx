@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/[auth]/[...nextauth]/authOptions";
+import HiddenMenuOptions from "@/components/homepage/HiddenMenuOptions";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -24,34 +25,49 @@ export default async function Home() {
       description: "Se oversikt over dine kontoer",
       icon: <Banknote className="size-16" />,
       href: "/konto",
+      availableFor: ["EASY", "MEDIUM", "HARD"],
     },
     {
       title: "Betaling",
       description: "Betale fakturaer og opprett AvtaleGiro",
       icon: <Wallet className="size-16" />,
+      availableFor: ["MEDIUM", "HARD"],
     },
     {
       title: "Overfør",
       description: "Overfør penger mellom egne kontoer",
       icon: <ArrowBigDownDash className="size-16" />,
+      availableFor: ["EASY", "MEDIUM", "HARD"],
     },
     {
       title: "Meldinger",
       description: "Les meldinger og varslinger fra banken",
       icon: <MailIcon className="size-16" />,
+      availableFor: ["HARD"],
     },
     {
       title: "Spør om hjelp",
       description: "Kontakt vår kundehjelp eller Trygghetskontakten",
       icon: <HelpCircle className="size-16" />,
+      availableFor: ["EASY", "MEDIUM", "HARD"],
     },
 
     {
       title: "Innstillinger",
       description: "Endre på instillinger og infomasjon",
       icon: <Settings className="size-16" />,
+      availableFor: ["HARD"],
     },
   ];
+
+  const filteredMenuOptions = menuOptions.filter((option) =>
+    option.availableFor.includes(session?.user.difficulty as string),
+  );
+
+  const hiddenMenuOptions = menuOptions.filter(
+    (option) =>
+      !option.availableFor.includes(session?.user.difficulty as string),
+  );
 
   return (
     <>
@@ -78,8 +94,10 @@ export default async function Home() {
       <section>
         <SubHeaderText title="Handlinger" />
 
-        <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
-          {menuOptions.map((option, index) => (
+        <div
+          className={`grid w-full grid-cols-1 gap-8 ${session?.user.difficulty === "EASY" ? "" : "md:grid-cols-2"}`}
+        >
+          {filteredMenuOptions.map((option, index) => (
             <MenuOption
               title={option.title}
               description={option.description}
@@ -91,6 +109,9 @@ export default async function Home() {
         </div>
       </section>
 
+      {session?.user.difficulty !== "HARD" && (
+        <HiddenMenuOptions hiddenMenuOptions={hiddenMenuOptions} />
+      )}
       <WarningSection />
     </>
   );

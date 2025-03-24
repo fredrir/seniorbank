@@ -19,8 +19,8 @@ const MenuOption = ({ title, description, icon, href = "/" }: Props) => {
         <div className="flex flex-col items-center justify-center">{icon}</div>
 
         <div className="flex flex-col justify-center gap-1">
-          <h1 className="text-2xl font-bold">{title}</h1>
-          <p className="text-gray-600">{description}</p>
+          <h1 className="text-start text-2xl font-bold">{title}</h1>
+          <p className="text-start text-gray-600">{description}</p>
         </div>
       </div>
       <div className="flex flex-col justify-center">
