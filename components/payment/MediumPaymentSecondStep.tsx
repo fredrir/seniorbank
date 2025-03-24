@@ -26,12 +26,13 @@ const MediumPaymentSecondStep = ({
             Velg mottaker:{" "}
           </h1>
           <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-1 text-3xl rounded-lg justify-between">
-            {approvedAccountOptions.map((option, index) => (
+          {approvedAccountOptions.map((option, index) => (
               <ApprovedAccountView
+                key={index}
                 title={option.title}
                 accountNumber={option.accountNumber}
-                key={index}
                 onClick={() => onSelectAccount(option.title)}
+                isSelected={selectedAccount === option.title} 
               />
             ))}
           </div>

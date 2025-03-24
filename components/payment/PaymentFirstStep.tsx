@@ -30,7 +30,7 @@ const PaymentFirstStep = ({
                 title={option.title}
                 amount={option.amount}
                 onClick={() => onSelectAccount(option.title)}
-                isSelected={selectedAccount === option.title} // Pass selection state
+                isSelected={selectedAccount === option.title} 
               />
             ))}
           </div>
