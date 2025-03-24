@@ -5,6 +5,7 @@ import { BankAccountCard } from "@/components/homepage/BankAccountCard";
 import { ShieldAlert } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/[auth]/[...nextauth]/authOptions";
+import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
 
 export default async function AccountOverviewPage() {
   const session = await getServerSession(authOptions);

@@ -62,7 +62,7 @@ export default async function AccountPage(props: { params: tParams }) {
       <section className="mb-8 flex flex-col items-center text-white">
         <h3 className="mb-4 text-2xl font-bold">Saldo</h3>
         <h2 className="text-4xl font-bold md:text-6xl">
-          {mockAccount.balance.toLocaleString("no-NO", {
+          {account.balance.toLocaleString("no-NO", {
             style: "currency",
             currency: "NOK",
           })}
