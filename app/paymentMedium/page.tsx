@@ -2,7 +2,7 @@
 import { useState } from "react";
 import PaymentFirstStep from "@/components/payment/PaymentFirstStep";
 import MediumPaymentSecondStep from "@/components/payment/MediumPaymentSecondStep";
-import MediumPaymentThirdStep from "@/components/payment/MedoumPaymentThirdStep";
+import MediumPaymentThirdStep from "@/components/payment/MediumPaymentThirdStep";
 import MediumPaymentFourthStep from "@/components/payment/MediumPaymentForthStep";
 import MediumPaymentFifthStep from "@/components/payment/MediumPaymentFifthStep";
 import toast from "react-hot-toast";

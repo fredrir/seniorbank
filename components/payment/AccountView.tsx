@@ -19,8 +19,6 @@ const AccountView = ({ title, amount, onClick, isSelected }: Props) => {
         ${isSelected ? "bg-seniorBankGreen border-seniorBankGreen text-white" : "bg-seniorBankWhitePurple"}
       `}
       onClick={onClick}
-        // className="bg-seniorBankWhitePurple border-4 hover:border-blue-500 text-3xl hover:text-seniorbankWhite cursor-pointer group border-seniorBankWhitePurple text-seniorBankDarkBlue p-16 ps-4 flex flex-row gap-4 justify-between items-center w-full"
-        // onClick={onClick} 
       >
         
           <div className="flex felx-row gap-4">
