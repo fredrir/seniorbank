@@ -1,69 +1,12 @@
+import { authOptions } from "@/app/api/[auth]/[...nextauth]/authOptions";
 import TransactionItem from "@/components/account-overview/TransactionItem";
 import HeaderText from "@/components/all/HeaderText";
 import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
 import { Input } from "@/components/ui/input";
-import { BankAccount, tParams, Transaction } from "@/lib/types";
+import { prisma } from "@/lib/db";
+import { tParams } from "@/lib/types";
 import { Search } from "lucide-react";
-
-const mockAccount: BankAccount = {
-  accountNumber: "12345678901",
-  balance: 18932.54,
-  title: "Brukskonto",
-  type: "savings",
-};
-
-const mockTransactions: Transaction[] = [
-  {
-    id: 1,
-    amount: 826.87,
-    date: "2021-10-01",
-    to: "Rema 1000",
-    from: "Navn Navnesen",
-    description: "Dagligvare",
-    accountNumber: "12345678901",
-    type: "payment",
-  },
-  {
-    id: 2,
-    amount: 45.87,
-    date: "2021-10-01",
-    to: "SIT kantine",
-    from: "Navn Navnesen",
-    description: "Dagligvare",
-    accountNumber: "12345678901",
-    type: "payment",
-  },
-  {
-    id: 3,
-    amount: 1000,
-    date: "2021-10-01",
-    to: "Navn Navnesen",
-    from: "Vipps",
-    description: "Transaksjon",
-    accountNumber: "12345678901",
-    type: "deposit",
-  },
-  {
-    id: 4,
-    amount: 72.46,
-    date: "2021-10-01",
-    to: "Joker Stud.samf.",
-    from: "Navn Navnesen",
-    description: "Dagligvare",
-    accountNumber: "12345678901",
-    type: "payment",
-  },
-  {
-    id: 5,
-    amount: 599,
-    date: "2021-10-01",
-    to: "Klippers",
-    from: "Navn Navnesen",
-    description: "Kosmetikk",
-    accountNumber: "12345678901",
-    type: "payment",
-  },
-];
+import { getServerSession } from "next-auth";
 
 export default async function AccountPage(props: { params: tParams }) {
   const { id } = await props.params;
@@ -72,6 +15,33 @@ export default async function AccountPage(props: { params: tParams }) {
   if (!id) {
     return <div>Not found</div>;
   }
+
+  const session = await getServerSession(authOptions);
+
+  const account = session?.user.bankAccounts.find(
+    (account) => account.id === decodedId,
+  );
+
+  if (!account) {
+    return <div>Not found</div>;
+  }
+
+  const transactions = await prisma.transaction.findMany({
+    where: {
+      OR: [
+        {
+          fromAccountId: decodedId,
+        },
+        {
+          toAccountId: decodedId,
+        },
+      ],
+    },
+    include: {
+      fromAccount: true,
+      toAccount: true,
+    },
+  });
 
   return (
     <>
@@ -107,15 +77,19 @@ export default async function AccountPage(props: { params: tParams }) {
           </div>
         </div>
         <div className="flex w-full flex-col rounded-3xl">
-          {mockTransactions.map((transaction, index) => (
+          {transactions.map((transaction, index) => (
             <div key={transaction.id}>
               <TransactionItem
-                merchant={transaction.to}
-                category={transaction.description}
+                merchant={transaction.toAccount.name}
+                category={transaction.toAccount.category ?? ""}
                 amount={transaction.amount}
-                type={transaction.type}
+                type={
+                  transaction.toAccount.id === account.id
+                    ? "deposit"
+                    : "withdrawal"
+                }
                 bgColor={
-                  transaction.type === "deposit"
+                  transaction.toAccount.id === account.id
                     ? "bg-[#70c7aa]"
                     : "bg-[#b3cee4]"
                 }
