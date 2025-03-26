@@ -48,6 +48,7 @@ const PaymentSecondStep = ({
               type="text"
               inputMode="numeric"
               pattern="\d*"
+              name="paymentToAccount"
               placeholder="Skriv inn kontonummer her ..."
               className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pb-2 pr-10 pt-2 !text-2xl placeholder:text-2xl"
             />
@@ -62,6 +63,7 @@ const PaymentSecondStep = ({
               inputMode="numeric"
               pattern="\d*"
               placeholder="Skriv inn beløp her ..."
+              name="paymentAmount"
               className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10 !text-2xl placeholder:text-2xl"
             />
             <BanknoteIcon className="absolute right-2 top-3/4 size-8 -translate-y-1/2 transform text-seniorBankDarkBlue" />
