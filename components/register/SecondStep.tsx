@@ -9,13 +9,13 @@ interface Props {
     birthDate: string;
     phoneNumber: string;
     address: string;
-    email: string;
   };
+  email: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleNextStep: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
+const SecondStep = ({ formData, handleChange, handleNextStep, email }: Props) => {
   return (
     <div className="flex w-full flex-col items-center gap-8">
       <h2 className="text-3xl font-bold text-seniorBankDarkBlue">
@@ -121,10 +121,10 @@ const SecondStep = ({ formData, handleChange, handleNextStep }: Props) => {
             <Input
               id="email"
               type="email"
-              value={formData.email}
-              onChange={handleChange}
+              value={email}
               className="w-full rounded border border-[#005aa4] p-2"
               name="email"
+              disabled
               required
             />
           </div>

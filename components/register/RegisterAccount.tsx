@@ -1,4 +1,5 @@
 "use client";
+
 import { ProgressBar } from "@/components/all/ProgressBar";
 import FirstStep from "@/components/register/FirstStep";
 import SecondStep from "@/components/register/SecondStep";
@@ -7,8 +8,13 @@ import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import registerAccount from "@/lib/actions/registerAccount";
+import type { Session } from "next-auth";
 
-export default function RegisterAccountPage() {
+export default function RegisterAccountPage({ session }: { session: Session }) {
+  if (session === null) {
+    throw new Error("Cannot register without session")
+  }
+
   const [step, setStep] = useState(1);
 
   const [formData, setFormData] = useState({
@@ -17,7 +23,6 @@ export default function RegisterAccountPage() {
     birthDate: "",
     phoneNumber: "",
     address: "",
-    email: "",
     difficulty: "",
   });
 
@@ -35,8 +40,7 @@ export default function RegisterAccountPage() {
         formData.lastName === "" ||
         formData.birthDate === "" ||
         formData.phoneNumber === "" ||
-        formData.address === "" ||
-        formData.email === ""
+        formData.address === ""
       ) {
         toast.error("Fyll ut alle feltene før du går videre");
         return;
@@ -54,7 +58,6 @@ export default function RegisterAccountPage() {
         birthDate: "",
         phoneNumber: "",
         address: "",
-        email: "",
         difficulty: "",
       });
     }
@@ -111,6 +114,7 @@ export default function RegisterAccountPage() {
           {step === 2 && (
             <SecondStep
               formData={formData}
+              email={session.user.email}
               handleChange={handleChange}
               handleNextStep={handleNextStep}
             />
