@@ -1,22 +1,13 @@
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Banknote } from "lucide-react"
 import Link from "next/link"
+import { Banknote, ChevronRight } from "lucide-react";
 
 export default function Cornfirm() {
 
@@ -32,10 +23,13 @@ return (
 				<CardDescription className="text-seniorBankDarkBlue">Trygghetskontrakten er varslet</CardDescription>
 			</CardHeader>
 			<CardFooter className="flex justify-end">
-				<Button asChild className="bg-seniorBankDarkBlue text-seniorbankWhite font-bold w-full text-xl mt-5">
+				<div className="relative w-full">
+				<Button className="bg-seniorBankDarkBlue text-seniorbankWhite font-bold w-full text-xl mt-5">
 					<Link href="/">Tilbake til hovedsiden
 					</Link>
+					<ChevronRight className="absolute right-1 size-10"/>
 				</Button>
+				</div>
 			</CardFooter>
 		</Card>
 

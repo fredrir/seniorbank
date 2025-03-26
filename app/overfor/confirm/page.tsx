@@ -4,18 +4,9 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Banknote } from "lucide-react"
 import Link from "next/link"
 import { Input } from "@/components/ui/input"
 
@@ -34,19 +25,19 @@ return (
 			</CardHeader>
 			<CardContent className="text-seniorBankDarkBlue">
 				<Label>fra konto</Label>
-				<Input value="Brukskonto - 18 932,54 kr" readOnly className="mx-5 mb-5 "/>
+				<Input value="Brukskonto - 18 932,54 kr" readOnly className="mb-5 border-seniorBankDarkBlue bg-[#F2F2F9] rounded-sm"/>
 
 				<Label>til konto</Label>
-				<Input value="Sparekonto - 829 182,92 kr" readOnly className="mx-5 mb-5"/>
+				<Input value="Sparekonto - 829 182,92 kr" readOnly className="mb-5 border-seniorBankDarkBlue bg-[#F2F2F9] rounded-sm"/>
 
 			</CardContent>
 			<CardFooter className="flex justify-between">
-				<Button asChild className="bg-[#EC7B7C] text-seniorbankWhite border border-seniorBankDarkBlue w-1/3 text-xl font-bold">
-					<Link href="/transfer">Avbryt
+				<Button variant={"destructive"} size={"lg"} className="border border-seniorBankDarkBlue">
+					<Link href="/overfor">Avbryt
 					</Link>
 				</Button>
-				<Button asChild className="bg-seniorBankDarkBlue text-seniorbankWhite w-1/2 text-xl font-bold">
-					<Link href="/transfer/confirm/confirmation">Bekreft
+				<Button size={"lg"} className="w-full ml-20">
+					<Link href="/overfor/confirm/confirmation">Bekreft
 					</Link>
 				</Button>
 			</CardFooter>

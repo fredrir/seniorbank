@@ -1,10 +1,7 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
@@ -20,13 +17,13 @@ import Link from "next/link"
 import { Input } from "@/components/ui/input"
 
 
-export default function Transfer() {
+export default function Overfor() {
 
 return (
 	<section className="mx-auto container">
-		<h1 className="text-5xl font-bold mt-16 mb-8 text-seniorBankDarkBlue">
+		<h2 className="text-5xl font-bold mt-4 mb-4 ml-36 text-seniorBankDarkBlue">
 			Overfør
-		</h1>
+		</h2>
 		<div className="flex justify-center w-full">
 		<Card className="bg-[#D3D3EA] w-[480px] pt-14 px-5">
 			<CardContent className="text-seniorBankDarkBlue">
@@ -60,16 +57,16 @@ return (
 
 				<Label>Antall:</Label>
 				<div className="relative w-full">
-					<Input className="mb-3"/>
+					<Input type="number" className="mb-3 border-seniorBankDarkBlue bg-[#F2F2F9] rounded-sm"/>
 					<Banknote className="absolute right-3 top-0 font-bold size-8"/>
 				</div>
 
 				<Label>Kommentar:</Label>
-				<Input className="h-32 mb-3"/>
+				<Input className="h-32 mb-3 border-seniorBankDarkBlue bg-[#F2F2F9] rounded-sm"/>
 				</CardContent>
 				<CardFooter className="flex justify-end">
-					<Button asChild className="bg-seniorBankDarkBlue text-seniorbankWhite font-bold w-1/2 text-xl">
-						<Link href="/transfer/confirm">Bekreft
+					<Button className="bg-seniorBankDarkBlue text-seniorbankWhite font-bold w-1/2 text-xl">
+						<Link href="/overfor/confirm">Bekreft
 						</Link>
 					</Button>
 				</CardFooter>

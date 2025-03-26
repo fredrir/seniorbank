@@ -33,6 +33,7 @@ export default async function Home() {
       title: "Overfør",
       description: "Overfør penger mellom egne kontoer",
       icon: <ArrowBigDownDash className="size-16" />,
+      href: "/overfor",
     },
     {
       title: "Meldinger",
