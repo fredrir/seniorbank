@@ -8,7 +8,6 @@ interface Props {
       birthDate: string;
       phoneNumber: string;
       address: string;
-      email: string;
       difficulty: string;
     }>
   >;

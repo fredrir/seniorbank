@@ -26,7 +26,7 @@ const AuthLayout = async ({ children }: AuthLayoutProps) => {
       </div>
     );
   } else if (!session.user.hasRegistered) {
-    return <RegisterAccountPage />;
+    return <RegisterAccountPage session={session} />;
   } else {
     return <>{children}</>;
   }

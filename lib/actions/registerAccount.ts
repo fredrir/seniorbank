@@ -11,7 +11,6 @@ interface Props {
   birthDate: string;
   phoneNumber: string;
   address: string;
-  email: string;
   difficulty: string;
 }
 
@@ -21,7 +20,6 @@ const registerAccount = async ({
   birthDate,
   phoneNumber,
   address,
-  email,
   difficulty,
 }: Props) => {
   try {
@@ -49,7 +47,7 @@ const registerAccount = async ({
         birthDate: `${birthDate}T00:00:00.000Z`,
         phoneNumber,
         address,
-        email,
+        email: session.user.email,
         hasRegistered: true,
         difficulty: difficulty as Difficulty,
       },
