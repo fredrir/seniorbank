@@ -6,7 +6,7 @@ import ThirdStep from "@/components/register/ThirdStep";
 import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
+import registerAccount from "@/lib/actions/registerAccount";
 
 export default function RegisterAccountPage() {
   const [step, setStep] = useState(1);
@@ -62,39 +62,47 @@ export default function RegisterAccountPage() {
     setStep(step - 1);
   };
 
-  const handleSubmit = () => {
-    //TODO -> Midlertig console log
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    console.log(formData);
+    const response = await registerAccount(formData);
 
-    toast.success("Brukeren er opprettet!");
-
-    redirect("/");
+    if (!response) {
+      toast.error("Noe gikk galt. Prøv igjen senere.");
+      return;
+    } else {
+      toast.success("Brukeren er opprettet!");
+      window.location.reload();
+    }
   };
 
   return (
-    <main className="mx-auto container my-8">
+    <main className="container mx-auto my-8">
       <header
-        className={`flex flex-row gap-2 mt-8 items-center text-seniorBankDarkBlue `}
+        className={`mt-8 flex flex-row items-center gap-2 text-seniorBankDarkBlue`}
       >
-        <button onClick={() => handlePreviousStep()}>
-          <ChevronLeft
-            className={`size-16 ${step === 1 ? "text-white" : "text-inherit"}`}
-          />
-        </button>
+        {step !== 1 && (
+          <button onClick={() => handlePreviousStep()}>
+            <ChevronLeft
+              className={`size-16 ${step === 1 ? "text-white" : "text-inherit"}`}
+            />
+          </button>
+        )}
 
-        <h2 className="text-4xl py-4 font-bold">
+        <h2 className="py-4 text-4xl font-bold">
           {step === 1 ? "Opprett ny bruker" : "Fyll ut din informasjon"}
         </h2>
       </header>
 
-      <div className="flex flex-col items-center mt-16">
+      <div className="mt-16 flex flex-col items-center">
         <div
           className={`${
-            step === 1 ? "bg-inherit" : "bg-[#D3D3EA]"
-          } p-4 rounded-2xl w-full max-w-2xl`}
+            step !== 1 && "bg-[#D3D3EA]"
+          } w-full max-w-2xl rounded-2xl p-4`}
         >
-          <ProgressBar totalSteps={3} currentStep={step} />
+          <div className={`${step === 1 && "rounded-2xl bg-[#D3D3EA]"}`}>
+            <ProgressBar totalSteps={3} currentStep={step} />
+          </div>
 
           {step === 1 && (
             <FirstStep setFormData={setFormData} setStep={setStep} />
