@@ -5,12 +5,11 @@ import { Button } from "../ui/button";
 interface Props {
   onClick: () => void;
   title: string;
-  amount: number;
+  accountNumber: number;
   isSelected?: boolean;
-
 }
 
-const AccountView = ({ title, amount, onClick, isSelected }: Props) => {
+const ApprovedAccountView = ({ title, accountNumber, onClick, isSelected }: Props) => {
   return (
     <div className="grid grid-cols-1 m-2 shadow-md font-bold  text-seniorBankDarkBlue text-3xl rounded-lg justify-between ">
       <Button 
@@ -23,7 +22,7 @@ const AccountView = ({ title, amount, onClick, isSelected }: Props) => {
         
           <div className="flex felx-row gap-4">
             <h1 className=" ">{title}</h1>
-            <h1 className="">{amount}</h1>
+            <h1 className="">{accountNumber}</h1>
           </div>
           <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200" />
       </Button>
@@ -31,4 +30,4 @@ const AccountView = ({ title, amount, onClick, isSelected }: Props) => {
   );
 };
 
-export default AccountView;
+export default ApprovedAccountView;

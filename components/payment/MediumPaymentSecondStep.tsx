@@ -1,41 +1,48 @@
 import { Button } from "../ui/button";
 import { ProgressBar } from "../all/ProgressBar";
-import AccountView from "./AccountView";
+import ApprovedAccountView from "./ApprovedAccountView";
 
-interface PaymentFirstStepProps {
+interface MediumPaymentSecondStep {
   onClick: () => void;
   onSelectAccount: (account: string) => void;
-  accountOptions: { title: string; amount: number }[];
+  onGoBack: () => void;
+  approvedAccountOptions: { title: string; accountNumber: number }[];
   selectedAccount: string;
-}
+} 
 
-const PaymentFirstStep = ({
+const MediumPaymentSecondStep = ({
   onClick,
   onSelectAccount,
-  accountOptions,
+  approvedAccountOptions,
+  onGoBack,
   selectedAccount,
-}: PaymentFirstStepProps) => {
+}: MediumPaymentSecondStep) => {
   return (
     <>
       <section>
         <div className=" border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
-          <ProgressBar totalSteps={3} currentStep={1} />
+          <ProgressBar totalSteps={3} currentStep={2} />
           <h1 className="text-seniorBankDarkBlue font-bold text-3xl pl-10">
-            Velg konto du vil betale fra:{" "}
+            Velg mottaker:{" "}
           </h1>
           <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-1 text-3xl rounded-lg justify-between">
-            {accountOptions.map((option, index) => (
-              <AccountView
+          {approvedAccountOptions.map((option, index) => (
+              <ApprovedAccountView
                 key={index}
                 title={option.title}
-                amount={option.amount}
+                accountNumber={option.accountNumber}
                 onClick={() => onSelectAccount(option.title)}
                 isSelected={selectedAccount === option.title} 
               />
             ))}
           </div>
-
-          <div className="flex justify-end items-center m-10">
+           <div className="flex items-stretch m-10 justify-between">
+            <Button
+              className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-left"
+              onClick={onGoBack}
+            >
+              Tilbake
+            </Button>
             <Button
               className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-right"
               onClick={onClick}
@@ -50,4 +57,4 @@ const PaymentFirstStep = ({
   );
 };
 
-export default PaymentFirstStep;
+export default MediumPaymentSecondStep;

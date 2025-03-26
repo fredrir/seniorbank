@@ -55,10 +55,12 @@ export default function Payment() {
 
   const handleReset = () => {
     setStep(1);
-    formData.comment = "";
-    formData.amount = "";
-    formData.toAccount = "";
-    formData.fromAccount = "";
+    setFormData({
+      comment:"",
+      amount:"",
+      toAccount:"",
+      fromAccount:"",
+    });
   };
 
   const handleSubmit = () => {
@@ -77,7 +79,7 @@ export default function Payment() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     e.preventDefault();
     const { id, value } = e.target;
@@ -118,6 +120,7 @@ export default function Payment() {
         onSelectAccount={handleSelectAccount}
         onClick={handleNext}
         accountOptions={accountOptions}
+        selectedAccount={formData.fromAccount}
       />
     );
   }
@@ -148,13 +151,13 @@ export default function Payment() {
   }
   return (
     <section>
-      <h1 className="mt-5 text-4xl font-bold text-white">Betal</h1>
+      <h1 className="text-white font-bold text-4xl mt-5">Betal</h1>
       <svg
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         width={100}
         height={100}
-        className="absolute left-0 top-0 z-[-1] h-[500px] w-full text-[#015aa4]"
+        className="absolute top-0 left-0 w-full h-[500px] z-[-1] text-[#015aa4]"
       >
         <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
       </svg>
