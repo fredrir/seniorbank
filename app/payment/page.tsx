@@ -3,17 +3,22 @@ import { useState } from "react";
 import PaymentFirstStep from "@/components/payment/PaymentFirstStep";
 import PaymentSecondStep from "@/components/payment/PaymentSecondStep";
 import PaymentThirdStep from "@/components/payment/PaymentThirdStep";
-import PaymentFourtStep from "@/components/payment/PaymentFourthStep";
+import PaymentFourthStep from "@/components/payment/PaymentFourthStep";
 import toast from "react-hot-toast";
+import PaymentFifthStep from "@/components/payment/PaymentFifthStep";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/[auth]/[...nextauth]/authOptions";
 
 export default function Payment() {
   const [step, setStep] = useState(1);
+  const isHard = false;
+  // const session = await getServerSession(authOptions);
   const [formData, setFormData] = useState({
     comment: "",
     amount: "",
     toAccount: "",
     fromAccount: "",
-  });
+  }); 
 
   const accountOptions = [
     {
@@ -32,7 +37,7 @@ export default function Payment() {
 
   const handleNext = () => {
     const accountNumber = formData.toAccount.trim();
-    if (step === 2) {
+    if (step === 2 && isHard) {
       if (formData.amount.trim() === "") {
         toast.error("Fyll inn beløp");
         return;
@@ -56,10 +61,10 @@ export default function Payment() {
   const handleReset = () => {
     setStep(1);
     setFormData({
-      comment:"",
-      amount:"",
-      toAccount:"",
-      fromAccount:"",
+      comment: "",
+      amount: "",
+      toAccount: "",
+      fromAccount: "",
     });
   };
 
@@ -79,7 +84,7 @@ export default function Payment() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     e.preventDefault();
     const { id, value } = e.target;
@@ -111,7 +116,30 @@ export default function Payment() {
       }));
     }
   };
+  // Added from medium
+  const approvedAccountOptions = [
+    {
+      title: "Strømleverandør",
+      accountNumber: 18368237294,
+    },
+    {
+      title: "Husleie",
+      accountNumber: 48394724957,
+    },
+    {
+      title: "Mobilabonement",
+      accountNumber: 28459237593,
+    },
+  ];
+  const handleSelectToAccount = (account: string) => {
+    console.log("Selected account:", account);
+    setFormData((prevData) => ({
+      ...prevData,
+      toAccount: account,
+    }));
+  };
 
+  // no more added from medium
   let stepComponent;
 
   if (step === 1) {
@@ -121,6 +149,7 @@ export default function Payment() {
         onClick={handleNext}
         accountOptions={accountOptions}
         selectedAccount={formData.fromAccount}
+        isHard={false}
       />
     );
   }
@@ -132,6 +161,11 @@ export default function Payment() {
         handleNext={handleNext}
         handleChange={handleChange}
         onGoBack={handleGoBack}
+        onSelectAccount={handleSelectToAccount}
+        onClick={handleNext}
+        approvedAccountOptions={approvedAccountOptions}
+        selectedAccount={formData.toAccount}
+        isHard={false}
       />
     );
   }
@@ -139,25 +173,36 @@ export default function Payment() {
     stepComponent = (
       <PaymentThirdStep
         formData={formData}
-        onClick={handleSubmit}
+        handleSubmit={handleSubmit}
         onGoBack={handleGoBack}
+        handleChange={handleChange}
+        onClick={handleNext}
+        approvedAccountOptions={approvedAccountOptions}
+        selectedAmount={formData.amount}
+        isHard={false}
+
       />
     );
   }
   if (step === 4) {
     stepComponent = (
-      <PaymentFourtStep formData={formData} onClick={handleReset} />
+      <PaymentFourthStep formData={formData} onClick={handleSubmit} onGoBack={handleGoBack} isHard={false}/>
+    );
+  }
+  if (step === 5) {
+    stepComponent = (
+      <PaymentFifthStep formData={formData} onClick={handleReset}/>
     );
   }
   return (
     <section>
-      <h1 className="text-white font-bold text-4xl mt-5">Betal</h1>
+      <h1 className="mt-5 text-4xl font-bold text-white">Betal</h1>
       <svg
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         width={100}
         height={100}
-        className="absolute top-0 left-0 w-full h-[500px] z-[-1] text-[#015aa4]"
+        className="absolute left-0 top-0 z-[-1] h-[500px] w-full text-[#015aa4]"
       >
         <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
       </svg>

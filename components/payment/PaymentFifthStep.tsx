@@ -1,7 +1,7 @@
 import { Button } from "../ui/button";
 import { ProgressBar } from "../all/ProgressBar";
 
-interface MediumPaymentFifthStepProps {
+interface PaymentFifthStepProps {
   onClick: () => void;
   formData: {
     comment: string;
@@ -10,15 +10,15 @@ interface MediumPaymentFifthStepProps {
     fromAccount: string;
   };
 }
-const MediumPaymentFifthStep = ({
+const PaymentFifthStep = ({
   formData,
   onClick,
-}: MediumPaymentFifthStepProps) => {
+}: PaymentFifthStepProps) => {
   return (
     <>
       <section>
         <div className="border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6 ">
-          <ProgressBar totalSteps={3} currentStep={4} />
+          <ProgressBar totalSteps={4} currentStep={5} />
           <h1 className="text-seniorBankDarkBlue font-bold text-3xl text-center">
             Betalings kvittering{" "}
           </h1>
@@ -57,4 +57,4 @@ const MediumPaymentFifthStep = ({
   );
 };
 
-export default MediumPaymentFifthStep;
+export default PaymentFifthStep;

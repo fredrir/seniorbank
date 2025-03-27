@@ -24,7 +24,7 @@ interface PaymentSecondStepProps {
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  isMedium: boolean;
+  isHard: boolean;
 }
 
 const PaymentSecondStep = ({
@@ -32,13 +32,13 @@ const PaymentSecondStep = ({
   handleChange,
   handleNext,
   onGoBack,
-  isMedium,
+  isHard,
   onClick,
   onSelectAccount,
   approvedAccountOptions,
   selectedAccount,
 }: PaymentSecondStepProps) => {
-  if(isMedium ===true){
+  if(isHard ===true){
     return (
       <section>
   
@@ -114,7 +114,7 @@ const PaymentSecondStep = ({
       <>
         <section>
           <div className=" border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
-            <ProgressBar totalSteps={3} currentStep={2} />
+            <ProgressBar totalSteps={4} currentStep={2} />
             <h1 className="text-seniorBankDarkBlue font-bold text-3xl pl-10">
               Velg mottaker:{" "}
             </h1>

@@ -7,6 +7,7 @@ interface PaymentFirstStepProps {
   onSelectAccount: (account: string) => void;
   accountOptions: { title: string; amount: number }[];
   selectedAccount: string;
+  isHard: boolean; 
 }
 
 const PaymentFirstStep = ({
@@ -14,12 +15,17 @@ const PaymentFirstStep = ({
   onSelectAccount,
   accountOptions,
   selectedAccount,
+  isHard
 }: PaymentFirstStepProps) => {
+  const hardProgressbar = <ProgressBar totalSteps={3} currentStep={1} />;
+  const mediumProgressbar = <ProgressBar totalSteps={4} currentStep={1} />;
+
   return (
+    
     <>
       <section>
         <div className=" border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
-          <ProgressBar totalSteps={3} currentStep={1} />
+        {isHard ? hardProgressbar: mediumProgressbar}
           <h1 className="text-seniorBankDarkBlue font-bold text-3xl pl-10">
             Velg konto du vil betale fra:{" "}
           </h1>
