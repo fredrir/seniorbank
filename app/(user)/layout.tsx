@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import SessionWrapper from "@/components/auth/SessionWrapper";
 import AuthLayout from "@/components/auth/AuthLayout";
 import { cn } from "@/lib/utils";
