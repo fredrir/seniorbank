@@ -1,12 +1,6 @@
-import type { Metadata } from "next";
 import NavBar from "@/components/all/NavBar";
 
-export const metadata: Metadata = {
-  title: "Seniorbank",
-  description: "Bank for eldre",
-};
-
-export default function RootLayout({
+export default function UserLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
