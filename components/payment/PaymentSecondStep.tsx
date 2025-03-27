@@ -1,20 +1,19 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { BanknoteIcon} from "lucide-react";
+import { BanknoteIcon } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import ApprovedAccountView from "./ApprovedAccountView";
 import { ProgressBar } from "../all/ProgressBar";
 
-
- 
 interface PaymentSecondStepProps {
   formData: {
     comment: string;
     amount: string;
     toAccount: string;
-    fromAccount: string;};
+    fromAccount: string;
+  };
   handleNext: () => void;
   onGoBack: () => void;
   onClick: () => void;
@@ -22,7 +21,7 @@ interface PaymentSecondStepProps {
   approvedAccountOptions: { title: string; accountNumber: number }[];
   selectedAccount: string;
   handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   isHard: boolean;
 }
@@ -38,19 +37,18 @@ const PaymentSecondStep = ({
   approvedAccountOptions,
   selectedAccount,
 }: PaymentSecondStepProps) => {
-  if(isHard ===true){
-    return (
-      <section>
-  
-          <div className="border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
-            <ProgressBar totalSteps={3} currentStep={2} />
-            {/* This is the full version */}
-            <h1 className="text-seniorBankDarkBlue font-bold text-3xl pl-10">
-              Trygghetskontakt vil bli varslet{" "}
-            </h1>
-            <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-3 rounded-lg text-3xl">
+  return (
+    <section>
+      <div className="mt-6 rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple">
+        <ProgressBar totalSteps={isHard ? 3 : 4} currentStep={2} />
+        <h1 className="pl-10 text-3xl font-bold text-seniorBankDarkBlue">
+          {isHard ? "Trygghetskontakt vil bli varslet" : "Velg mottaker"}
+        </h1>
+        <div className="m-10 grid grid-cols-1 gap-3 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
+          {isHard ? (
+            <>
               <p>Fra konto: </p>
-              <div className="border-2 border-seniorBankDarkBlue h-20 bg-seniorbankWhite ps-3 pr-10 !text-2xl flex items-center rounded-md">
+              <div className="flex h-20 items-center rounded-md border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10 ps-3 !text-2xl">
                 <p>{formData.fromAccount}</p>
               </div>
               <p>Til konto: </p>
@@ -64,7 +62,7 @@ const PaymentSecondStep = ({
                   pattern="\d*"
                   placeholder="Skriv inn kontonummer her ..."
                   name="paymentToAccount"
-                  className="border-2 pt-2 pb-2 border-seniorBankDarkBlue h-20 !text-2xl bg-seniorbankWhite pr-10  placeholder:text-2xl"
+                  className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pb-2 pr-10 pt-2 !text-2xl placeholder:text-2xl"
                 />
               </div>
               <div className="relative">
@@ -78,9 +76,9 @@ const PaymentSecondStep = ({
                   pattern="\d*"
                   placeholder="Skriv inn beløp her ..."
                   name="paymentAmount"
-                  className="border-2 border-seniorBankDarkBlue h-20 bg-seniorbankWhite pr-10 !text-2xl placeholder:text-2xl"
+                  className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10 !text-2xl placeholder:text-2xl"
                 />
-                <BanknoteIcon className="absolute size-8 right-2 top-3/4 transform -translate-y-1/2 text-seniorBankDarkBlue" />
+                <BanknoteIcon className="absolute right-2 top-3/4 size-8 -translate-y-1/2 transform text-seniorBankDarkBlue" />
               </div>
               <p>Kommentar: </p>
               <Textarea
@@ -88,68 +86,45 @@ const PaymentSecondStep = ({
                 value={formData.comment}
                 onChange={handleChange}
                 placeholder="Skriv inn kommentar her ... "
-                className="border-2 border-seniorBankDarkBlue h-20 bg-seniorbankWhite !text-2xl placeholder:text-2xl"
+                className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite !text-2xl placeholder:text-2xl"
               />
-            </div>
-            <div className="flex items-stretch m-10 justify-between">
-              <Button
-                className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-left"
-                onClick={onGoBack}
-              >
-                Tilbake
-              </Button>
-              <Button
-                className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-right"
-                onClick={handleNext}
-              >
-                Neste
-              </Button>
-            </div>
+            </>
+          ) : (
+            <>
+              <section>
+                <div className="m-10 grid grid-cols-1 justify-between gap-1 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
+                  {approvedAccountOptions.map((option, index) => (
+                    <ApprovedAccountView
+                      key={index}
+                      title={option.title}
+                      accountNumber={option.accountNumber}
+                      onClick={() => onSelectAccount(option.title)}
+                      isSelected={selectedAccount === option.title}
+                    />
+                  ))}
+                </div>
+              </section>
+            </>
+          )}
+          <div className="m-10 flex items-stretch justify-between">
+            <Button
+              className="float-left flex w-[45%] min-w-0 flex-col p-8 px-4 text-2xl"
+              onClick={onGoBack}
+            >
+              Tilbake
+            </Button>
+            <Button
+              className="float-right flex w-[45%] min-w-0 flex-col p-8 px-4 text-2xl"
+              onClick={onClick}
+              disabled={!selectedAccount}
+            >
+              {!selectedAccount ? "Du må velge en konto" : "Neste"}
+            </Button>
           </div>
-      </section>
-    );
-  }
-  else{
-    return (
-      <>
-        <section>
-          <div className=" border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
-            <ProgressBar totalSteps={4} currentStep={2} />
-            <h1 className="text-seniorBankDarkBlue font-bold text-3xl pl-10">
-              Velg mottaker:{" "}
-            </h1>
-            <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-1 text-3xl rounded-lg justify-between">
-            {approvedAccountOptions.map((option, index) => (
-                <ApprovedAccountView
-                  key={index}
-                  title={option.title}
-                  accountNumber={option.accountNumber}
-                  onClick={() => onSelectAccount(option.title)}
-                  isSelected={selectedAccount === option.title} 
-                />
-              ))}
-            </div>
-             <div className="flex items-stretch m-10 justify-between">
-              <Button
-                className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-left"
-                onClick={onGoBack}
-              >
-                Tilbake
-              </Button>
-              <Button
-                className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-right"
-                onClick={onClick}
-                disabled={!selectedAccount}
-              >
-                {!selectedAccount ? "Du må velge en konto" : "Neste"}
-              </Button>
-            </div>
-          </div>
-        </section>
-      </>
-    );
-  }
-  
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default PaymentSecondStep;

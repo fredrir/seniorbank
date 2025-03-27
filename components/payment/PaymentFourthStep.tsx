@@ -16,6 +16,7 @@ interface PaymentFourthStepProps {
 const PaymentFourtStep = ({ formData, onClick, isHard, onGoBack }: PaymentFourthStepProps) => {
   const styling =
     "bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex justify-between h-20  items-center p-4";
+
   if(isHard){
     return (
       <>
@@ -62,7 +63,6 @@ const PaymentFourtStep = ({ formData, onClick, isHard, onGoBack }: PaymentFourth
     return (
       <>
         <section>
-          <h1>HALLA</h1>
           <div className="border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
             <ProgressBar totalSteps={4} currentStep={4} />
             <h1 className="text-seniorBankDarkBlue font-bold text-3xl text-center">
