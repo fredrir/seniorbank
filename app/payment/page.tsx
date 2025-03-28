@@ -1,24 +1,23 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PaymentFirstStep from "@/components/payment/PaymentFirstStep";
 import PaymentSecondStep from "@/components/payment/PaymentSecondStep";
 import PaymentThirdStep from "@/components/payment/PaymentThirdStep";
 import PaymentFourthStep from "@/components/payment/PaymentFourthStep";
 import toast from "react-hot-toast";
 import PaymentFifthStep from "@/components/payment/PaymentFifthStep";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/[auth]/[...nextauth]/authOptions";
 
 export default function Payment() {
   const [step, setStep] = useState(1);
-  const isHard = false;
-  // const session = await getServerSession(authOptions);
+  const isHard = true;
+  const [onSelectFields, setOnSelectFields] = useState(false);
+
   const [formData, setFormData] = useState({
     comment: "",
     amount: "",
     toAccount: "",
     fromAccount: "",
-  }); 
+  });
 
   const accountOptions = [
     {
@@ -67,6 +66,9 @@ export default function Payment() {
       fromAccount: "",
     });
   };
+  const handleGoToHomepage = () => {
+    window.location.href = "/";
+  };
 
   const handleSubmit = () => {
     //TODO: Temp console log
@@ -82,6 +84,14 @@ export default function Payment() {
       fromAccount: account,
     }));
   };
+  useEffect(() => {
+    const isValid =
+      formData.fromAccount.length > 7 &&
+      formData.fromAccount.length < 19 &&
+      formData.toAccount.trim().length > 0 &&
+      formData.amount.trim().length > 0;
+    setOnSelectFields(isValid);
+  }, [formData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -116,7 +126,6 @@ export default function Payment() {
       }));
     }
   };
-  // Added from medium
   const approvedAccountOptions = [
     {
       title: "Strømleverandør",
@@ -139,7 +148,6 @@ export default function Payment() {
     }));
   };
 
-  // no more added from medium
   let stepComponent;
 
   if (step === 1) {
@@ -149,7 +157,7 @@ export default function Payment() {
         onClick={handleNext}
         accountOptions={accountOptions}
         selectedAccount={formData.fromAccount}
-        isHard={false}
+        isHard={true}
       />
     );
   }
@@ -165,7 +173,8 @@ export default function Payment() {
         onClick={handleNext}
         approvedAccountOptions={approvedAccountOptions}
         selectedAccount={formData.toAccount}
-        isHard={false}
+        onSelectFields={onSelectFields}
+        isHard={true}
       />
     );
   }
@@ -177,21 +186,28 @@ export default function Payment() {
         onGoBack={handleGoBack}
         handleChange={handleChange}
         onClick={handleNext}
+        
         approvedAccountOptions={approvedAccountOptions}
         selectedAmount={formData.amount}
-        isHard={false}
-
+        isHard={true}
       />
     );
   }
   if (step === 4) {
     stepComponent = (
-      <PaymentFourthStep formData={formData} onClick={handleSubmit} onGoBack={handleGoBack} isHard={false}/>
+      <PaymentFourthStep
+        formData={formData}
+        onClick={handleSubmit}
+        onReset={handleReset}
+        onGoBack={handleGoBack}
+        onGoToHomepage={handleGoToHomepage}
+        isHard={true}
+      />
     );
   }
   if (step === 5) {
     stepComponent = (
-      <PaymentFifthStep formData={formData} onClick={handleReset}/>
+      <PaymentFifthStep formData={formData} onClick={handleGoToHomepage} />
     );
   }
   return (

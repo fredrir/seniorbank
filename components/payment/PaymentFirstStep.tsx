@@ -7,7 +7,7 @@ interface PaymentFirstStepProps {
   onSelectAccount: (account: string) => void;
   accountOptions: { title: string; amount: number }[];
   selectedAccount: string;
-  isHard: boolean; 
+  isHard: boolean;
 }
 
 const PaymentFirstStep = ({
@@ -15,35 +15,34 @@ const PaymentFirstStep = ({
   onSelectAccount,
   accountOptions,
   selectedAccount,
-  isHard
+  isHard,
 }: PaymentFirstStepProps) => {
   const hardProgressbar = <ProgressBar totalSteps={3} currentStep={1} />;
   const mediumProgressbar = <ProgressBar totalSteps={4} currentStep={1} />;
 
   return (
-    
     <>
       <section>
-        <div className=" border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
-        {isHard ? hardProgressbar: mediumProgressbar}
-          <h1 className="text-seniorBankDarkBlue font-bold text-3xl pl-10">
+        <div className="mt-6 rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple">
+          {isHard ? hardProgressbar : mediumProgressbar}
+          <h1 className="pl-10 text-3xl font-bold text-seniorBankDarkBlue">
             Velg konto du vil betale fra:{" "}
           </h1>
-          <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-1 text-3xl rounded-lg justify-between">
+          <div className="m-10 grid grid-cols-1 justify-between gap-1 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
             {accountOptions.map((option, index) => (
               <AccountView
                 key={index}
                 title={option.title}
                 amount={option.amount}
                 onClick={() => onSelectAccount(option.title)}
-                isSelected={selectedAccount === option.title} 
+                isSelected={selectedAccount === option.title}
               />
             ))}
           </div>
 
-          <div className="flex justify-end items-center m-10">
+          <div className="m-10 flex items-center justify-end">
             <Button
-              className="w-[45%] min-w-0 px-4 text-2xl p-8 flex flex-col float-right"
+              className="float-right flex w-[45%] min-w-0 flex-col p-8 px-4 text-2xl"
               onClick={onClick}
               disabled={!selectedAccount}
             >

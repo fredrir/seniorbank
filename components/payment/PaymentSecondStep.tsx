@@ -17,6 +17,7 @@ interface PaymentSecondStepProps {
   handleNext: () => void;
   onGoBack: () => void;
   onClick: () => void;
+  onSelectFields: boolean;
   onSelectAccount: (account: string) => void;
   approvedAccountOptions: { title: string; accountNumber: number }[];
   selectedAccount: string;
@@ -30,6 +31,7 @@ const PaymentSecondStep = ({
   formData,
   handleChange,
   handleNext,
+  onSelectFields,
   onGoBack,
   isHard,
   onClick,
@@ -44,7 +46,7 @@ const PaymentSecondStep = ({
         <h1 className="pl-10 text-3xl font-bold text-seniorBankDarkBlue">
           {isHard ? "Trygghetskontakt vil bli varslet" : "Velg mottaker"}
         </h1>
-        <div className="m-10 grid grid-cols-1 gap-3 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
+        <div className="m-10 grid grid-cols-1 justify-between gap-1 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
           {isHard ? (
             <>
               <p>Fra konto: </p>
@@ -92,7 +94,7 @@ const PaymentSecondStep = ({
           ) : (
             <>
               <section>
-                <div className="m-10 grid grid-cols-1 justify-between gap-1 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
+                <div className="grid grid-cols-1 justify-between gap-1 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
                   {approvedAccountOptions.map((option, index) => (
                     <ApprovedAccountView
                       key={index}
@@ -106,19 +108,25 @@ const PaymentSecondStep = ({
               </section>
             </>
           )}
-          <div className="m-10 flex items-stretch justify-between">
+          <div className="mb-8 mt-8 flex justify-between gap-4">
             <Button
-              className="float-left flex w-[45%] min-w-0 flex-col p-8 px-4 text-2xl"
+              className="w-[45%] flex-col p-8 px-4 text-2xl"
               onClick={onGoBack}
             >
               Tilbake
             </Button>
             <Button
-              className="float-right flex w-[45%] min-w-0 flex-col p-8 px-4 text-2xl"
+              className="w-[45%] flex-col p-8 px-4 text-2xl"
               onClick={onClick}
-              disabled={!selectedAccount}
+              disabled={isHard ? !onSelectFields : !selectedAccount}
             >
-              {!selectedAccount ? "Du må velge en konto" : "Neste"}
+              {isHard
+                ? !onSelectFields
+                  ? "Fyll inn feltene"
+                  : "Neste"
+                : !selectedAccount
+                  ? "Du må velge en konto"
+                  : "Neste"}
             </Button>
           </div>
         </div>

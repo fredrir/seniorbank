@@ -7,25 +7,20 @@ interface Props {
   title: string;
   amount: number;
   isSelected?: boolean;
-
 }
 
 const AccountView = ({ title, amount, onClick, isSelected }: Props) => {
   return (
-    <div className="grid grid-cols-1 m-2 shadow-md font-bold  text-seniorBankDarkBlue text-3xl rounded-lg justify-between ">
-      <Button 
-        className={`border-4 hover:border-blue-500 text-3xl hover:text-seniorbankWhite cursor-pointer group 
-        border-seniorBankWhitePurple text-seniorBankDarkBlue p-16 ps-4 flex flex-row gap-4 justify-between items-center w-full
-        ${isSelected ? "bg-seniorBankGreen border-seniorBankGreen text-white" : "bg-seniorBankWhitePurple"}
-      `}
-      onClick={onClick}
+    <div className="m-2 grid grid-cols-1 justify-between rounded-lg text-3xl font-bold text-seniorBankDarkBlue shadow-md">
+      <Button
+        className={`group flex w-full cursor-pointer flex-row items-center justify-between gap-4 border-4 border-seniorBankWhitePurple p-16 ps-4 text-3xl text-seniorBankDarkBlue hover:border-blue-500 hover:text-seniorbankWhite ${isSelected ? "border-seniorBankGreen bg-seniorBankGreen text-white" : "bg-seniorBankWhitePurple"} `}
+        onClick={onClick}
       >
-        
-          <div className="flex felx-row gap-4">
-            <h1 className=" ">{title}</h1>
-            <h1 className="">{amount}</h1>
-          </div>
-          <ChevronRight className="size-16 group-hover:translate-x-1 transition-transform duration-200" />
+        <div className="felx-row flex gap-4">
+          <h1 className=" ">{title}</h1>
+          <h1 className="">{amount}</h1>
+        </div>
+        <ChevronRight className="size-16 transition-transform duration-200 group-hover:translate-x-1" />
       </Button>
     </div>
   );
