@@ -14,7 +14,6 @@ interface PaymentSecondStepProps {
     toAccount: string;
     fromAccount: string;
   };
-  handleNext: () => void;
   onGoBack: () => void;
   onClick: () => void;
   onSelectFields: boolean;
@@ -30,7 +29,6 @@ interface PaymentSecondStepProps {
 const PaymentSecondStep = ({
   formData,
   handleChange,
-  handleNext,
   onSelectFields,
   onGoBack,
   isHard,

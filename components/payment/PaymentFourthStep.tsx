@@ -1,11 +1,9 @@
 import { Button } from "../ui/button";
 import { ProgressBar } from "../all/ProgressBar";
-import { Link } from "lucide-react";
 
 interface PaymentFourthStepProps {
   onClick: () => void;
   onGoBack: () => void;
-  onReset: () => void;
   onGoToHomepage: () => void;
   formData: {
     comment: string;
@@ -20,11 +18,8 @@ const PaymentFourtStep = ({
   onClick,
   isHard,
   onGoBack,
-  onReset,
   onGoToHomepage,
 }: PaymentFourthStepProps) => {
-  const styling =
-    "bg-seniorbankWhite border-2 border-seniorBankDarkBlue rounded-lg w-full flex justify-between h-20  items-center p-4";
   return (
     <section>
       <div className="mt-6 rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple">

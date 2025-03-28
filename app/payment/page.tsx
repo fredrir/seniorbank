@@ -57,15 +57,6 @@ export default function Payment() {
     setStep(step - 1);
   };
 
-  const handleReset = () => {
-    setStep(1);
-    setFormData({
-      comment: "",
-      amount: "",
-      toAccount: "",
-      fromAccount: "",
-    });
-  };
   const handleGoToHomepage = () => {
     window.location.href = "/";
   };
@@ -166,7 +157,6 @@ export default function Payment() {
     stepComponent = (
       <PaymentSecondStep
         formData={formData}
-        handleNext={handleNext}
         handleChange={handleChange}
         onGoBack={handleGoBack}
         onSelectAccount={handleSelectToAccount}
@@ -186,7 +176,6 @@ export default function Payment() {
         onGoBack={handleGoBack}
         handleChange={handleChange}
         onClick={handleNext}
-        
         approvedAccountOptions={approvedAccountOptions}
         selectedAmount={formData.amount}
         isHard={true}
@@ -198,7 +187,6 @@ export default function Payment() {
       <PaymentFourthStep
         formData={formData}
         onClick={handleSubmit}
-        onReset={handleReset}
         onGoBack={handleGoBack}
         onGoToHomepage={handleGoToHomepage}
         isHard={true}
