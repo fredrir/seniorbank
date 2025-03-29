@@ -22,7 +22,6 @@ export default function Payment() {
     fromAccount: "",
   });
   const { data: session } = useSession(); // Get session data
-  const difficulty = session?.user?.difficulty;
   useEffect(() => {
     if (session?.user?.difficulty) {
       setIsHard(session.user.difficulty === "HARD");
