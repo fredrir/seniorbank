@@ -20,7 +20,7 @@ const PaymentFirstStep = ({
 }: PaymentFirstStepProps) => {
    const { data: session } = useSession();
 
-    const difficulty = session?.user?.difficulty;
+    // const difficulty = session?.user?.difficulty;
     const accounts = session?.user?.bankAccounts; 
     // console.log("User Difficulty:", difficulty);
     console.log("User accounts:", accounts);
