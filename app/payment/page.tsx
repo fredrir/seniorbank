@@ -6,10 +6,13 @@ import PaymentThirdStep from "@/components/payment/PaymentThirdStep";
 import PaymentFourthStep from "@/components/payment/PaymentFourthStep";
 import toast from "react-hot-toast";
 import PaymentFifthStep from "@/components/payment/PaymentFifthStep";
+import { useSession } from "next-auth/react";
+
+
 
 export default function Payment() {
   const [step, setStep] = useState(1);
-  const isHard = true;
+  const [isHard, setIsHard] = useState(false);
   const [onSelectFields, setOnSelectFields] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -18,6 +21,13 @@ export default function Payment() {
     toAccount: "",
     fromAccount: "",
   });
+  const { data: session } = useSession(); // Get session data
+  const difficulty = session?.user?.difficulty;
+  useEffect(() => {
+    if (session?.user?.difficulty) {
+      setIsHard(session.user.difficulty === "HARD");
+    }
+  }, [session]);
 
   const accountOptions = [
     {
@@ -148,7 +158,7 @@ export default function Payment() {
         onClick={handleNext}
         accountOptions={accountOptions}
         selectedAccount={formData.fromAccount}
-        isHard={true}
+        isHard={isHard}
       />
     );
   }
@@ -164,7 +174,7 @@ export default function Payment() {
         approvedAccountOptions={approvedAccountOptions}
         selectedAccount={formData.toAccount}
         onSelectFields={onSelectFields}
-        isHard={true}
+        isHard={isHard}
       />
     );
   }
@@ -178,7 +188,7 @@ export default function Payment() {
         onClick={handleNext}
         approvedAccountOptions={approvedAccountOptions}
         selectedAmount={formData.amount}
-        isHard={true}
+        isHard={isHard}
       />
     );
   }
@@ -189,7 +199,7 @@ export default function Payment() {
         onClick={handleSubmit}
         onGoBack={handleGoBack}
         onGoToHomepage={handleGoToHomepage}
-        isHard={true}
+        isHard={isHard}
       />
     );
   }
