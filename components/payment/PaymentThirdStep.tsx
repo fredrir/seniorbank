@@ -35,7 +35,7 @@ const PaymentThirdStep = ({
   return (
     <section>
       <div className="mt-6 rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple">
-        <ProgressBar totalSteps={isHard ? 3 : 4} currentStep={2} />
+        <ProgressBar totalSteps={isHard ? 3 : 4} currentStep={3} />
         <h1 className="pl-10 text-3xl font-bold text-seniorBankDarkBlue">
           {isHard ? "Bekreft betaling" : "Beløp"}
         </h1>
@@ -59,9 +59,6 @@ const PaymentThirdStep = ({
                 <p>{formData.comment}</p>
                 <p className="text-2xl"></p>
               </div>
-              <p className="mt-6 text-center">
-                Dette vil varsle Trygghetskontakten din.
-              </p>
             </>
           ) : (
             <>
@@ -81,7 +78,7 @@ const PaymentThirdStep = ({
             </>
           )}
         </div>
-        <div className="m-10 flex items-stretch justify-between">
+        <div className="ml-10 mr-10 flex items-stretch justify-between">
           <Button
             className="float-left flex w-[45%] min-w-0 flex-col p-8 px-4 text-2xl"
             onClick={onGoBack}
