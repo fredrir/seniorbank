@@ -1,7 +1,7 @@
 import { Button } from "../ui/button";
 import { ProgressBar } from "../all/ProgressBar";
 import AccountView from "./AccountView";
-//  import { useSession } from "next-auth/react";
+  import { useSession } from "next-auth/react";
 
 interface PaymentFirstStepProps {
   onClick: () => void;
@@ -18,10 +18,13 @@ const PaymentFirstStep = ({
   selectedAccount,
   isHard,
 }: PaymentFirstStepProps) => {
-  // const { data: session } = useSession();
+   const { data: session } = useSession();
 
-  //  const difficulty = session?.user?.difficulty;
-  //  console.log("User Difficulty:", difficulty);
+    const difficulty = session?.user?.difficulty;
+    const accounts = session?.user?.bankAccounts; 
+    // console.log("User Difficulty:", difficulty);
+    console.log("User accounts:", accounts);
+    // console.log("Session Data:", session);
 
   const hardProgressbar = <ProgressBar totalSteps={3} currentStep={1} />;
   const mediumProgressbar = <ProgressBar totalSteps={4} currentStep={1} />;

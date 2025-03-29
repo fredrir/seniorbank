@@ -8,8 +8,6 @@ import toast from "react-hot-toast";
 import PaymentFifthStep from "@/components/payment/PaymentFifthStep";
 import { useSession } from "next-auth/react";
 
-
-
 export default function Payment() {
   const [step, setStep] = useState(1);
   const [isHard, setIsHard] = useState(false);
@@ -21,27 +19,18 @@ export default function Payment() {
     toAccount: "",
     fromAccount: "",
   });
-  const { data: session } = useSession(); // Get session data
+  const { data: session } = useSession();
   useEffect(() => {
     if (session?.user?.difficulty) {
       setIsHard(session.user.difficulty === "HARD");
     }
   }, [session]);
+  const bankAccounts = session?.user?.bankAccounts || [];
 
-  const accountOptions = [
-    {
-      title: "Sparekonto",
-      amount: 830726,
-    },
-    {
-      title: "Barnebarn",
-      amount: 34835,
-    },
-    {
-      title: "Russetid",
-      amount: 10835,
-    },
-  ];
+  const accountOptions = bankAccounts.map((bankAccount) => ({
+    title: bankAccount.name, 
+    amount: bankAccount.balance, 
+  }));
 
   const handleNext = () => {
     const accountNumber = formData.toAccount.trim();
