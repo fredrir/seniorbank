@@ -1,14 +1,4 @@
 import React from "react";
-import { ChevronRight } from "lucide-react";
-import { Button } from "../ui/button";
-import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from "lucide-react";
 
 import {
   Command,
@@ -17,8 +7,6 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
 import { useState } from "react";
 
