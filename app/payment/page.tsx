@@ -43,6 +43,36 @@ export default function Payment() {
     },
   ];
 
+  const approvedTransactionOptions = [
+    {
+      title: "Strømleverandør",
+      accountNumber: 18368237294,
+    },
+    {
+      title: "Husleie",
+      accountNumber: 48394724957,
+    },
+    {
+      title: "Mobilabonement",
+      accountNumber: 28459237593,
+    },
+  ];
+  const approvedAccountOptions = [ //TODO connect to database
+    {
+      title: "Strømleverandør",
+      accountNumber: 18368237294,
+    },
+    {
+      title: "Husleie",
+      accountNumber: 48394724957,
+    },
+    {
+      title: "Mobilabonement",
+      accountNumber: 28459237593,
+    },
+  ];
+
+
   const handleNext = () => {
     const accountNumber = formData.toAccount.trim();
     if (step === 2 && isHard) {
@@ -77,13 +107,24 @@ export default function Payment() {
     setStep(step + 1);
   };
 
-  const handleSelectAccount = (account: string) => {
+ 
+  const handleSelectFromAccount = (account: string) => { // Setter account som FromAccount i formData. Account må være en string. Når en knapp har denne
     console.log("Selected account:", account);
     setFormData((prevData) => ({
       ...prevData,
       fromAccount: account,
     }));
   };
+
+  const handleSelectToAccount = (account: string) => { // Setter account som toAccount i formData. Account må være en string. Når en knapp har denne
+    console.log("Selected account:", account); //TODO: Er denne jeg må bruke
+    setFormData((prevData) => ({
+      ...prevData,
+      toAccount: account,
+    }));
+  };
+
+
   useEffect(() => {
     const isValid =
       formData.fromAccount.length > 7 &&
@@ -126,34 +167,15 @@ export default function Payment() {
       }));
     }
   };
-  const approvedAccountOptions = [
-    {
-      title: "Strømleverandør",
-      accountNumber: 18368237294,
-    },
-    {
-      title: "Husleie",
-      accountNumber: 48394724957,
-    },
-    {
-      title: "Mobilabonement",
-      accountNumber: 28459237593,
-    },
-  ];
-  const handleSelectToAccount = (account: string) => {
-    console.log("Selected account:", account);
-    setFormData((prevData) => ({
-      ...prevData,
-      toAccount: account,
-    }));
-  };
+  
+ 
 
   let stepComponent;
 
   if (step === 1) {
     stepComponent = (
       <PaymentFirstStep
-        onSelectAccount={handleSelectAccount}
+        onSelectAccount={handleSelectFromAccount}
         onClick={handleNext}
         accountOptions={accountOptions}
         selectedAccount={formData.fromAccount}
@@ -171,6 +193,7 @@ export default function Payment() {
         onSelectAccount={handleSelectToAccount}
         onClick={handleNext}
         approvedAccountOptions={approvedAccountOptions}
+        approvedTransactionOptions={approvedTransactionOptions}
         selectedAccount={formData.toAccount}
         onSelectFields={onSelectFields}
         isHard={isHard}

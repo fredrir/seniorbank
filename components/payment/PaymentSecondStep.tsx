@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import ApprovedAccountView from "./ApprovedAccountView";
 import { ProgressBar } from "../all/ProgressBar";
+import PreviousAccountTransactions from "./PreviousAccountTransactions";
 
 interface PaymentSecondStepProps {
   formData: {
@@ -19,6 +20,7 @@ interface PaymentSecondStepProps {
   onSelectFields: boolean;
   onSelectAccount: (account: string) => void;
   approvedAccountOptions: { title: string; accountNumber: number }[];
+  approvedTransactionOptions:  { title: string; accountNumber: number }[];
   selectedAccount: string;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -35,6 +37,7 @@ const PaymentSecondStep = ({
   onClick,
   onSelectAccount,
   approvedAccountOptions,
+  approvedTransactionOptions,
   selectedAccount,
 }: PaymentSecondStepProps) => {
   return (
@@ -88,6 +91,7 @@ const PaymentSecondStep = ({
                 placeholder="Skriv inn kommentar her ... "
                 className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite !text-2xl placeholder:text-2xl"
               />
+              <PreviousAccountTransactions options={approvedTransactionOptions} />
             </>
           ) : (
             <>
