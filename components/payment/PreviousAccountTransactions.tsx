@@ -31,7 +31,7 @@ const PreviousAccountTransactions = ({options}: Props) =>{
         <CommandGroup heading="Tildigere betalte kontoer">
         {options.map((option, index) => (
               <CommandItem key={index}>
-                <span>{option.title} {option.accountNumber}</span>
+                <span>{option.title} - {option.accountNumber}</span>
               </CommandItem>
             ))}
         </CommandGroup>
