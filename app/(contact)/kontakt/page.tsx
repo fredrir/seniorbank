@@ -20,7 +20,7 @@ export default async function ContactPersonPage() {
 
       <ApprovalSlider />
 
-      <section className="mx-auto grid max-w-3xl grid-cols-2 gap-16 pt-16">
+      <section className="mx-auto grid max-w-3xl grid-cols-2 gap-16 pb-16 pt-24">
         <div>
           <h2 className="mb-8 text-xl font-bold text-[#002776] md:text-2xl">
             Kontoversikt
