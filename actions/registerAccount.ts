@@ -1,5 +1,5 @@
 "use server";
-import { getServerSession } from "@/lib/auth";
+import { checkServerSession } from "@/lib/auth";
 import { prisma } from "../lib/db";
 import { Difficulty } from "@prisma/client";
 import { createFixturesForUser } from "../lib/fixtures";
@@ -7,7 +7,7 @@ import { RegisterAccountFormData } from "@/lib/types";
 
 const registerAccount = async (form: RegisterAccountFormData) => {
   try {
-    const session = await getServerSession();
+    const session = await checkServerSession();
 
     const existingUser = await prisma.user.findUnique({
       where: {

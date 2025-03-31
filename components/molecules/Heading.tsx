@@ -1,30 +1,32 @@
+import { cn } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
-interface Props {
+interface Props extends React.PropsWithChildren {
   title: string;
   className?: string;
   href?: string;
-  blue?: boolean;
 }
 
-const Heading = ({ title, className, href, blue = false }: Props) => {
-  const textColor = blue ? "text-[#002776]" : "text-white";
-
+const Heading = ({ title, className, href, children }: Props) => {
   return (
     <div className="group flex flex-row items-center bg-inherit">
       {href && (
         <Link href={href}>
           <ChevronLeft
-            className={`size-20 ${textColor} transition-transform duration-200 group-hover:-translate-x-1`}
+            className={"size-20 transition-transform duration-200 group-hover:-translate-x-1 text-white"}
           />
         </Link>
       )}
-      <h1
-        className={`text-4xl font-bold ${textColor} md:text-6xl ${className}`}
-      >
-        {title}
-      </h1>
+      <div className="flex flex-col">
+        <h1
+          className={cn("text-4xl font-bold md:text-6xl text-white mb-2", className)}
+        >
+          {title}
+        </h1>
+        {children}
+      </div>
+
     </div>
   );
 };

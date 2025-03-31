@@ -3,8 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowLeftRight, House, Landmark, Wallet } from "lucide-react";
-import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { LogoutButton } from "../molecules/LogoutButton";
 
 const navLinks = [
   {
@@ -30,15 +30,10 @@ const navLinks = [
 ];
 
 const NavBar = () => {
-  const handleLogout = () =>
-    signOut({
-      callbackUrl: "/",
-    });
-
   const activePath = usePathname();
 
   return (
-    <div className="relative w-full bg-seniorbankBlue px-4 pb-8">
+    <div className="relative w-full bg-seniorbankBlue px-4 pb-8 pt-1">
       <nav className="flex w-full items-center justify-center">
         <span className="flex flex-row items-center justify-center border-b-2 border-white">
           {navLinks.map((link, index) => (
@@ -59,12 +54,10 @@ const NavBar = () => {
           ))}
         </span>
       </nav>
-      <button
-        className="absolute right-2 top-2 ml-8 rounded-lg bg-[#D3D3EA] px-6 py-2 text-2xl font-bold text-[#002776] hover:opacity-80"
-        onClick={handleLogout}
-      >
-        Logg ut
-      </button>
+
+      <div className="absolute right-0 top-0 m-4">
+        <LogoutButton />
+      </div>
     </div>
   );
 };

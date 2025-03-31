@@ -13,7 +13,7 @@ export function ProgressBar({ totalSteps, currentStep, title }: Props) {
         {Array.from({ length: totalSteps }, (_, index) => (
           <div key={index} className="flex items-center">
             <div
-              className={`flex h-14 w-14 items-center justify-center rounded-full text-4xl font-medium ${
+              className={`flex size-12 md:size-20 items-center justify-center rounded-full text-4xl font-medium ${
                 index < currentStep - 1
                   ? "bg-[#70c7aa] text-4xl text-black"
                   : index === currentStep - 1

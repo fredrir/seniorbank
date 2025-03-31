@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
-import { getServerSession as _getServerSession, NextAuthOptions, Session } from "next-auth";
+import { getServerSession as _getServerSession, NextAuthOptions } from "next-auth";
 import Auth0 from "next-auth/providers/auth0";
+import { redirect } from "next/navigation";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -13,13 +14,19 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session }) {
+      if (!session.user?.email) {
+        throw new Error("No email found in session");
+      }
+
+      session.email = session.user.email;
+
       const user = await prisma.user.findUnique({
-        where: { email: session.email },
+        where: { email: session.user.email },
         include: {
           accounts: true,
         },
       });
-
+      
       session.user = user
 
       return session;
@@ -27,26 +34,27 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-let session: Session | null = null;
 export async function getServerSession() {
-  if (!session) {
-    session = await _getServerSession(authOptions);
+  return await _getServerSession(authOptions);
+}
 
-    if (!session) {
-      throw new Error("No session found");
-    }
+export async function checkServerSession() {
+  const session = await getServerSession();
+
+  if (session === null) {
+    redirect("/login");
   }
+
   return session;
 }
 
-export async function getCurrentUser() {
-  const session = await getServerSession();
-  if (!session) {
-    throw new Error("No session found");
+export async function checkRegisteredUser() {
+  const session = await checkServerSession();
+
+  if (session.user === null) {
+    redirect("/register");
   }
-  if (!session.user) {
-    throw new Error("No user found");
-  }
+
   return session.user;
 }
 
