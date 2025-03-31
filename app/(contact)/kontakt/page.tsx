@@ -1,16 +1,15 @@
-import { authOptions } from "@/app/api/[auth]/[...nextauth]/authOptions";
-import AccountOverview from "@/components/contact-page/AccountOverview";
-import ActionOverview from "@/components/contact-page/ActionOverview";
-import ApprovalSlider from "@/components/contact-page/ApprovalSlider";
-import { getServerSession } from "next-auth";
+import { getCurrentUser } from "@/lib/auth";
+import AccountOverview from "@/app/(contact)/kontakt/(components)/AccountOverview";
+import ActionOverview from "@/app/(contact)/kontakt/(components)/ActionOverview";
+import ApprovalSlider from "@/app/(contact)/kontakt/(components)/ApprovalSlider";
 
 export default async function ContactPersonPage() {
-  const session = await getServerSession(authOptions);
+  const user = await getCurrentUser();
 
   return (
     <main>
       <h1 className="pt-8 text-2xl font-bold text-[#002776] md:text-4xl">
-        Velkommen, {session?.user?.name}!
+        Velkommen, {user.name}!
       </h1>
 
       {/* TODO integrere med backend */}

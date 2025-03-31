@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SessionWrapper from "@/components/auth/SessionWrapper";
-import AuthLayout from "@/components/auth/AuthLayout";
 import { cn } from "@/lib/utils";
 import { Toaster } from "react-hot-toast";
+import SessionWrapper from "./(components)/auth/SessionWrapper";
+import AuthLayout from "./(components)/auth/AuthLayout";
 
 export const metadata: Metadata = {
   title: "Seniorbank",

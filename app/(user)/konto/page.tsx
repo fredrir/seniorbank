@@ -1,55 +1,52 @@
-import AccountCard from "@/components/account-overview/AccountCard";
-import HeaderText from "@/components/all/HeaderText";
-import SubHeaderText from "@/components/all/SubHeaderText";
-import { BankAccountCard } from "@/components/homepage/BankAccountCard";
+import AccountCard from "@/app/(user)/konto/(components)/AccountCard";
+import Heading from "@/components/molecules/Heading";
+import SubHeading from "@/components/molecules/SubHeading";
 import { ShieldAlert } from "lucide-react";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../api/[auth]/[...nextauth]/authOptions";
-import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
+import { BackgroundGraphic } from "@/components/molecules/BackgroundGraphic";
+import { getCurrentUser } from "@/lib/auth";
+import { prisma } from "@/lib/db";
 
 export default async function AccountOverviewPage() {
-  const session = await getServerSession(authOptions);
+  const user = await getCurrentUser();
+
+  const accounts = await prisma.bankAccount.findMany({
+    where: {
+      userId: user.id,
+    },
+  });
 
   return (
     <>
-      <section>
+      <section className="h-[350px]">
         <BackgroundGraphic
-          variant="inverse-topwave"
-          className="text-[#015aa4]"
+          variant="top-halfcircle"
+          className="text-[#015aa4] h-[400px]"
         />
-        <HeaderText title="Kontooversikt" className="mt-8" />
+        <Heading title="Kontooversikt" />
         <div className="flex flex-col items-center">
           <article className="flex flex-row items-center gap-2 text-lg text-white md:text-2xl">
             <ShieldAlert className="size-52" />
             Vær oppmerksom på uvanlige transaksjoner. Banken eller politiet vil
             aldri be deg om å overføre penger til en annen konto.
           </article>
-
-          <BankAccountCard
-            bankAccount={session?.user.bankAccounts.find(
-              (account) => account.main,
-            )}
-          />
         </div>
       </section>
-      <section className="mb-8 mt-16 flex w-full flex-col">
+      <section className="mb-8 flex w-full flex-col">
         <div>
-          <SubHeaderText title="Sparekonto" />
+          <SubHeading title="Bankkontoer" />
 
           <div className="rounded-[2.5rem] border-[0.4rem] border-seniorBankLightBlue">
-            {session?.user.bankAccounts.map((account, index) => (
+            {accounts.map(account => (
               <AccountCard
                 account={account}
-                key={index}
-                index={index}
-                length={session.user.bankAccounts.length}
+                key={account.id}
               />
             ))}
           </div>
         </div>
       </section>
       <section className="my-16 md:my-32">
-        <SubHeaderText title="Fond" />
+        <SubHeading title="Fond" />
       </section>
     </>
   );

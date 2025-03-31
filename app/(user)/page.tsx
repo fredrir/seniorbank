@@ -1,9 +1,9 @@
-import HeaderText from "@/components/all/HeaderText";
-import SubHeaderText from "@/components/all/SubHeaderText";
-import { BankAccountCard } from "@/components/homepage/BankAccountCard";
-import MenuOption from "@/components/homepage/MenuOptions";
-import { WarningSection } from "@/components/homepage/WarningSection";
-import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
+import Heading from "@/components/molecules/Heading";
+import SubHeading from "@/components/molecules/SubHeading";
+import { BankAccountCard } from "@/app/(user)/(components)/BankAccountCard";
+import MenuOption from "@/app/(user)/(components)/MenuOptions";
+import { WarningSection } from "@/app/(user)/(components)/WarningSection";
+import { BackgroundGraphic } from "@/components/molecules/BackgroundGraphic";
 import {
   ArrowBigDownDash,
   Banknote,
@@ -12,16 +12,16 @@ import {
   Settings,
   Wallet,
 } from "lucide-react";
-import { getServerSession } from "next-auth";
-import HiddenMenuOptions from "@/components/homepage/HiddenMenuOptions";
-import { authOptions } from "../api/[auth]/[...nextauth]/authOptions";
+import HiddenMenuOptions from "@/app/(user)/(components)/HiddenMenuOptions";
+import { getCurrentUser } from "@/lib/auth";
+import { prisma } from "@/lib/db";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  const user = await getCurrentUser();
 
   const menuOptions = [
     {
-      title: "Konto oversikt",
+      title: "Kontoer",
       description: "Se oversikt over dine kontoer",
       icon: <Banknote className="size-16" />,
       href: "/konto",
@@ -62,41 +62,48 @@ export default async function Home() {
   ];
 
   const filteredMenuOptions = menuOptions.filter((option) =>
-    option.availableFor.includes(session?.user.difficulty as string),
+    option.availableFor.includes(user.difficulty),
   );
 
   const hiddenMenuOptions = menuOptions.filter(
     (option) =>
-      !option.availableFor.includes(session?.user.difficulty as string),
+      !option.availableFor.includes(user.difficulty),
   );
+
+  const mainBankAccount = await prisma.bankAccount.findFirst({
+    where: {
+      userId: user.id,
+      main: true,
+    },
+  });
 
   return (
     <>
       <BackgroundGraphic variant="top-halfcircle" className="text-[#015aa4]" />
       <section className="h-[450px] overflow-hidden">
-        <HeaderText
-          title={session ? `Hei, ${session.user.name}` : "Hei, Navn Navnesen"}
-          className="my-8"
+        <Heading
+          title={user ? `Hei, ${user.name}` : "Hei, Navn Navnesen"}
+          className="mb-8"
         />
         <p className="text-3xl text-white">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod incididunt.
         </p>
 
-        <div className="absolute top-[375px]">
-          <BankAccountCard
-            bankAccount={session?.user.bankAccounts.find(
-              (account) => account.main,
-            )}
-          />
-        </div>
+        {
+          mainBankAccount !== null && (
+            <div className="absolute top-[375px]">
+              <BankAccountCard bankAccount={mainBankAccount} />
+            </div>
+          )
+        }
       </section>
 
       <section>
-        <SubHeaderText title="Handlinger" />
+        <SubHeading title="Handlinger" />
 
         <div
-          className={`grid w-full grid-cols-1 gap-8 ${session?.user.difficulty === "EASY" ? "" : "md:grid-cols-2"}`}
+          className={`grid w-full grid-cols-1 gap-8 ${user.difficulty === "EASY" ? "" : "md:grid-cols-2"}`}
         >
           {filteredMenuOptions.map((option, index) => (
             <MenuOption
@@ -110,7 +117,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {session?.user.difficulty !== "HARD" && (
+      {user.difficulty !== "HARD" && (
         <HiddenMenuOptions hiddenMenuOptions={hiddenMenuOptions} />
       )}
       <WarningSection />

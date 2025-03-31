@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
-import PaymentFirstStep from "@/components/payment/PaymentFirstStep";
-import PaymentSecondStep from "@/components/payment/PaymentSecondStep";
-import PaymentThirdStep from "@/components/payment/PaymentThirdStep";
-import PaymentFourtStep from "@/components/payment/PaymentFourthStep";
+import PaymentFirstStep from "@/app/(user)/payment/(components)/PaymentFirstStep";
+import PaymentSecondStep from "@/app/(user)/payment/(components)/PaymentSecondStep";
+import PaymentThirdStep from "@/app/(user)/payment/(components)/PaymentThirdStep";
+import PaymentFourtStep from "@/app/(user)/payment/(components)/PaymentFourthStep";
 import toast from "react-hot-toast";
+import Heading from "@/components/molecules/Heading";
 
 export default function Payment() {
   const [step, setStep] = useState(1);
@@ -148,7 +149,7 @@ export default function Payment() {
   }
   return (
     <section>
-      <h1 className="mt-5 text-4xl font-bold text-white">Betal</h1>
+      <Heading title="Betal"/>
       <svg
         viewBox="0 0 100 100"
         preserveAspectRatio="none"

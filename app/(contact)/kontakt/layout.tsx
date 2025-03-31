@@ -1,6 +1,6 @@
-import ContactFooter from "@/components/contact-page/ContactFooter";
-import ContactNavbar from "@/components/contact-page/ContactNavbar";
-import { BackgroundGraphic } from "@/components/ui/BackgroundGraphic";
+import ContactFooter from "@/app/(contact)/kontakt/(components)/ContactFooter";
+import ContactNavbar from "@/app/(contact)/kontakt/(components)/ContactNavbar";
+import { BackgroundGraphic } from "@/components/molecules/BackgroundGraphic";
 
 export default function UserLayout({
   children,

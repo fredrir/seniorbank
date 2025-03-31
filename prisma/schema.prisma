@@ -27,7 +27,6 @@ model User {
   phoneNumber   String?
   address       String?
   difficulty    Difficulty    @default(EASY)
-  hasRegistered Boolean       @default(false)
   accounts      BankAccount[]
 }
 
