@@ -5,17 +5,24 @@ interface Props {
   title: string;
   className?: string;
   href?: string;
+  blue?: boolean;
 }
 
-const HeaderText = ({ title, className, href }: Props) => {
+const HeaderText = ({ title, className, href, blue = false }: Props) => {
+  const textColor = blue ? "text-[#002776]" : "text-white";
+
   return (
-    <span className="group flex flex-row items-center">
+    <span className="group flex flex-row items-center bg-inherit">
       {href && (
         <Link href={href}>
-          <ChevronLeft className="size-20 text-white transition-transform duration-200 group-hover:-translate-x-1" />
+          <ChevronLeft
+            className={`size-20 ${textColor} transition-transform duration-200 group-hover:-translate-x-1`}
+          />
         </Link>
       )}
-      <h1 className={`text-4xl font-bold text-white md:text-6xl ${className}`}>
+      <h1
+        className={`text-4xl font-bold ${textColor} md:text-6xl ${className}`}
+      >
         {title}
       </h1>
     </span>

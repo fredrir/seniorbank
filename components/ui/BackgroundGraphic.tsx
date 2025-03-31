@@ -81,7 +81,10 @@ export function BackgroundGraphic({
           preserveAspectRatio="none"
           width={100}
           height={100}
-          className={cn("absolute left-0 z-[-1] h-[500px] w-full", className)}
+          className={cn(
+            "absolute bottom-0 left-0 z-[-1] h-[500px] w-full rotate-180",
+            className,
+          )}
         >
           <path
             d="M0 0 L0 75 C20 65, 50 70, 70 90 S100 95, 100 90 L100 0 Z"
