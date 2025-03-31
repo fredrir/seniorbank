@@ -58,6 +58,7 @@ export default async function Home() {
       description: "Endre på instillinger og infomasjon",
       icon: <Settings className="size-16" />,
       availableFor: ["HARD"],
+      href: "/innstillinger",
     },
   ];
 
