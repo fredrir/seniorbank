@@ -1,4 +1,5 @@
 import { authOptions } from "@/app/api/[auth]/[...nextauth]/authOptions";
+import AccountOverview from "@/components/contact-page/AccountOverview";
 import ApprovalSlider from "@/components/contact-page/ApprovalSlider";
 import { getServerSession } from "next-auth";
 
@@ -17,6 +18,22 @@ export default async function ContactPersonPage() {
       </h3>
 
       <ApprovalSlider />
+
+      <section className="mx-auto grid max-w-3xl grid-cols-2 gap-16 pt-16">
+        <div>
+          <h2 className="mb-8 text-xl font-bold text-[#002776] md:text-2xl">
+            Kontoversikt
+          </h2>
+
+          <AccountOverview />
+        </div>
+
+        <div>
+          <h2 className="mb-8 text-xl font-bold text-[#002776] md:text-2xl">
+            Handlinger
+          </h2>
+        </div>
+      </section>
     </main>
   );
 }
