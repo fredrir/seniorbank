@@ -1,3 +1,4 @@
+import { formatCurrency } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 
 const accounts = [
@@ -34,10 +35,7 @@ const AccountOverview = () => {
 
           <div className="flex flex-row items-center gap-1">
             <span className="text-lg font-bold text-seniorBankDarkBlue">
-              {account.amount.toLocaleString("no-NO", {
-                style: "currency",
-                currency: "NOK",
-              })}
+              {formatCurrency(account.amount, true)}
             </span>
 
             <ChevronRight className="size-12 text-seniorBankDarkBlue" />
