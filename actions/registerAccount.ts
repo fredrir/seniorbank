@@ -3,49 +3,33 @@ import { getServerSession } from "@/lib/auth";
 import { prisma } from "../lib/db";
 import { Difficulty } from "@prisma/client";
 import { createFixturesForUser } from "../lib/fixtures";
+import { RegisterAccountFormData } from "@/lib/types";
 
-interface Props {
-  firstName: string;
-  lastName: string;
-  birthDate: string;
-  phoneNumber: string;
-  address: string;
-  difficulty: Difficulty;
-}
-
-const registerAccount = async ({
-  firstName,
-  lastName,
-  birthDate,
-  phoneNumber,
-  address,
-  difficulty,
-}: Props) => {
+const registerAccount = async (form: RegisterAccountFormData) => {
   try {
     const session = await getServerSession();
 
     const existingUser = await prisma.user.findUnique({
       where: {
-        email: session.email,
+        email: session.email
       },
     });
     if (existingUser) {
       return false;
     }
 
-    if (!["EASY", "MEDIUM", "HARD"].includes(difficulty)) {
+    if (!["EASY", "MEDIUM", "HARD"].includes(form.difficulty)) {
       return false;
     }
 
     const user = await prisma.user.create({
       data: {
-        name: `${firstName} ${lastName}`,
-        birthDate: `${birthDate}T00:00:00.000Z`,
-        phoneNumber,
-        address,
+        name: `${form.firstName} ${form.lastName}`,
+        birthDate: `${form.birthDate}T00:00:00.000Z`,
+        phoneNumber: form.phoneNumber,
+        address: form.address,
         email: session.email,
-        hasRegistered: true,
-        difficulty,
+        difficulty: form.difficulty
       },
     });
 

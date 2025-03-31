@@ -1,45 +1,45 @@
 import { RegisterAccountFormData } from "@/lib/types";
 import { ChevronRight } from "lucide-react";
 
+const difficulties = [
+  {
+    id: 1,
+    level: "Basis nivå",
+    enum: "EASY",
+    description: [
+      "De fleste funksjoner er forenklet",
+      "Kun bassifunksjoner som saldooversikt og betaling av faste regninger",
+      "Viktige handlinger må godkjennes av din Trygghetskontakt før de blir gjennomført",
+    ],
+  },
+
+  {
+    id: 2,
+    level: "Moderert kontroll",
+    enum: "MEDIUM",
+    description: [
+      "Litt flere muligheter, som å betale nye regninger og overføre mellom egne kontoer",
+      "Advarsler ved ukjente mottakere eller større transaksjoner",
+      "Enkel varsling til Trygghetskomtakt ved behov",
+    ],
+  },
+  {
+    id: 3,
+    level: "Full frihet",
+    enum: "HARD",
+    description: [
+      "Alle funksjoner tilgjengelige, inkludert investeringer, uten bekrensninger",
+      "Du kan fortsatt velge å varsle din trygghetskontakt ved større eller uvanlige transaksjoner",
+    ],
+  },
+] as const;
+
 interface Props {
   setFormData: React.Dispatch<React.SetStateAction<RegisterAccountFormData>>;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const FirstStep = ({ setFormData, setStep }: Props) => {
-  const difficulties = [
-    {
-      id: 1,
-      level: "Basis nivå",
-      enum: "EASY",
-      description: [
-        "De fleste funksjoner er forenklet",
-        "Kun bassifunksjoner som saldooversikt og betaling av faste regninger",
-        "Viktige handlinger må godkjennes av din Trygghetskontakt før de blir gjennomført",
-      ],
-    },
-
-    {
-      id: 2,
-      level: "Moderert kontroll",
-      enum: "MEDIUM",
-      description: [
-        "Litt flere muligheter, som å betale nye regninger og overføre mellom egne kontoer",
-        "Advarsler ved ukjente mottakere eller større transaksjoner",
-        "Enkel varsling til Trygghetskomtakt ved behov",
-      ],
-    },
-    {
-      id: 3,
-      level: "Full frihet",
-      enum: "HARD",
-      description: [
-        "Alle funksjoner tilgjengelige, inkludert investeringer, uten bekrensninger",
-        "Du kan fortsatt velge å varsle din trygghetskontakt ved større eller uvanlige transaksjoner",
-      ],
-    },
-  ];
-
   return (
     <div className="flex w-full flex-col items-center gap-8">
       <h3 className="mt-16 max-w-sm text-center text-3xl font-bold text-seniorBankDarkBlue">
