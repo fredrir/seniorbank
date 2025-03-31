@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function ContactFooter() {
   return (
     <footer className="w-full">
-      <div className="bg-seniorbankWhite py-12">
+      <div className="bg-seniorbankWhite pb-12 pt-4">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-12">
             <h2 className="text-3xl font-bold text-[#0a3380]">Eldrebanken</h2>
