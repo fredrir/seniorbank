@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "contact-background": 'url("/contactBackground.svg")',
+      },
       colors: {
         seniorbankWhite: "#FDF8F5",
         seniorbankBlue: "#005AA4",
