@@ -1,20 +1,38 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import PaymentFirstStep from "@/app/(seniorbank)/payment/(components)/PaymentFirstStep";
 import PaymentSecondStep from "@/app/(seniorbank)/payment/(components)/PaymentSecondStep";
 import PaymentThirdStep from "@/app/(seniorbank)/payment/(components)/PaymentThirdStep";
-import PaymentFourtStep from "@/app/(seniorbank)/payment/(components)/PaymentFourthStep";
+import PaymentConfirmationStep from "@/app/(seniorbank)/payment/(components)/PaymentConfirmationStep";
 import toast from "react-hot-toast";
-import Heading from "@/components/molecules/Heading";
+import Heading from "@/ui/molecules/Heading";
+import { redirect } from "next/navigation";
 
 export default function Payment() {
-  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     comment: "",
     amount: "",
     toAccount: "",
     fromAccount: "",
   });
+
+  const defaultStep = formData.toAccount === "" ? 1 : parseInt(new URLSearchParams(window.location.search).get("step") || "1") ?? 1;
+  const [step, setStep] = useState(defaultStep);
+
+  useEffect(() => {
+    window.history.pushState({}, "", `?step=${step}`);
+  }, [step]);
+  
+  useEffect(() => {
+    const handlePopState = () => {
+      const urlStep = parseInt(new URLSearchParams(window.location.search).get("step") || "1");
+      setStep(urlStep);
+    };
+  
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   const accountOptions = [
     {
@@ -54,14 +72,6 @@ export default function Payment() {
     setStep(step - 1);
   };
 
-  const handleReset = () => {
-    setStep(1);
-    formData.comment = "";
-    formData.amount = "";
-    formData.toAccount = "";
-    formData.fromAccount = "";
-  };
-
   const handleSubmit = () => {
     toast.success("Betalingen er gjennomført.");
     setStep(step + 1);
@@ -72,6 +82,7 @@ export default function Payment() {
       ...prevData,
       fromAccount: account,
     }));
+    setStep(2);
   };
 
   const handleChange = (
@@ -141,7 +152,7 @@ export default function Payment() {
   }
   if (step === 4) {
     stepComponent = (
-      <PaymentFourtStep formData={formData} onClick={handleReset} />
+      <PaymentConfirmationStep formData={formData} onClick={() => redirect("/")} />
     );
   }
   return (

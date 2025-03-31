@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 import { ChevronRight } from "lucide-react";
-import { Button } from "@/components/atoms/button";
+import { Button } from "@/ui/atoms/Button";
 
 interface Props {
   onClick: () => void;

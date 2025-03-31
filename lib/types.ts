@@ -15,3 +15,10 @@ export type RegisterAccountFormData = {
   address: string;
   difficulty: Difficulty;
 };
+
+export type PaymentFormData = {
+  comment: string;
+  amount: string;
+  toAccount: string;
+  fromAccount: string;
+}

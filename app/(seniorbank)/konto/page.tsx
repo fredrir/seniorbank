@@ -1,10 +1,10 @@
-import AccountCard from "@/app/(seniorbank)/konto/[id]/(components)/AccountCard";
-import Heading from "@/components/molecules/Heading";
-import SubHeading from "@/components/molecules/SubHeading";
+import Heading from "@/ui/molecules/Heading";
+import SubHeading from "@/ui/molecules/SubHeading";
 import { ShieldAlert } from "lucide-react";
-import { BackgroundGraphic } from "@/components/molecules/BackgroundGraphic";
+import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 import { checkRegisteredUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
+import AccountCard from "./(components)/AccountCard";
 
 export default async function AccountOverviewPage() {
   const user = await checkRegisteredUser();

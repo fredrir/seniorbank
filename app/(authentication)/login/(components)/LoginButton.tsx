@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/atoms/button";
+import { Button } from "@/ui/atoms/Button";
 import { LockIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 

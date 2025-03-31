@@ -1,9 +1,9 @@
-import Heading from "@/components/molecules/Heading";
-import SubHeading from "@/components/molecules/SubHeading";
+import Heading from "@/ui/molecules/Heading";
+import SubHeading from "@/ui/molecules/SubHeading";
 import { BankAccountCard } from "@/app/(seniorbank)/(components)/BankAccountCard";
 import MenuOption from "@/app/(seniorbank)/(components)/MenuOptions";
 import { WarningSection } from "@/app/(seniorbank)/(components)/WarningSection";
-import { BackgroundGraphic } from "@/components/molecules/BackgroundGraphic";
+import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 import {
   ArrowBigDownDash,
   Banknote,

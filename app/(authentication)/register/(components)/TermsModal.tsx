@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/atoms/dialog";
+} from "@/ui/molecules/Dialog";
 
 interface TermsModalProps {
   isOpen: boolean;

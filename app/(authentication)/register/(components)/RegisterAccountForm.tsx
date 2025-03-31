@@ -1,6 +1,6 @@
 "use client";
 
-import { ProgressBar } from "@/components/organisms/ProgressBar";
+import { ProgressBar } from "@/ui/organisms/ProgressBar";
 import FirstStep from "@/app/(authentication)/register/(components)/FirstStep";
 import SecondStep from "@/app/(authentication)/register/(components)/SecondStep";
 import ThirdStep from "@/app/(authentication)/register/(components)/ThirdStep";
@@ -11,8 +11,8 @@ import registerAccount from "@/actions/registerAccount";
 import type { Session } from "next-auth";
 import { RegisterAccountFormData } from "@/lib/types";
 import { redirect } from "next/navigation";
-import { BackgroundGraphic } from "@/components/molecules/BackgroundGraphic";
-import { LogoutButton } from "@/components/molecules/LogoutButton";
+import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
+import { LogoutButton } from "@/ui/molecules/LogoutButton";
 
 const defaultFormData: RegisterAccountFormData = {
   firstName: "",

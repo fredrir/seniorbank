@@ -3,7 +3,7 @@
 import type React from "react";
 
 import { useState } from "react";
-import { Button } from "@/components/atoms/button";
+import { Button } from "@/ui/atoms/Button";
 import { TermsModal } from "./TermsModal";
 
 interface Props {

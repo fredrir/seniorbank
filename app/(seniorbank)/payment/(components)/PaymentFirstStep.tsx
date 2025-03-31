@@ -1,5 +1,7 @@
-import { Button } from "@/components/atoms/button";
-import { ProgressBar } from "@/components/organisms/ProgressBar";
+"use client";
+
+import { Button } from "@/ui/atoms/Button";
+import { ProgressBar } from "@/ui/organisms/ProgressBar";
 import PaymentAccountCard from "./PaymentAccountCard";
 
 interface PaymentFirstStepProps {

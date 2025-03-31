@@ -1,6 +1,6 @@
 import ContactFooter from "@/app/(safetycontact)/kontakt/(components)/ContactFooter";
 import ContactNavbar from "@/app/(safetycontact)/kontakt/(components)/ContactNavbar";
-import { BackgroundGraphic } from "@/components/molecules/BackgroundGraphic";
+import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 import { checkRegisteredUser } from "@/lib/auth";
 
 export default async function UserLayout({

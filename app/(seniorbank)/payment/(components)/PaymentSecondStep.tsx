@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@/components/atoms/button";
+import { Button } from "@/ui/atoms/Button";
 import { BanknoteIcon } from "lucide-react";
 
-import { Textarea } from "@/components/atoms/textarea";
-import { Input } from "@/components/atoms/input";
+import { Textarea } from "@/ui/atoms/Textarea";
+import { Input } from "@/ui/atoms/Input";
 
-import { ProgressBar } from "@/components/organisms/ProgressBar";
+import { ProgressBar } from "@/ui/organisms/ProgressBar";
 interface PaymentSecondStepProps {
   formData: {
     comment: string;
@@ -32,7 +32,7 @@ const PaymentSecondStep = ({
       <div className="mt-6 rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple">
         <ProgressBar totalSteps={3} currentStep={2} />
         <h1 className="pl-10 text-3xl font-bold text-seniorBankDarkBlue">
-          Trygghetskontakt vil bli varslet{" "}
+          Trygghetskontakt vil bli varslet
         </h1>
         <div className="m-10 grid grid-cols-1 gap-3 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
           <p>Fra konto: </p>

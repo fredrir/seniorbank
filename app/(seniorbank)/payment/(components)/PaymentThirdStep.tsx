@@ -1,5 +1,7 @@
-import { Button } from "@/components/atoms/button";
-import { ProgressBar } from "@/components/organisms/ProgressBar";
+"use client";
+
+import { Button } from "@/ui/atoms/Button";
+import { ProgressBar } from "@/ui/organisms/ProgressBar";
 interface PaymentThirdStepProps {
   onClick: () => void;
   onGoBack: () => void;
@@ -23,7 +25,7 @@ const PaymentThirdStep = ({
           <div className="border-4 border-seniorBankLightPurple  bg-seniorBankLightPurple rounded-xl mt-6">
             <ProgressBar totalSteps={3} currentStep={3} />
             <h1 className="text-seniorBankDarkBlue font-bold text-3xl text-center">
-              Bekreft betaling{" "}
+              Bekreft betaling
             </h1>
             <div className="grid grid-cols-1 m-10 font-bold text-seniorBankDarkBlue gap-3 rounded-lg text-3xl">
               <div className="flex justify-between w-full  items-center mb-6">

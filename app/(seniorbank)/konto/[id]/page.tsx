@@ -1,6 +1,6 @@
-import Heading from "@/components/molecules/Heading";
-import { BackgroundGraphic } from "@/components/molecules/BackgroundGraphic";
-import { Input } from "@/components/atoms/input";
+import Heading from "@/ui/molecules/Heading";
+import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
+import { Input } from "@/ui/atoms/Input";
 import { prisma } from "@/lib/db";
 import { tParams, TransactionDetails } from "@/lib/types";
 import { formatCurrency } from "@/lib/utils";

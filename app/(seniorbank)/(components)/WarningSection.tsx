@@ -1,5 +1,5 @@
 import { ShieldAlert } from "lucide-react";
-import { BackgroundGraphic } from "@/components/molecules/BackgroundGraphic";
+import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 
 export function WarningSection() {
   return (

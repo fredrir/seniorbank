@@ -1,7 +1,7 @@
 "use client";
 import { RegisterAccountFormData } from "@/lib/types";
-import { Button } from "@/components/atoms/button";
-import { Input } from "@/components/atoms/input";
+import { Button } from "@/ui/atoms/Button";
+import { Input } from "@/ui/atoms/Input";
 
 interface Props {
   formData: RegisterAccountFormData;

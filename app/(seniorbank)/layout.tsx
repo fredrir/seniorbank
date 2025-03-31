@@ -1,4 +1,4 @@
-import NavBar from "@/components/organisms/NavBar";
+import NavBar from "@/ui/organisms/NavBar";
 import { checkRegisteredUser } from "@/lib/auth";
 
 export default async function UserLayout({
