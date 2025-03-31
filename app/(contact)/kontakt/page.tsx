@@ -1,4 +1,5 @@
 import { authOptions } from "@/app/api/[auth]/[...nextauth]/authOptions";
+import ApprovalSlider from "@/components/contact-page/ApprovalSlider";
 import { getServerSession } from "next-auth";
 
 export default async function ContactPersonPage() {
@@ -14,6 +15,8 @@ export default async function ContactPersonPage() {
       <h3 className="mx-auto max-w-3xl pt-4 text-lg">
         Her kan du hjelpe [Brukerens navn] med viktige bankhandlinger.
       </h3>
+
+      <ApprovalSlider />
     </main>
   );
 }
