@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SessionWrapper from "@/components/auth/SessionWrapper";
-import AuthLayout from "@/components/auth/AuthLayout";
 import { cn } from "@/lib/utils";
 import { Toaster } from "react-hot-toast";
 
@@ -19,9 +17,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn("bg-seniorbankWhite text-primary antialiased")}>
         <Toaster />
-        <SessionWrapper>
-          <AuthLayout>{children}</AuthLayout>
-        </SessionWrapper>
+
+        {children}
       </body>
     </html>
   );
