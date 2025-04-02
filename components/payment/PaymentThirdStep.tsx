@@ -16,7 +16,7 @@ interface PaymentThirdStepProps {
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
-  approvedAccountOptions: { title: string; accountNumber: number }[];
+  approvedAccountOptions: { title: string; accountNumber: string }[];
   selectedAmount: string;
   isHard: boolean;
 }

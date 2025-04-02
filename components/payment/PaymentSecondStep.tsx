@@ -21,6 +21,7 @@ interface PaymentSecondStepProps {
   onSelectFields: boolean;
   onSelectAccount: (account: string) => void;
   approvedAccountOptions: { title: string; accountNumber: number }[];
+  transactionOptions: { accountNumber: number }[];
   // approvedTransactionOptions:  { title: string; accountNumber: number }[];
   selectedAccount: string;
   handleChange: (
@@ -36,6 +37,7 @@ const PaymentSecondStep = ({
   onGoBack,
   isHard,
   onClick,
+  transactionOptions,
   onSelectAccount,
   approvedAccountOptions,
   // approvedTransactionOptions,
@@ -93,7 +95,10 @@ const PaymentSecondStep = ({
                 className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite !text-2xl placeholder:text-2xl"
               />
               <PreviousAccountTransactions options={approvedAccountOptions} />
-           
+              <Ptest
+                 accountNumbers={transactionOptions.map((option) => option.accountNumber)}
+                 onClick={() => console.log("Button clicked")}
+              ></Ptest>
             </>
           ) : (
             <>

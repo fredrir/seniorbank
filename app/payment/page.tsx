@@ -19,8 +19,7 @@ export default function Payment() {
     comment: "",
     amount: "",
     toAccount: "",
-    fromAccount: "",
-    testnum: 0,
+    fromAccount: ""
   });
   const { data: session } = useSession(); // Get session data
   useEffect(() => {
@@ -46,27 +45,27 @@ export default function Payment() {
 
   const approvedTransactionOptions = [
     {
-      accountNumber: 18368237294,
+      accountNumber: "18368237294",
     },
     {
-      accountNumber: 48394724957,
+      accountNumber: "48394724957",
     },
     {
-      accountNumber: 28459237593,
+      accountNumber: "28459237593",
     },
   ];
   const approvedAccountOptions = [ //TODO connect to database
     {
       title: "Strømleverandør",
-      accountNumber: 18368237294,
+      accountNumber: "18368237294",
     },
     {
       title: "Husleie",
-      accountNumber: 48394724957,
+      accountNumber: "48394724957",
     },
     {
       title: "Mobilabonement",
-      accountNumber: 28459237593,
+      accountNumber: "28459237593",
     },
   ];
 
@@ -119,14 +118,6 @@ export default function Payment() {
     setFormData((prevData) => ({
       ...prevData,
       toAccount: account,
-    }));
-  };
-
-  const handleAcountNumber = (accountNumber: number) => { // Setter account som toAccount i formData. Account må være en string. Når en knapp har denne
-    console.log("Selected account:", accountNumber); //TODO: Er denne jeg må bruke
-    setFormData((prevData) => ({
-      ...prevData,
-      testnum: accountNumber,
     }));
   };
 
@@ -197,8 +188,9 @@ export default function Payment() {
         onGoBack={handleGoBack}
         onSelectAccount={handleSelectToAccount}
         onClick={handleNext}
+        onhandleAccountNumber={handleSelectToAccount}
         approvedAccountOptions={approvedAccountOptions}
-        // approvedTransactionOptions={approvedTransactionOptions}
+        transactionOptions={approvedTransactionOptions}
         selectedAccount={formData.toAccount}
         onSelectFields={onSelectFields}
         isHard={isHard}

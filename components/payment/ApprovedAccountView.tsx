@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 interface Props {
   onClick: () => void;
   title: string;
-  accountNumber: number;
+  accountNumber: string;
   isSelected?: boolean;
 }
 
