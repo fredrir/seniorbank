@@ -44,17 +44,17 @@ export default function Payment() {
     },
   ];
 
-  // const approvedTransactionOptions = [
-  //   {
-  //     accountNumber: 18368237294,
-  //   },
-  //   {
-  //     accountNumber: 48394724957,
-  //   },
-  //   {
-  //     accountNumber: 28459237593,
-  //   },
-  // ];
+  const approvedTransactionOptions = [
+    {
+      accountNumber: 18368237294,
+    },
+    {
+      accountNumber: 48394724957,
+    },
+    {
+      accountNumber: 28459237593,
+    },
+  ];
   const approvedAccountOptions = [ //TODO connect to database
     {
       title: "Strømleverandør",
@@ -122,13 +122,13 @@ export default function Payment() {
     }));
   };
 
-  // const handleAcountNumber = (accountNumber: number) => { // Setter account som toAccount i formData. Account må være en string. Når en knapp har denne
-  //   console.log("Selected account:", accountNumber); //TODO: Er denne jeg må bruke
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     testnum: accountNumber,
-  //   }));
-  // };
+  const handleAcountNumber = (accountNumber: number) => { // Setter account som toAccount i formData. Account må være en string. Når en knapp har denne
+    console.log("Selected account:", accountNumber); //TODO: Er denne jeg må bruke
+    setFormData((prevData) => ({
+      ...prevData,
+      testnum: accountNumber,
+    }));
+  };
 
   useEffect(() => {
     const isValid =

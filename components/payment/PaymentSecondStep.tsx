@@ -6,7 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import ApprovedAccountView from "./ApprovedAccountView";
 import { ProgressBar } from "../all/ProgressBar";
-// import PreviousAccountTransactions from "./PreviousAccountTransactions";
+import Ptest from "./Ptest";
+import PreviousAccountTransactions from "./PreviousAccountTransactions";
 
 interface PaymentSecondStepProps {
   formData: {
@@ -91,7 +92,8 @@ const PaymentSecondStep = ({
                 placeholder="Skriv inn kommentar her ... "
                 className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite !text-2xl placeholder:text-2xl"
               />
-              {/* <PreviousAccountTransactions options={approvedTransactionOptions} /> */}
+              <PreviousAccountTransactions options={approvedAccountOptions} />
+           
             </>
           ) : (
             <>
