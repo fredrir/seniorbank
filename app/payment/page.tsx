@@ -20,6 +20,7 @@ export default function Payment() {
     amount: "",
     toAccount: "",
     fromAccount: "",
+    testnum: 0,
   });
   const { data: session } = useSession(); // Get session data
   useEffect(() => {
@@ -45,15 +46,12 @@ export default function Payment() {
 
   const approvedTransactionOptions = [
     {
-      title: "Strømleverandør",
       accountNumber: 18368237294,
     },
     {
-      title: "Husleie",
       accountNumber: 48394724957,
     },
     {
-      title: "Mobilabonement",
       accountNumber: 28459237593,
     },
   ];
@@ -124,6 +122,13 @@ export default function Payment() {
     }));
   };
 
+  const handleAcountNumber = (accountNumber: number) => { // Setter account som toAccount i formData. Account må være en string. Når en knapp har denne
+    console.log("Selected account:", accountNumber); //TODO: Er denne jeg må bruke
+    setFormData((prevData) => ({
+      ...prevData,
+      testnum: accountNumber,
+    }));
+  };
 
   useEffect(() => {
     const isValid =
@@ -193,7 +198,7 @@ export default function Payment() {
         onSelectAccount={handleSelectToAccount}
         onClick={handleNext}
         approvedAccountOptions={approvedAccountOptions}
-        approvedTransactionOptions={approvedTransactionOptions}
+        // approvedTransactionOptions={approvedTransactionOptions}
         selectedAccount={formData.toAccount}
         onSelectFields={onSelectFields}
         isHard={isHard}
