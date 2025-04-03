@@ -1,18 +1,15 @@
 import { Button } from "@/components/ui/button";
 import {
   BanknoteIcon,
-  Calculator,
-  Calendar,
-  Command,
-  Smile,
+
 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 // import { SearchSelect } from "@/components/payment/SearchSelect";
 import { Input } from "@/components/ui/input";
 import ApprovedAccountView from "./ApprovedAccountView";
 import { ProgressBar } from "../all/ProgressBar";
-import Ptest from "./Ptest";
-import PreviousAccountTransactions from "./PreviousAccountTransactions";
+// import Ptest from "./Ptest";
+// import PreviousAccountTransactions from "./PreviousAccountTransactions";
 import Combobox from "./Combobox";
 
 
@@ -45,9 +42,9 @@ const PaymentSecondStep = ({
   onGoBack,
   isHard,
   onClick,
-  transactionOptions,
+  // transactionOptions,
   onSelectAccount,
-  onhandleAccountNumber,
+  // onhandleAccountNumber,
   approvedAccountOptions,
   // approvedTransactionOptions,
   selectedAccount,
