@@ -63,7 +63,9 @@ const PaymentSecondStep = ({
               <p>{formData.fromAccount}</p>
             </div>
             <p>Til konto: </p>
-            <div className="relative">
+            <Combobox onSelectAccount={onSelectAccount}></Combobox>
+            {console.log("Halla",formData.toAccount)}
+            {/* <div className="relative">
               <Input
                 id="toAccount"
                 value={formData.toAccount}
@@ -75,7 +77,7 @@ const PaymentSecondStep = ({
                 name="paymentToAccount"
                 className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pb-2 pr-10 pt-2 !text-2xl placeholder:text-2xl"
               />
-            </div>
+            </div> */}
             <div className="relative">
               <p>Beløp</p>
               <Input
@@ -97,11 +99,9 @@ const PaymentSecondStep = ({
               value={formData.comment}
               onChange={handleChange}
               placeholder="Skriv inn kommentar her ... "
-              className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite !text-2xl placeholder:text-2xl"
+              className="pt-4 h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite !text-2xl placeholder:text-2xl"
             />
-
-            {/* <SearchSelect /> */}
-            <Combobox></Combobox>
+            
           </>
         ) : (
           <>
