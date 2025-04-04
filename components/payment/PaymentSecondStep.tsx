@@ -1,17 +1,10 @@
 import { Button } from "@/components/ui/button";
-import {
-  BanknoteIcon,
-
-} from "lucide-react";
+import { BanknoteIcon } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
-// import { SearchSelect } from "@/components/payment/SearchSelect";
 import { Input } from "@/components/ui/input";
 import ApprovedAccountView from "./ApprovedAccountView";
 import { ProgressBar } from "../all/ProgressBar";
-// import Ptest from "./Ptest";
-// import PreviousAccountTransactions from "./PreviousAccountTransactions";
 import Combobox from "./Combobox";
-
 
 interface PaymentSecondStepProps {
   formData: {
@@ -27,7 +20,6 @@ interface PaymentSecondStepProps {
   onSelectAccount: (account: string) => void;
   approvedAccountOptions: { title: string; accountNumber: string }[];
   transactionOptions: { accountNumber: string }[];
-  // approvedTransactionOptions:  { title: string; accountNumber: number }[];
   selectedAccount: string;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -42,11 +34,8 @@ const PaymentSecondStep = ({
   onGoBack,
   isHard,
   onClick,
-  // transactionOptions,
   onSelectAccount,
-  // onhandleAccountNumber,
   approvedAccountOptions,
-  // approvedTransactionOptions,
   selectedAccount,
 }: PaymentSecondStepProps) => (
   <section>
@@ -64,20 +53,6 @@ const PaymentSecondStep = ({
             </div>
             <p>Til konto: </p>
             <Combobox onSelectAccount={onSelectAccount}></Combobox>
-            {console.log("Halla",formData.toAccount)}
-            {/* <div className="relative">
-              <Input
-                id="toAccount"
-                value={formData.toAccount}
-                onChange={handleChange}
-                type="text"
-                inputMode="numeric"
-                pattern="\d*"
-                placeholder="Skriv inn kontonummer her ..."
-                name="paymentToAccount"
-                className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pb-2 pr-10 pt-2 !text-2xl placeholder:text-2xl"
-              />
-            </div> */}
             <div className="relative">
               <p>Beløp</p>
               <Input
@@ -99,9 +74,8 @@ const PaymentSecondStep = ({
               value={formData.comment}
               onChange={handleChange}
               placeholder="Skriv inn kommentar her ... "
-              className="pt-4 h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite !text-2xl placeholder:text-2xl"
+              className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pt-4 !text-2xl placeholder:text-2xl"
             />
-            
           </>
         ) : (
           <>

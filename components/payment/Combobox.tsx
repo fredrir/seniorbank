@@ -34,7 +34,7 @@ const initialFrameworks = [
   },
 ];
 interface ComboboxProps {
-  onSelectAccount: (account: string) => void; // Define the expected type for onSelectAccount
+  onSelectAccount: (account: string) => void;
 }
 export function Combobox({ onSelectAccount }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
@@ -43,11 +43,6 @@ export function Combobox({ onSelectAccount }: ComboboxProps) {
   const [inputValue, setInputValue] = React.useState("");
   const [accounts, setAccounts] = React.useState(initialFrameworks);
 
-  // const handleSelect = (selectedValue: string) => {
-  //   setValue(selectedValue)
-  //   setInputValue(selectedValue) //Oppdaterer inputfield med selection
-  //   setOpen(false)
-  // }
   const validAccountInput = (inputValue: string) => {
     const regex = /^[0-9]{4}\.[0-9]{2}\.[0-9]{5}$/;
     return regex.test(inputValue);
@@ -62,20 +57,11 @@ export function Combobox({ onSelectAccount }: ComboboxProps) {
       !accounts.some((ac) => ac.value === inputValue) &&
       validAccountInput(inputValue)
     ) {
-      //Sjekker om input eksister i accounts eller ikke, hvis ikke og den er valid, legges den til
       const newOption = { value: inputValue, label: inputValue };
       setAccounts([...accounts, newOption]);
       onSelectAccount(inputValue);
     }
 
-    // if (
-    //   inputValue.trim() &&
-    //   !accounts.some((ac) => ac.value === inputValue)
-    // ) {
-    //   const newOption = { value: inputValue, label: inputValue };
-    //   setAccounts([...accounts, newOption]);
-    // }
-    // onSelectAccount(inputValue); 
     setValue(inputValue);
     setOpen(false);
   };
@@ -85,8 +71,6 @@ export function Combobox({ onSelectAccount }: ComboboxProps) {
         <Button
           role="combobox"
           aria-expanded={open}
-          // className="flex items-start h-20 border-2 text-left text-black border-seniorBankDarkBlue bg-seniorbankWhite pb-2 pr-10 pt-2 !text-2xl placeholder:text-2xl rounded-md"
-          //FJernet: inline-flex relative items-center
           className="m-0 h-20 justify-start rounded-md border-2 border-seniorBankDarkBlue bg-seniorbankWhite p-4 text-gray-500 hover:bg-seniorbankWhite"
         >
           {validAccountInput(value) ? (
@@ -94,7 +78,6 @@ export function Combobox({ onSelectAccount }: ComboboxProps) {
           ) : (
             "Skriv inn kontonummer her ..."
           )}
-          {/* <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" /> */}
         </Button>
       </PopoverTrigger>
       <PopoverContent
