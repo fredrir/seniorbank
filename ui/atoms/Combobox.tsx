@@ -53,8 +53,6 @@ export function Combobox({ onChange, isInputInvalid, defaultOptions, inputPlaceh
     setValue(inputValue);
     setOpen(false);
   };
-  const inputError = isInputInvalid(inputValue);
-
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -63,11 +61,7 @@ export function Combobox({ onChange, isInputInvalid, defaultOptions, inputPlaceh
           aria-expanded={open}
           className="m-0 h-20 justify-start rounded-md border-2 border-seniorBankDarkBlue bg-seniorbankWhite p-4 text-gray-500 hover:bg-seniorbankWhite"
         >
-          {inputError ? (
-            <span>{inputPlaceholder}</span>
-          ) : (
-            <span className="text-seniorBankDarkBlue">{value}</span>
-          )}
+          <span>{value}</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent
