@@ -19,7 +19,7 @@ export default function Cornfirm() {
   const from = searchParams.get("from") || "Ukjent";
   const to = searchParams.get("to") || "Ukjent";
   const amount = searchParams.get("amount") || "0";
-  const comment = searchParams.get("comment") || "";
+  //const comment = searchParams.get("comment") || "";
 
   return (
     <section className="container mx-auto">

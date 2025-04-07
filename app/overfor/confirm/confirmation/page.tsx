@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Banknote, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 export default function Cornfirm() {
   return (
