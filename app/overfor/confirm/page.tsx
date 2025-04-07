@@ -1,49 +1,70 @@
+"use client";
+
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-} from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import { useSearchParams } from "next/navigation";
 
 export default function Cornfirm() {
+  const searchParams = useSearchParams();
 
-return (
-	<section className="mx-auto container">
-		<h1 className="text-5xl font-bold mt-16 mb-8 text-seniorBankDarkBlue">
-			Overfør
-		</h1>
-		<div className="flex justify-center w-full">
-		<Card className="bg-[#D3D3EA] w-[480px] pt-14 px-5 font-bold">
-			<CardHeader className="flex flex-row justify-between d">
-				<CardDescription className="text-seniorBankDarkBlue">Du er i ferd med å overføre</CardDescription>
-				<CardDescription className="text-seniorBankDarkBlue">1000 kr</CardDescription>
-			</CardHeader>
-			<CardContent className="text-seniorBankDarkBlue">
-				<Label>fra konto</Label>
-				<Input value="Brukskonto - 18 932,54 kr" readOnly className="mb-5 border-seniorBankDarkBlue bg-[#F2F2F9] rounded-sm"/>
+  const from = searchParams.get("from") || "Ukjent";
+  const to = searchParams.get("to") || "Ukjent";
+  const amount = searchParams.get("amount") || "0";
+  const comment = searchParams.get("comment") || "";
 
-				<Label>til konto</Label>
-				<Input value="Sparekonto - 829 182,92 kr" readOnly className="mb-5 border-seniorBankDarkBlue bg-[#F2F2F9] rounded-sm"/>
+  return (
+    <section className="container mx-auto">
+      <h1 className="mb-8 mt-16 text-5xl font-bold text-seniorBankDarkBlue">
+        Overfør
+      </h1>
+      <div className="flex w-full justify-center">
+        <Card className="w-[480px] bg-[#D3D3EA] px-5 pt-14 font-bold">
+          <CardHeader className="d flex flex-row justify-between">
+            <CardDescription className="text-seniorBankDarkBlue">
+              Du er i ferd med å overføre
+            </CardDescription>
+            <CardDescription className="text-seniorBankDarkBlue">
+              {amount} kr
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="text-seniorBankDarkBlue">
+            <Label>fra konto</Label>
+            <Input
+              value={from}
+              readOnly
+              className="mb-5 rounded-sm border-seniorBankDarkBlue bg-[#F2F2F9]"
+            />
 
-			</CardContent>
-			<CardFooter className="flex justify-between">
-				<Button variant={"destructive"} size={"lg"} className="border border-seniorBankDarkBlue">
-					<Link href="/overfor">Avbryt
-					</Link>
-				</Button>
-				<Button size={"lg"} className="w-full ml-20">
-					<Link href="/overfor/confirm/confirmation">Bekreft
-					</Link>
-				</Button>
-			</CardFooter>
-		</Card>
-
-		</div>
-	</section>
-);
+            <Label>til konto</Label>
+            <Input
+              value={to}
+              readOnly
+              className="mb-5 rounded-sm border-seniorBankDarkBlue bg-[#F2F2F9]"
+            />
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button
+              variant={"destructive"}
+              size={"lg"}
+              className="border border-seniorBankDarkBlue"
+            >
+              <Link href="/overfor">Avbryt</Link>
+            </Button>
+            <Button size={"lg"} className="ml-20 w-full">
+              <Link href="/overfor/confirm/confirmation">Bekreft</Link>
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+    </section>
+  );
 }

@@ -65,7 +65,6 @@ export default async function Home() {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod incididunt.
         </p>
-    
 
         <div className="absolute top-[375px]">
           <BankAccountCard
