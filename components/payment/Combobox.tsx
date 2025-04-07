@@ -35,28 +35,24 @@ const initialFrameworks = [
 ];
 interface ComboboxProps {
   onSelectAccount: (account: string) => void;
+  onValidateAccount: (inputValue: string) => boolean;
 }
-export function Combobox({ onSelectAccount }: ComboboxProps) {
+export function Combobox({ onSelectAccount, onValidateAccount }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
   const [inputValue, setInputValue] = React.useState("");
   const [accounts, setAccounts] = React.useState(initialFrameworks);
-
-  const validAccountInput = (inputValue: string) => {
-    const regex = /^[0-9]{4}\.[0-9]{2}\.[0-9]{5}$/;
-    return regex.test(inputValue);
-  };
-
+ 
   const handleAddCustomOption = () => {
-    if (!validAccountInput(inputValue)) {
+
+    if (!onValidateAccount(inputValue)) {
       alert("Ugyldig format, bruk: xxxx.xx.xxxxx");
     }
-
     if (
       !accounts.some((ac) => ac.value === inputValue) &&
-      validAccountInput(inputValue)
-    ) {
+      onValidateAccount(inputValue)
+    ){
       const newOption = { value: inputValue, label: inputValue };
       setAccounts([...accounts, newOption]);
       onSelectAccount(inputValue);
@@ -73,7 +69,7 @@ export function Combobox({ onSelectAccount }: ComboboxProps) {
           aria-expanded={open}
           className="m-0 h-20 justify-start rounded-md border-2 border-seniorBankDarkBlue bg-seniorbankWhite p-4 text-gray-500 hover:bg-seniorbankWhite"
         >
-          {validAccountInput(value) ? (
+          {onValidateAccount(value) ? (
             <span className="text-seniorBankDarkBlue">{value}</span>
           ) : (
             "Skriv inn kontonummer her ..."

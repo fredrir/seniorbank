@@ -18,6 +18,7 @@ interface PaymentSecondStepProps {
   onClick: () => void;
   onSelectFields: boolean;
   onSelectAccount: (account: string) => void;
+  onValidateAccount: (inputValue: string) => boolean;
   approvedAccountOptions: { title: string; accountNumber: string }[];
   transactionOptions: { accountNumber: string }[];
   selectedAccount: string;
@@ -34,6 +35,7 @@ const PaymentSecondStep = ({
   onGoBack,
   isHard,
   onClick,
+  onValidateAccount,
   onSelectAccount,
   approvedAccountOptions,
   selectedAccount,
@@ -52,7 +54,11 @@ const PaymentSecondStep = ({
               <p>{formData.fromAccount}</p>
             </div>
             <p>Til konto: </p>
-            <Combobox onSelectAccount={onSelectAccount}></Combobox>
+            <Combobox
+              onSelectAccount={onSelectAccount}
+              onValidateAccount={onValidateAccount}
+            />
+
             <div className="relative">
               <p>Beløp</p>
               <Input

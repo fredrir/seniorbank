@@ -28,6 +28,11 @@ export default function Payment() {
     }
   }, [session]);
 
+  const validAccountInput = (inputValue: string) => {
+    const regex = /^[0-9]{4}\.[0-9]{2}\.[0-9]{5}$/;
+    return regex.test(inputValue);
+  };
+
   const accountOptions = [
     {
       title: "Sparekonto",
@@ -194,6 +199,7 @@ export default function Payment() {
         selectedAccount={formData.toAccount}
         onSelectFields={onSelectFields}
         isHard={isHard}
+        onValidateAccount={validAccountInput}
       />
     );
   }
