@@ -2,7 +2,7 @@
 
 import { Button } from "@/ui/atoms/Button";
 import { ProgressBar } from "@/ui/organisms/ProgressBar";
-import PaymentAccountCard from "./PaymentAccountCard";
+import PaymentAccountCard from "../PaymentAccountCard";
 
 interface PaymentFirstStepProps {
   onClick: () => void;

@@ -4,9 +4,9 @@ import { Button } from "@/ui/atoms/Button";
 import { BanknoteIcon } from "lucide-react";
 import { Textarea } from "@/ui/atoms/Textarea"
 import { Input } from "@/ui/atoms/Input";
-import ApprovedAccountView from "./ApprovedAccountView";
+import ApprovedAccountView from "../ApprovedAccountView";
 import { ProgressBar } from "@/ui/organisms/ProgressBar";
-import Combobox from "./Combobox";
+import Combobox from "../../../../../ui/atoms/Combobox";
 
 interface PaymentSecondStepProps {
   formData: {
@@ -20,7 +20,7 @@ interface PaymentSecondStepProps {
   onClick: () => void;
   onSelectFields: boolean;
   onSelectAccount: (account: string) => void;
-  onValidateAccount: (inputValue: string) => boolean;
+  isInputInvalid: (inputValue: string) => string | boolean;
   approvedAccountOptions: { title: string; accountNumber: string }[];
   transactionOptions: { accountNumber: string }[];
   selectedAccount: string;
@@ -30,6 +30,21 @@ interface PaymentSecondStepProps {
   isHard: boolean;
 }
 
+const approvedAccounts = [
+  {
+    value: "1836.82.37294",
+    label: "1836.82.37294",
+  },
+  {
+    value: "4839.47.24957",
+    label: "4839.47.24957",
+  },
+  {
+    value: "2845.92.37593",
+    label: "2845.92.37593",
+  },
+];
+
 const PaymentSecondStep = ({
   formData,
   handleChange,
@@ -37,7 +52,7 @@ const PaymentSecondStep = ({
   onGoBack,
   isHard,
   onClick,
-  onValidateAccount,
+  isInputInvalid,
   onSelectAccount,
   approvedAccountOptions,
   selectedAccount,
@@ -57,8 +72,9 @@ const PaymentSecondStep = ({
             </div>
             <p>Til konto: </p>
             <Combobox
-              onSelectAccount={onSelectAccount}
-              onValidateAccount={onValidateAccount}
+              onChange={onSelectAccount}
+              isInputInvalid={isInputInvalid}
+              defaultOptions={approvedAccounts}
             />
 
             <div className="relative">

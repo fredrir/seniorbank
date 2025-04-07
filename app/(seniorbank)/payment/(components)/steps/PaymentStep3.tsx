@@ -1,7 +1,7 @@
-import { Button } from "@/ui/atoms/button";
 import { ProgressBar } from "@/ui/organisms/ProgressBar";
 import { BanknoteIcon } from "lucide-react";
 import { Input } from "@/ui/atoms/Input";
+import { Button } from "@/ui/atoms/Button";
 interface PaymentThirdStepProps {
   onClick: () => void;
   onGoBack: () => void;

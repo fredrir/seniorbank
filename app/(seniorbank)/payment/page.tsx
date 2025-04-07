@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import PaymentFirstStep from "./(components)/PaymentFirstStep";
-import PaymentSecondStep from "./(components)/PaymentSecondStep"
-import PaymentThirdStep from "./(components)/PaymentThirdStep";
-import PaymentConfirmationStep from "./(components)/PaymentConfirmationStep";
+import PaymentFirstStep from "./(components)/steps/PaymentStep1";
+import PaymentSecondStep from "./(components)/steps/PaymentStep2"
+import PaymentThirdStep from "./(components)/steps/PaymentStep3";
+import PaymentConfirmationStep from "./(components)/steps/PaymentStepConfirmation";
 import toast from "react-hot-toast";
 
-import { useSession } from "next-auth/react";
-import PaymentFifthStep from "./(components)/PaymentFifthStep";
+import PaymentFifthStep from "./(components)/steps/PaymentStepReceipt";
 import Heading from "@/ui/molecules/Heading";
 
 export default function Payment() {
@@ -20,13 +19,15 @@ export default function Payment() {
     toAccount: "",
     fromAccount: ""
   });
-  const { data: session } = useSession(); // Get session data
+  const isHard = true;
 
-  const isHard = session?.user?.difficulty === "HARD";
-
-  const validAccountInput = (inputValue: string) => {
+  const isAccountNumberInvalid = (inputValue: string) => {
     const regex = /^[0-9]{4}\.[0-9]{2}\.[0-9]{5}$/;
-    return regex.test(inputValue);
+    if (!regex.test(inputValue)) {
+      return "Kontonummeret må være i formatet XXXX.XX.XXXXX"
+    }
+
+    return false
   };
 
   const defaultStep = formData.toAccount === "" ? 1 : parseInt(new URLSearchParams(window.location.search).get("step") || "1") ?? 1;
@@ -210,7 +211,7 @@ export default function Payment() {
         selectedAccount={formData.toAccount}
         onSelectFields={onSelectFields}
         isHard={isHard}
-        onValidateAccount={validAccountInput}
+        isInputInvalid={isAccountNumberInvalid}
       />
     );
   }

@@ -4,7 +4,7 @@ import * as React from "react";
 import { Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/atoms/Button";
 import {
   Command,
   CommandEmpty,
@@ -12,55 +12,49 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/ui/atoms/Command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/ui/atoms/popover";
+import { useState } from "react";
 
-const initialFrameworks = [
-  {
-    value: "1836.82.37294",
-    label: "1836.82.37294",
-  },
-  {
-    value: "4839.47.24957",
-    label: "4839.47.24957",
-  },
-  {
-    value: "2845.92.37593",
-    label: "2845.92.37593",
-  },
-];
 interface ComboboxProps {
-  onSelectAccount: (account: string) => void;
-  onValidateAccount: (inputValue: string) => boolean;
+  defaultOptions?: { value: string; label: string }[];
+  onChange: (account: string) => void;
+  isInputInvalid: (inputValue: string) => string | boolean;
+  inputPlaceholder?: string;
 }
-export function Combobox({ onSelectAccount, onValidateAccount }: ComboboxProps) {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
 
-  const [inputValue, setInputValue] = React.useState("");
-  const [accounts, setAccounts] = React.useState(initialFrameworks);
+export function Combobox({ onChange, isInputInvalid, defaultOptions, inputPlaceholder }: ComboboxProps) {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+
+  const [inputValue, setInputValue] = useState("");
+  const [options, setOptions] = useState(defaultOptions || []);
  
   const handleAddCustomOption = () => {
+    const inputError = isInputInvalid(inputValue);
+    if (inputError) {
+      alert(typeof inputError === "string" ? inputError : "Invalid input");
 
-    if (!onValidateAccount(inputValue)) {
-      alert("Ugyldig format, bruk: xxxx.xx.xxxxx");
+      return;
     }
+
     if (
-      !accounts.some((ac) => ac.value === inputValue) &&
-      onValidateAccount(inputValue)
+      !options.some((ac) => ac.value === inputValue)
     ){
       const newOption = { value: inputValue, label: inputValue };
-      setAccounts([...accounts, newOption]);
-      onSelectAccount(inputValue);
+      setOptions([...options, newOption]);
+      onChange(inputValue);
     }
 
     setValue(inputValue);
     setOpen(false);
   };
+  const inputError = isInputInvalid(inputValue);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -69,10 +63,10 @@ export function Combobox({ onSelectAccount, onValidateAccount }: ComboboxProps) 
           aria-expanded={open}
           className="m-0 h-20 justify-start rounded-md border-2 border-seniorBankDarkBlue bg-seniorbankWhite p-4 text-gray-500 hover:bg-seniorbankWhite"
         >
-          {onValidateAccount(value) ? (
-            <span className="text-seniorBankDarkBlue">{value}</span>
+          {inputError ? (
+            <span>{inputPlaceholder}</span>
           ) : (
-            "Skriv inn kontonummer her ..."
+            <span className="text-seniorBankDarkBlue">{value}</span>
           )}
         </Button>
       </PopoverTrigger>
@@ -82,15 +76,15 @@ export function Combobox({ onSelectAccount, onValidateAccount }: ComboboxProps) 
       >
         <Command>
           <CommandInput
-            placeholder="Skriv inn kontonummer: xxxx.xx.xxxx "
+            placeholder={inputPlaceholder}
             value={inputValue}
             onValueChange={setInputValue}
             className="h-20 rounded-md pb-2 pr-10 pt-2 !text-2xl placeholder:text-2xl"
           />
           <CommandList>
-            {accounts.length > 0 ? (
+            {options.length > 0 ? (
               <CommandGroup>
-                {accounts.map((framework) => (
+                {options.map((framework) => (
                   <CommandItem
                     className="h-20 rounded-md pb-2 pr-10 pt-2 !text-2xl placeholder:text-2xl"
                     key={framework.value}
@@ -98,7 +92,7 @@ export function Combobox({ onSelectAccount, onValidateAccount }: ComboboxProps) 
                     onSelect={(currentValue) => {
                       setValue(currentValue === value ? "" : currentValue);
                       setOpen(false);
-                      onSelectAccount(currentValue);
+                      onChange(currentValue);
                     }}
                   >
                     <Check
@@ -112,16 +106,19 @@ export function Combobox({ onSelectAccount, onValidateAccount }: ComboboxProps) 
                 ))}
               </CommandGroup>
             ) : (
-              <CommandEmpty></CommandEmpty>
+              <CommandEmpty />
             )}
             {inputValue.trim() &&
-              !accounts.some((ac) => ac.value === inputValue) && (
+              !options.some((ac) => ac.value === inputValue) && (
                 <CommandItem
                   onSelect={handleAddCustomOption}
                   className="h-14 cursor-pointer text-blue-600"
                 >
-                  <Check className="mr-2 h-14 w-4 opacity-0"></Check>
-                  Legg til: {inputValue}
+                  <div className="px-2">
+                    <p className="text-2xl">
+                      Legg til: {inputValue}
+                    </p>
+                  </div>
                 </CommandItem>
               )}
           </CommandList>
