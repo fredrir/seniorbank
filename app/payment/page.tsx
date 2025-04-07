@@ -12,7 +12,6 @@ import { useSession } from "next-auth/react";
 
 export default function Payment() {
   const [step, setStep] = useState(1);
-  const [isHard, setIsHard] = useState(false);
   const [onSelectFields, setOnSelectFields] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -22,11 +21,8 @@ export default function Payment() {
     fromAccount: ""
   });
   const { data: session } = useSession(); // Get session data
-  useEffect(() => {
-    if (session?.user?.difficulty) {
-      setIsHard(session.user.difficulty === "HARD");
-    }
-  }, [session]);
+
+  const isHard = session?.user.difficulty === "HARD";
 
   const validAccountInput = (inputValue: string) => {
     const regex = /^[0-9]{4}\.[0-9]{2}\.[0-9]{5}$/;
