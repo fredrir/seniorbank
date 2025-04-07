@@ -14,7 +14,7 @@ export function TransactionList({ transactions, user }: { transactions: Transact
         const needsDivider = index !== 0 && transaction.dueDate.getDate() !== array[index - 1].dueDate.getDate();
 
         const amount = isIncoming ? transaction.amount : -transaction.amount;
-        const peerAccount = isIncoming ? transaction.fromAccount : transaction.toAccount;
+        const peerAccount = isIncoming ? transaction.toAccount : transaction.fromAccount;
 
         return <React.Fragment key={transaction.id}>
           {
