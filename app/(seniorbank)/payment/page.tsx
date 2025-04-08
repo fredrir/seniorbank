@@ -1,21 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import PaymentFirstStep from "@/app/(seniorbank)/payment/(components)/PaymentFirstStep";
-import PaymentSecondStep from "@/app/(seniorbank)/payment/(components)/PaymentSecondStep";
-import PaymentThirdStep from "@/app/(seniorbank)/payment/(components)/PaymentThirdStep";
-import PaymentConfirmationStep from "@/app/(seniorbank)/payment/(components)/PaymentConfirmationStep";
+import PaymentFirstStep from "./(components)/steps/PaymentStep1";
+import PaymentSecondStep from "./(components)/steps/PaymentStep2"
+import PaymentThirdStep from "./(components)/steps/PaymentStep3";
+import PaymentConfirmationStep from "./(components)/steps/PaymentStepConfirmation";
 import toast from "react-hot-toast";
+
+import PaymentFifthStep from "./(components)/steps/PaymentStepReceipt";
 import Heading from "@/ui/molecules/Heading";
-import { redirect } from "next/navigation";
 
 export default function Payment() {
+  const [onSelectFields, setOnSelectFields] = useState(false);
+
   const [formData, setFormData] = useState({
     comment: "",
     amount: "",
     toAccount: "",
-    fromAccount: "",
+    fromAccount: ""
   });
+  const isHard = true;
+
+  const isAccountNumberInvalid = (inputValue: string) => {
+    const regex = /^[0-9]{4}\.[0-9]{2}\.[0-9]{5}$/;
+    if (!regex.test(inputValue)) {
+      return "Kontonummeret må være i formatet XXXX.XX.XXXXX"
+    }
+
+    return false
+  };
 
   const defaultStep = formData.toAccount === "" ? 1 : parseInt(new URLSearchParams(window.location.search).get("step") || "1") ?? 1;
   const [step, setStep] = useState(defaultStep);
@@ -23,13 +36,13 @@ export default function Payment() {
   useEffect(() => {
     window.history.pushState({}, "", `?step=${step}`);
   }, [step]);
-  
+
   useEffect(() => {
     const handlePopState = () => {
       const urlStep = parseInt(new URLSearchParams(window.location.search).get("step") || "1");
       setStep(urlStep);
     };
-  
+
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
@@ -49,9 +62,36 @@ export default function Payment() {
     },
   ];
 
+  const approvedTransactionOptions = [
+    {
+      accountNumber: "18368237294",
+    },
+    {
+      accountNumber: "48394724957",
+    },
+    {
+      accountNumber: "28459237593",
+    },
+  ];
+  const approvedAccountOptions = [ //TODO connect to database
+    {
+      title: "Strømleverandør",
+      accountNumber: "18368237294",
+    },
+    {
+      title: "Husleie",
+      accountNumber: "48394724957",
+    },
+    {
+      title: "Mobilabonement",
+      accountNumber: "28459237593",
+    },
+  ];
+
+
   const handleNext = () => {
     const accountNumber = formData.toAccount.trim();
-    if (step === 2) {
+    if (step === 2 && isHard) {
       if (formData.amount.trim() === "") {
         toast.error("Fyll inn beløp");
         return;
@@ -72,18 +112,42 @@ export default function Payment() {
     setStep(step - 1);
   };
 
+  const handleGoToHomepage = () => {
+    window.location.href = "/";
+  };
+
   const handleSubmit = () => {
+    //TODO: Temp console log
+    console.log(formData);
     toast.success("Betalingen er gjennomført.");
     setStep(step + 1);
   };
 
-  const handleSelectAccount = (account: string) => {
+
+  const handleSelectFromAccount = (account: string) => {
     setFormData((prevData) => ({
       ...prevData,
       fromAccount: account,
     }));
     setStep(2);
   };
+
+  const handleSelectToAccount = (account: string) => { // Setter account som toAccount i formData. Account må være en string. Når en knapp har denne
+    console.log("Selected account:", account); //TODO: Er denne jeg må bruke
+    setFormData((prevData) => ({
+      ...prevData,
+      toAccount: account,
+    }));
+  };
+
+  useEffect(() => {
+    const isValid =
+      formData.fromAccount.length > 7 &&
+      formData.fromAccount.length < 19 &&
+      formData.toAccount.trim().length > 0 &&
+      formData.amount.trim().length > 0;
+    setOnSelectFields(isValid);
+  }, [formData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -124,9 +188,11 @@ export default function Payment() {
   if (step === 1) {
     stepComponent = (
       <PaymentFirstStep
-        onSelectAccount={handleSelectAccount}
+        onSelectAccount={handleSelectFromAccount}
         onClick={handleNext}
         accountOptions={accountOptions}
+        selectedAccount={formData.fromAccount}
+        isHard={isHard}
       />
     );
   }
@@ -135,9 +201,17 @@ export default function Payment() {
     stepComponent = (
       <PaymentSecondStep
         formData={formData}
-        handleNext={handleNext}
         handleChange={handleChange}
         onGoBack={handleGoBack}
+        onSelectAccount={handleSelectToAccount}
+        onClick={handleNext}
+        onhandleAccountNumber={handleSelectToAccount}
+        approvedAccountOptions={approvedAccountOptions}
+        transactionOptions={approvedTransactionOptions}
+        selectedAccount={formData.toAccount}
+        onSelectFields={onSelectFields}
+        isHard={isHard}
+        isInputInvalid={isAccountNumberInvalid}
       />
     );
   }
@@ -145,14 +219,30 @@ export default function Payment() {
     stepComponent = (
       <PaymentThirdStep
         formData={formData}
-        onClick={handleSubmit}
+        handleSubmit={handleSubmit}
         onGoBack={handleGoBack}
+        handleChange={handleChange}
+        onClick={handleNext}
+        approvedAccountOptions={approvedAccountOptions}
+        selectedAmount={formData.amount}
+        isHard={isHard}
       />
     );
   }
   if (step === 4) {
     stepComponent = (
-      <PaymentConfirmationStep formData={formData} onClick={() => redirect("/")} />
+      <PaymentConfirmationStep
+        formData={formData}
+        onClick={handleSubmit}
+        onGoBack={handleGoBack}
+        onGoToHomepage={handleGoToHomepage}
+        isHard={isHard}
+      />
+    );
+  }
+  if (step === 5) {
+    stepComponent = (
+      <PaymentFifthStep formData={formData} onClick={handleGoToHomepage} />
     );
   }
   return (
