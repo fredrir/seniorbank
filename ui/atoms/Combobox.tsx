@@ -12,7 +12,9 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/ui/atoms/Command";
+} from "@/ui/atoms/command";
+
+
 import {
   Popover,
   PopoverContent,
