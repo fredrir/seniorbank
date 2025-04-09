@@ -4,16 +4,26 @@ export default {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./ui/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "contact-background": 'url("/contactBackground.svg")',
+      },
       colors: {
         seniorbankWhite: "#FDF8F5",
         seniorbankBlue: "#005AA4",
         seniorBankLightBlue: "#B3CEE4",
         seniorBankDarkBlue: "#002776",
+        seniorBankLightPurple: "#D3D3E8",
+        seniorBankWhitePurple: "#F2F2F9",
+        seniorBankLightGreen: "#C2E7DA",
+        seniorBankGreen: "#70C7A9",
+        seniorBankLightPink: "#FDEBE8",
+        seniorBankGrey: "#636363",
+        seniorBankRed: "#EC7B7C",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -62,5 +72,6 @@ export default {
       },
     },
   },
+  //eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
