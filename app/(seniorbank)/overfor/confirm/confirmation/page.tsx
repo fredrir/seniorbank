@@ -1,15 +1,9 @@
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { Button } from "@/ui/atoms/Button";
+import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "@/ui/atoms/card";
 
-export default function Cornfirm() {
+export default function Cornfirmation() {
   return (
     <section className="container mx-auto">
       <h1 className="mb-8 mt-16 text-5xl font-bold text-seniorBankDarkBlue">

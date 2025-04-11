@@ -1,25 +1,29 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/ui/atoms/Button";
+import { Card, CardHeader, CardDescription, CardContent, CardFooter } from "@/ui/atoms/card";
+import { Input } from "@/ui/atoms/Input";
+import { Label } from "@radix-ui/react-label";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Cornfirm() {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const from = searchParams.get("from") || "Ukjent";
   const to = searchParams.get("to") || "Ukjent";
   const amount = searchParams.get("amount") || "0";
   //const comment = searchParams.get("comment") || "";
+
+  const handleConfirm = () => {
+    console.log("Overføring bekreftet");
+    router.push("/overfor/confirm/confirmation");
+  }
+  const handleCancel = () => {
+    console.log("Overføring avbrutt");
+    router.push("/overfor");
+  }
 
   return (
     <section className="container mx-auto">
@@ -28,7 +32,7 @@ export default function Cornfirm() {
       </h1>
       <div className="flex w-full justify-center">
         <Card className="w-[480px] bg-[#D3D3EA] px-5 pt-14 font-bold">
-          <CardHeader className="d flex flex-row justify-between">
+          <CardHeader className="flex flex-row justify-between">
             <CardDescription className="text-seniorBankDarkBlue">
               Du er i ferd med å overføre
             </CardDescription>
@@ -53,14 +57,17 @@ export default function Cornfirm() {
           </CardContent>
           <CardFooter className="flex justify-between">
             <Button
+              onClick={handleCancel}
               variant={"destructive"}
               size={"lg"}
-              className="border border-seniorBankDarkBlue"
-            >
-              <Link href="/overfor">Avbryt</Link>
+              className="border border-seniorBankDarkBlue">
+              Avbryt
             </Button>
-            <Button size={"lg"} className="ml-20 w-full">
-              <Link href="/overfor/confirm/confirmation">Bekreft</Link>
+            <Button 
+              onClick={handleConfirm}
+              size={"lg"}
+              className="ml-20 w-full">
+              Bekreft
             </Button>
           </CardFooter>
         </Card>
