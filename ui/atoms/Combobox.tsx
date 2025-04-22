@@ -14,12 +14,7 @@ import {
   CommandList,
 } from "@/ui/atoms/command";
 
-
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/ui/atoms/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/ui/atoms/Popover";
 import { useState } from "react";
 
 interface ComboboxProps {
@@ -29,13 +24,18 @@ interface ComboboxProps {
   inputPlaceholder?: string;
 }
 
-export function Combobox({ onChange, isInputInvalid, defaultOptions, inputPlaceholder }: ComboboxProps) {
+export function Combobox({
+  onChange,
+  isInputInvalid,
+  defaultOptions,
+  inputPlaceholder,
+}: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState(defaultOptions || []);
- 
+
   const handleAddCustomOption = () => {
     const inputError = isInputInvalid(inputValue);
     if (inputError) {
@@ -44,9 +44,7 @@ export function Combobox({ onChange, isInputInvalid, defaultOptions, inputPlaceh
       return;
     }
 
-    if (
-      !options.some((ac) => ac.value === inputValue)
-    ){
+    if (!options.some((ac) => ac.value === inputValue)) {
       const newOption = { value: inputValue, label: inputValue };
       setOptions([...options, newOption]);
       onChange(inputValue);
@@ -111,9 +109,7 @@ export function Combobox({ onChange, isInputInvalid, defaultOptions, inputPlaceh
                   className="h-14 cursor-pointer text-blue-600"
                 >
                   <div className="px-2">
-                    <p className="text-2xl">
-                      Legg til: {inputValue}
-                    </p>
+                    <p className="text-2xl">Legg til: {inputValue}</p>
                   </div>
                 </CommandItem>
               )}
