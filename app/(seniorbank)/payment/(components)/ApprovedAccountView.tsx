@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/ui/atoms/Button";
@@ -7,11 +5,16 @@ import { Button } from "@/ui/atoms/Button";
 interface Props {
   onClick: () => void;
   title: string;
-  amount: number;
+  accountNumber: string;
   isSelected?: boolean;
 }
 
-const PaymentAccountCard = ({ title, amount, onClick, isSelected }: Props) => {
+const ApprovedAccountView = ({
+  title,
+  accountNumber,
+  onClick,
+  isSelected,
+}: Props) => {
   return (
     <div className="m-2 grid grid-cols-1 justify-between rounded-lg text-3xl font-bold text-seniorBankDarkBlue shadow-md">
       <Button
@@ -20,12 +23,12 @@ const PaymentAccountCard = ({ title, amount, onClick, isSelected }: Props) => {
       >
         <div className="felx-row flex gap-4">
           <h1 className=" ">{title}</h1>
-          <h1 className="">{amount}</h1>
+          <h1 className="">{accountNumber}</h1>
         </div>
         <ChevronRight className="size-16 transition-transform duration-200 group-hover:translate-x-1" />
       </Button>
     </div>
   );
-}
+};
 
-export default PaymentAccountCard;
+export default ApprovedAccountView;
