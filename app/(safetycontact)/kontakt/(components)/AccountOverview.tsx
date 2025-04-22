@@ -1,5 +1,6 @@
 import { formatCurrency } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 const accounts = [
   {
@@ -25,9 +26,10 @@ const AccountOverview = () => {
   return (
     <div className="flex flex-col rounded-3xl bg-seniorbankWhite">
       {accounts.map((account, index) => (
-        <div
+        <Link
+          href={`/kontakt/konto/${account.accountNumber}`}
           key={account.accountNumber}
-          className={`flex cursor-pointer flex-row items-center justify-between ${index !== accounts.length - 1 && "border-b border-b-gray-300"} px-4 py-6`}
+          className={`group flex cursor-pointer flex-row items-center justify-between ${index !== accounts.length - 1 && "border-b border-b-gray-300"} px-4 py-6`}
         >
           <h3 className="text-lg font-bold text-[#002776] md:text-xl">
             {account.name}
@@ -38,9 +40,9 @@ const AccountOverview = () => {
               {formatCurrency(account.amount, true)}
             </span>
 
-            <ChevronRight className="size-12 text-seniorBankDarkBlue" />
+            <ChevronRight className="size-12 text-seniorBankDarkBlue transition-transform duration-200 group-hover:translate-x-1" />
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
