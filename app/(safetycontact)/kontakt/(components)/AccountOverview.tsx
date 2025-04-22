@@ -1,5 +1,6 @@
 import { formatCurrency } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 const accounts = [
   {
@@ -25,7 +26,8 @@ const AccountOverview = () => {
   return (
     <div className="flex flex-col rounded-3xl bg-seniorbankWhite">
       {accounts.map((account, index) => (
-        <div
+        <Link
+          href={`/kontakt/konto/${account.accountNumber}`}
           key={account.accountNumber}
           className={`group flex cursor-pointer flex-row items-center justify-between ${index !== accounts.length - 1 && "border-b border-b-gray-300"} px-4 py-6`}
         >
@@ -40,7 +42,7 @@ const AccountOverview = () => {
 
             <ChevronRight className="size-12 text-seniorBankDarkBlue transition-transform duration-200 group-hover:translate-x-1" />
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
