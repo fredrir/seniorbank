@@ -7,9 +7,8 @@ import { nb } from "date-fns/locale";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/ui/atoms/Button";
-import { Calendar } from "@/ui/atoms/calendar";
-import { Popover, PopoverContent } from "@/ui/atoms/popover";
-import { PopoverTrigger } from "@radix-ui/react-popover";
+import { Calendar } from "@/ui/atoms/Calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/ui/atoms/Popover";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
