@@ -27,7 +27,7 @@ const AccountOverview = () => {
       {accounts.map((account, index) => (
         <div
           key={account.accountNumber}
-          className={`flex cursor-pointer flex-row items-center justify-between ${index !== accounts.length - 1 && "border-b border-b-gray-300"} px-4 py-6`}
+          className={`group flex cursor-pointer flex-row items-center justify-between ${index !== accounts.length - 1 && "border-b border-b-gray-300"} px-4 py-6`}
         >
           <h3 className="text-lg font-bold text-[#002776] md:text-xl">
             {account.name}
@@ -38,7 +38,7 @@ const AccountOverview = () => {
               {formatCurrency(account.amount, true)}
             </span>
 
-            <ChevronRight className="size-12 text-seniorBankDarkBlue" />
+            <ChevronRight className="size-12 text-seniorBankDarkBlue transition-transform duration-200 group-hover:translate-x-1" />
           </div>
         </div>
       ))}

@@ -78,7 +78,6 @@ const ApprovalCard = ({
     setDate(new Date());
   };
 
-  // Call the parent component's handlers
   const handleReject = () => {
     toast.error(`Betaling til ${recipient} på ${amount} kr er avvist.`, {
       duration: 4000,
