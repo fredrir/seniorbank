@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import PaymentFirstStep from "./(components)/steps/PaymentStep1";
-import PaymentSecondStep from "./(components)/steps/PaymentStep2"
+import PaymentSecondStep from "./(components)/steps/PaymentStep2";
 import PaymentThirdStep from "./(components)/steps/PaymentStep3";
 import PaymentConfirmationStep from "./(components)/steps/PaymentStepConfirmation";
 import toast from "react-hot-toast";
@@ -17,20 +17,25 @@ export default function Payment() {
     comment: "",
     amount: "",
     toAccount: "",
-    fromAccount: ""
+    fromAccount: "",
   });
   const isHard = true;
 
   const isAccountNumberInvalid = (inputValue: string) => {
     const regex = /^[0-9]{4}\.[0-9]{2}\.[0-9]{5}$/;
     if (!regex.test(inputValue)) {
-      return "Kontonummeret må være i formatet XXXX.XX.XXXXX"
+      return "Kontonummeret må være i formatet XXXX.XX.XXXXX";
     }
 
-    return false
+    return false;
   };
 
-  const defaultStep = formData.toAccount === "" ? 1 : parseInt(new URLSearchParams(window.location.search).get("step") || "1") ?? 1;
+  const defaultStep =
+    formData.toAccount === ""
+      ? 1
+      : (parseInt(
+          new URLSearchParams(window.location.search).get("step") || "1",
+        ) ?? 1);
   const [step, setStep] = useState(defaultStep);
 
   useEffect(() => {
@@ -39,7 +44,9 @@ export default function Payment() {
 
   useEffect(() => {
     const handlePopState = () => {
-      const urlStep = parseInt(new URLSearchParams(window.location.search).get("step") || "1");
+      const urlStep = parseInt(
+        new URLSearchParams(window.location.search).get("step") || "1",
+      );
       setStep(urlStep);
     };
 
@@ -73,7 +80,8 @@ export default function Payment() {
       accountNumber: "28459237593",
     },
   ];
-  const approvedAccountOptions = [ //TODO connect to database
+  const approvedAccountOptions = [
+    //TODO connect to database
     {
       title: "Strømleverandør",
       accountNumber: "18368237294",
@@ -87,7 +95,6 @@ export default function Payment() {
       accountNumber: "28459237593",
     },
   ];
-
 
   const handleNext = () => {
     const accountNumber = formData.toAccount.trim();
@@ -119,10 +126,18 @@ export default function Payment() {
   const handleSubmit = () => {
     //TODO: Temp console log
     console.log(formData);
-    toast.success("Betalingen er gjennomført.");
+    toast.success("Betalingen er gjennomført.", {
+      duration: 4000,
+      position: "top-right",
+      style: {
+        background: "#F8E9DD",
+        color: "#1C1B1F",
+        fontSize: "16px",
+        fontWeight: "500",
+      },
+    });
     setStep(step + 1);
   };
-
 
   const handleSelectFromAccount = (account: string) => {
     setFormData((prevData) => ({
@@ -132,7 +147,8 @@ export default function Payment() {
     setStep(2);
   };
 
-  const handleSelectToAccount = (account: string) => { // Setter account som toAccount i formData. Account må være en string. Når en knapp har denne
+  const handleSelectToAccount = (account: string) => {
+    // Setter account som toAccount i formData. Account må være en string. Når en knapp har denne
     console.log("Selected account:", account); //TODO: Er denne jeg må bruke
     setFormData((prevData) => ({
       ...prevData,
@@ -257,7 +273,7 @@ export default function Payment() {
         <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
       </svg>
 
-      <Heading title="Betal faktura" className="mb-16"/>
+      <Heading title="Betal faktura" className="mb-16" />
 
       {stepComponent}
     </section>

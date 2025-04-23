@@ -2,7 +2,7 @@
 
 import { Button } from "@/ui/atoms/Button";
 import { BanknoteIcon } from "lucide-react";
-import { Textarea } from "@/ui/atoms/Textarea"
+import { Textarea } from "@/ui/atoms/Textarea";
 import { Input } from "@/ui/atoms/Input";
 import ApprovedAccountView from "../ApprovedAccountView";
 import { ProgressBar } from "@/ui/organisms/ProgressBar";
@@ -75,6 +75,7 @@ const PaymentSecondStep = ({
               onChange={onSelectAccount}
               isInputInvalid={isInputInvalid}
               defaultOptions={approvedAccounts}
+              inputPlaceholder="Skriv inn kontonummer her ..."
             />
 
             <div className="relative">

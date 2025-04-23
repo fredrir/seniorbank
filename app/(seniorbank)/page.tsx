@@ -32,6 +32,7 @@ export default async function Home() {
       description: "Betale fakturaer og opprett AvtaleGiro",
       icon: <Wallet className="size-16" />,
       availableFor: ["MEDIUM", "HARD"],
+      href: "/betal",
     },
     {
       title: "Overfør",
@@ -66,8 +67,7 @@ export default async function Home() {
   );
 
   const hiddenMenuOptions = menuOptions.filter(
-    (option) =>
-      !option.availableFor.includes(user.difficulty),
+    (option) => !option.availableFor.includes(user.difficulty),
   );
 
   const mainBankAccount = await prisma.bankAccount.findFirst({
@@ -90,13 +90,11 @@ export default async function Home() {
           eiusmod incididunt.
         </p>
 
-        {
-          mainBankAccount !== null && (
-            <div className="absolute top-[375px]">
-              <BankAccountCard bankAccount={mainBankAccount} />
-            </div>
-          )
-        }
+        {mainBankAccount !== null && (
+          <div className="absolute top-[375px]">
+            <BankAccountCard bankAccount={mainBankAccount} />
+          </div>
+        )}
       </section>
 
       <section>
