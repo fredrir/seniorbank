@@ -8,10 +8,12 @@ import {
   CardDescription,
   CardFooter,
 } from "@/ui/atoms/Card";
+import { SuccessToast } from "../../(components)/SuccessToast";
 
-export default function Cornfirmation() {
+export default function Confirmation() {
   return (
     <section className="container mx-auto">
+      <SuccessToast />
       <h1 className="mb-8 mt-16 text-5xl font-bold text-seniorBankDarkBlue">
         Overfør
       </h1>

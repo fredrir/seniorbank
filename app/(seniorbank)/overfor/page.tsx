@@ -11,11 +11,12 @@ import Heading from "@/ui/molecules/Heading";
 import { Card, CardContent, CardFooter } from "@/ui/atoms/Card";
 import {
   Select,
-  SelectTrigger,
-  SelectValue,
   SelectContent,
   SelectItem,
-} from "@radix-ui/react-select";
+  SelectTrigger,
+  SelectValue,
+} from "@/ui/atoms/Select";
+import { Textarea } from "@/ui/atoms/Textarea";
 
 export default function Overfor() {
   const [fromAccount, setFromAccount] = useState("");
@@ -47,7 +48,7 @@ export default function Overfor() {
       comment,
     }).toString();
 
-    router.push(`/overfor/confirm?${query}`);
+    router.push(`/overfor/bekreft?${query}`);
   };
 
   return (
@@ -113,10 +114,10 @@ export default function Overfor() {
               </div>
 
               <Label>Kommentar:</Label>
-              <Input
+              <Textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                className="mb-3 h-32 rounded-sm border-seniorBankDarkBlue bg-[#F2F2F9]"
+                className="mb-3 rounded-sm border-seniorBankDarkBlue bg-[#F2F2F9] text-start"
               />
               {error && (
                 <p className="mt-2 font-medium text-red-600">{error}</p>

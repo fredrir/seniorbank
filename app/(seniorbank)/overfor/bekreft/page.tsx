@@ -24,7 +24,7 @@ export default function Cornfirm() {
 
   const handleConfirm = () => {
     console.log("Overføring bekreftet");
-    router.push("/overfor/confirm/confirmation");
+    router.push("/overfor/bekreft/bekreftelse");
   };
   const handleCancel = () => {
     console.log("Overføring avbrutt");
