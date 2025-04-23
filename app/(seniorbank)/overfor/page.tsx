@@ -3,13 +3,19 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/ui/atoms/Button";
-import { Card, CardContent, CardFooter } from "@/ui/atoms/card";
 import { Input } from "@/ui/atoms/Input";
 import { Label } from "@radix-ui/react-label";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/ui/atoms/select";
 import { Banknote } from "lucide-react";
 import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 import Heading from "@/ui/molecules/Heading";
+import { Card, CardContent, CardFooter } from "@/ui/atoms/Card";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@radix-ui/react-select";
 
 export default function Overfor() {
   const [fromAccount, setFromAccount] = useState("");
@@ -45,13 +51,12 @@ export default function Overfor() {
   };
 
   return (
-    
     <section className="container mx-auto">
       <BackgroundGraphic variant="top-halfcircle" className="text-[#015aa4]" />
-      <Heading 
+      <Heading
         title="Overfør"
         className="mb-4 text-5xl font-bold text-seniorbankWhite"
-        />
+      />
       <div className="flex w-full justify-center font-bold">
         <Card className="w-[480px] bg-[#D3D3EA] px-5 pt-14">
           <form onSubmit={handleSubmit}>

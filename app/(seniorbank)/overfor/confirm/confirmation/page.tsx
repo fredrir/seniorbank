@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/ui/atoms/Button";
-import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "@/ui/atoms/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from "@/ui/atoms/Card";
 
 export default function Cornfirmation() {
   return (

@@ -1,7 +1,13 @@
 "use client";
 
 import { Button } from "@/ui/atoms/Button";
-import { Card, CardHeader, CardDescription, CardContent, CardFooter } from "@/ui/atoms/card";
+import {
+  Card,
+  CardHeader,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/ui/atoms/Card";
 import { Input } from "@/ui/atoms/Input";
 import { Label } from "@radix-ui/react-label";
 import { useSearchParams } from "next/navigation";
@@ -19,11 +25,11 @@ export default function Cornfirm() {
   const handleConfirm = () => {
     console.log("Overføring bekreftet");
     router.push("/overfor/confirm/confirmation");
-  }
+  };
   const handleCancel = () => {
     console.log("Overføring avbrutt");
     router.push("/overfor");
-  }
+  };
 
   return (
     <section className="container mx-auto">
@@ -60,13 +66,15 @@ export default function Cornfirm() {
               onClick={handleCancel}
               variant={"destructive"}
               size={"lg"}
-              className="border border-seniorBankDarkBlue">
+              className="border border-seniorBankDarkBlue"
+            >
               Avbryt
             </Button>
-            <Button 
+            <Button
               onClick={handleConfirm}
               size={"lg"}
-              className="ml-20 w-full">
+              className="ml-20 w-full"
+            >
               Bekreft
             </Button>
           </CardFooter>
