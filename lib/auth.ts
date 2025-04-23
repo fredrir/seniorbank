@@ -1,5 +1,8 @@
 import { prisma } from "@/lib/db";
-import { getServerSession as _getServerSession, NextAuthOptions } from "next-auth";
+import {
+  getServerSession as _getServerSession,
+  NextAuthOptions,
+} from "next-auth";
 import Auth0 from "next-auth/providers/auth0";
 import { redirect } from "next/navigation";
 
@@ -26,8 +29,8 @@ export const authOptions: NextAuthOptions = {
           accounts: true,
         },
       });
-      
-      session.user = user
+
+      session.user = user;
 
       return session;
     },
@@ -57,4 +60,3 @@ export async function checkRegisteredUser() {
 
   return session.user;
 }
-

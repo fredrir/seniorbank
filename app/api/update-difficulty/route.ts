@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../[auth]/[...nextauth]/authOptions"; 
-import { prisma } from "@/lib/db"; 
+import { prisma } from "@/lib/db";
+import { authOptions } from "@/lib/auth";
 
-export async function POST(req: Request) { 
+export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
 
-  if (!session || !session.user.email) {
+  if (!session || !session.user?.email) {
     return NextResponse.json({ error: "Ikke autentisert" }, { status: 401 });
   }
 
@@ -21,6 +21,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Feil ved oppdatering:", error);
-    return NextResponse.json({ error: "Kunne ikke oppdatere" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Kunne ikke oppdatere" },
+      { status: 500 },
+    );
   }
 }
