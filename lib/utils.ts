@@ -1,15 +1,35 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-interface sumparams {
-  a: number;
-  b: number;
-}
-
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function sum({ a, b }: sumparams) {
+export function sum({ a, b }: { a: number; b: number }) {
   return a + b;
+}
+
+export function formatCurrency(amount: number, withDecimals = false) {
+  return amount.toLocaleString("nb-NO", {
+    style: "currency",
+    currency: "NOK",
+    minimumFractionDigits: withDecimals ? 2 : 0,
+    maximumFractionDigits: withDecimals ? 2 : 0,
+  })
+}
+
+export function formatWeekday(date: Date) {
+  return date.toLocaleString("nb-NO", { weekday: "long" })
+}
+
+export function formatDateNumeric(date: Date) {
+  return date.toLocaleString("nb-NO", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  })
+}
+
+export function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

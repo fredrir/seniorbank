@@ -41,10 +41,10 @@ export async function createFixturesForUser(userId: string) {
   const privatePersonAccount = await findOrCreateExternalBankAccount("Navn Navnesen", "Privatperson", "NO")
 
   await prisma.transaction.createMany({ data: [
-    { fromAccountId: mainAccountId, toAccountId: remaAccount.id, amount: 826.8, dueDate: new Date() },
-    { fromAccountId: mainAccountId, toAccountId: sitAccount.id, amount: 45.87, dueDate: new Date() },
-    { fromAccountId: privatePersonAccount.id, toAccountId: mainAccountId, amount: 1_000, dueDate: new Date() },
-    { fromAccountId: mainAccountId, toAccountId: jokerSamfAccount.id, amount: 72.46, dueDate: new Date() },
-    { fromAccountId: mainAccountId, toAccountId: clippersAccount.id, amount: -599, dueDate: new Date() },
+    { fromAccountId: mainAccountId, toAccountId: remaAccount.id, amount: 826.8, dueDate: new Date(2025, 2, 31) },
+    { fromAccountId: mainAccountId, toAccountId: sitAccount.id, amount: 45.87, dueDate: new Date(2025, 2, 31) },
+    { fromAccountId: privatePersonAccount.id, toAccountId: mainAccountId, amount: 1_000, dueDate: new Date(2025, 2, 31) },
+    { fromAccountId: mainAccountId, toAccountId: jokerSamfAccount.id, amount: 72.46, dueDate: new Date(2025, 2, 30) },
+    { fromAccountId: mainAccountId, toAccountId: clippersAccount.id, amount: -599, dueDate: new Date(2025, 2, 30) },
   ] })
 }
