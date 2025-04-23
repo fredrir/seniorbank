@@ -64,7 +64,7 @@ Some of the challenges you faced and features you hope to implement in the futur
 
 ## Getting Started
 
-First, run the development server:
+Firstly, run the development server:
 
 ```bash
 pnpm run dev
