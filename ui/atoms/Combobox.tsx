@@ -59,7 +59,7 @@ export function Combobox({
         <Button
           role="combobox"
           aria-expanded={open}
-          className="m-0 h-20 justify-start rounded-md border-2 border-seniorBankDarkBlue bg-seniorbankWhite p-4 text-gray-500 hover:bg-seniorbankWhite"
+          className="m-0 h-20 justify-start rounded-md border-2 border-seniorBankDarkBlue bg-seniorbankWhite p-4 text-gray-500 hover:bg-gray-100"
         >
           <span className="text-lg font-bold text-seniorBankDarkBlue">
             {value || "Trykk for å velge konto..."}

@@ -44,7 +44,6 @@ export default async function AccountPage(props: {
     },
   });
 
-  // Filter transactions based on search query
   const filteredTransactions = search
     ? transactions.filter((transaction) => {
         const isIncoming = transaction.fromAccount.userId === user.id;
@@ -52,7 +51,6 @@ export default async function AccountPage(props: {
           ? transaction.toAccount
           : transaction.fromAccount;
 
-        // Search in account name, category, or transaction ID
         return (
           peerAccount.name.toLowerCase().includes(search.toLowerCase()) ||
           (peerAccount.category &&
@@ -74,7 +72,7 @@ export default async function AccountPage(props: {
         </Heading>
       </div>
 
-      <section className="my-16 flex flex-col items-center text-white">
+      <section className="my-16 flex min-h-[60vh] flex-col items-center text-white">
         <h3 className="text-2xl font-bold">Saldo</h3>
         <h2 className="text-4xl font-bold md:text-6xl">
           {formatCurrency(account.balance, true)}
