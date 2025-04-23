@@ -2,7 +2,14 @@ import { BankAccount, Difficulty, Transaction } from "@prisma/client";
 
 export type tParams = Promise<{ id: string }>;
 
-export type TransactionDetails = Omit<Transaction, "fromAccountId" | "toAccountId"> & {
+export type searchParams = Promise<{
+  search?: string;
+}>;
+
+export type TransactionDetails = Omit<
+  Transaction,
+  "fromAccountId" | "toAccountId"
+> & {
   fromAccount: BankAccount;
   toAccount: BankAccount;
 };
@@ -21,4 +28,4 @@ export type PaymentFormData = {
   amount: string;
   toAccount: string;
   fromAccount: string;
-}
+};

@@ -1,6 +1,6 @@
 import Heading from "@/ui/molecules/Heading";
 import { prisma } from "@/lib/db";
-import type { tParams, TransactionDetails } from "@/lib/types";
+import type { searchParams, tParams, TransactionDetails } from "@/lib/types";
 import { formatCurrency } from "@/lib/utils";
 import { notFound } from "next/navigation";
 import { checkRegisteredUser } from "@/lib/auth";
@@ -9,10 +9,10 @@ import { SearchInput } from "./(components)/SearchInput";
 
 export default async function AccountPage(props: {
   params: tParams;
-  searchParams: { search?: string };
+  searchParams: searchParams;
 }) {
   const { id } = await props.params;
-  const { search } = props.searchParams;
+  const { search } = await props.searchParams;
   const decodedId = decodeURIComponent(id);
 
   const user = await checkRegisteredUser();
