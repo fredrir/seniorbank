@@ -25,7 +25,7 @@ const navLinks = [
   {
     title: "Betal",
     icon: <Wallet className="size-8" />,
-    path: "/payment",
+    path: "/betal",
   },
 ];
 

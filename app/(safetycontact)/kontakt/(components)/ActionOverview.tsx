@@ -1,11 +1,12 @@
 import React from "react";
 import { ChevronRight, Clock10, Shield, Settings } from "lucide-react";
+import Link from "next/link";
 
 const actions = [
   {
     name: "Tidligere godkjenninger",
     icon: Clock10,
-    href: "/kontakt/godkjenninger",
+    href: "/kontakt/tidligere-godkjenninger",
   },
   {
     name: "Sikkerhet og hjelp",
@@ -23,7 +24,8 @@ const ActionOverview = () => {
   return (
     <div className="flex flex-col gap-6">
       {actions.map((account) => (
-        <div
+        <Link
+          href={account.href}
           key={account.href}
           className="group flex cursor-pointer flex-row items-center justify-between rounded-3xl bg-seniorbankWhite px-4 py-4 shadow-lg hover:opacity-80"
         >
@@ -39,7 +41,7 @@ const ActionOverview = () => {
           <div className="flex flex-row items-center gap-1">
             <ChevronRight className="size-12 text-seniorBankDarkBlue transition-transform duration-200 group-hover:translate-x-1" />
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

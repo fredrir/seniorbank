@@ -11,22 +11,28 @@ interface Props extends React.PropsWithChildren {
 const Heading = ({ title, className, href, children }: Props) => {
   return (
     <div className="group flex flex-row items-center bg-inherit">
-      {href && (
-        <Link href={href}>
-          <ChevronLeft
-            className={"size-20 transition-transform duration-200 group-hover:-translate-x-1 text-white"}
-          />
-        </Link>
-      )}
       <div className="flex flex-col">
-        <h1
-          className={cn("text-4xl font-bold md:text-6xl text-white mb-2", className)}
-        >
-          {title}
-        </h1>
+        <div className="flex flex-row items-center gap-2">
+          {href && (
+            <Link href={href}>
+              <ChevronLeft
+                className={
+                  "size-20 text-white transition-transform duration-200 group-hover:-translate-x-1"
+                }
+              />
+            </Link>
+          )}
+          <h1
+            className={cn(
+              "mb-2 text-4xl font-bold text-white md:text-6xl",
+              className,
+            )}
+          >
+            {title}
+          </h1>
+        </div>
         {children}
       </div>
-
     </div>
   );
 };
