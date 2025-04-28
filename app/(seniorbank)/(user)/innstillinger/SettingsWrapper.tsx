@@ -111,7 +111,7 @@ export default function SettingsWrapper({ session }: Props) {
             onChange={(e) => setSelectedDelay(e.target.value)}
             className="mt-2 rounded border px-3 py-2"
           >
-            <option value="3" selected>
+            <option value="3">
               3 dager
             </option>
             <option value="4">4 dager</option>
