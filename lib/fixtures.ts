@@ -48,3 +48,12 @@ export async function createFixturesForUser(userId: string) {
     { fromAccountId: mainAccountId, toAccountId: clippersAccount.id, amount: -599, dueDate: new Date(2025, 2, 30) },
   ] })
 }
+
+export async function deleteAccount(email: string) {
+  try {
+    await prisma.user.delete({ where: { email }});
+  }
+  catch (error) {
+    console.error(`Error deleting user with email: ${email}`, error);
+  }
+}
