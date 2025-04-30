@@ -12,17 +12,17 @@ const Footer: React.FC = () => {
 
         <div className="flex flex-col gap-10 text-left md:flex-row md:justify-center md:gap-40">
           {/* Kontakt Column */}
-          <div>
+          <section>
             <h4 className="mb-5 text-lg font-bold">Kontakt</h4>
             <ul className="space-y-2">
               <li>Email: kontakt@seniorbank.no</li>
               <li>Telefon: +47 918 45 265</li>
               <li>Adresse: Bankveien 1, 0092 Oslo</li>
             </ul>
-          </div>
+          </section>
 
           {/* Snarveier Column */}
-          <div>
+          <section>
             <h4 className="mb-5 text-lg font-bold">Snarveier</h4>
             <ul className="space-y-2">
               <li>
@@ -41,10 +41,10 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
             </ul>
-          </div>
+          </section>
 
           {/* Om Oss Column */}
-          <div>
+          <section>
             <h4 className="mb-5 text-lg font-bold">Om Oss</h4>
             <ul className="space-y-2">
               <li>
@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
                 </a>
               </li>
             </ul>
-          </div>
+          </section>
         </div>
       </div>
     </footer>
