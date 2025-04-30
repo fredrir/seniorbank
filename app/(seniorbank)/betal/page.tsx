@@ -1,18 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import type React from "react";
+
+import { useEffect, useState, useRef } from "react";
 import PaymentFirstStep from "./(components)/steps/PaymentStep1";
 import PaymentSecondStep from "./(components)/steps/PaymentStep2";
 import PaymentThirdStep from "./(components)/steps/PaymentStep3";
 import PaymentConfirmationStep from "./(components)/steps/PaymentStepConfirmation";
 import toast from "react-hot-toast";
-
 import PaymentFifthStep from "./(components)/steps/PaymentStepReceipt";
 import Heading from "@/ui/molecules/Heading";
 
 export default function Payment() {
   const [onSelectFields, setOnSelectFields] = useState(false);
-
   const [formData, setFormData] = useState({
     comment: "",
     amount: "",
@@ -20,6 +20,7 @@ export default function Payment() {
     fromAccount: "",
   });
   const isHard = true;
+  const mainRef = useRef<HTMLElement>(null);
 
   const isAccountNumberInvalid = (inputValue: string) => {
     const regex = /^[0-9]{4}\.[0-9]{2}\.[0-9]{5}$/;
@@ -33,18 +34,28 @@ export default function Payment() {
   const defaultStep =
     formData.toAccount === ""
       ? 1
-      : (parseInt(
+      : (Number.parseInt(
           new URLSearchParams(window.location.search).get("step") || "1",
         ) ?? 1);
   const [step, setStep] = useState(defaultStep);
 
   useEffect(() => {
     window.history.pushState({}, "", `?step=${step}`);
-  }, [step]);
+
+    const announcer = document.getElementById("step-announcer");
+    if (announcer) {
+      announcer.textContent = `Steg ${step} av ${isHard ? 3 : 4}`;
+    }
+
+    window.scrollTo(0, 0);
+    if (mainRef.current) {
+      mainRef.current.focus();
+    }
+  }, [step, isHard]);
 
   useEffect(() => {
     const handlePopState = () => {
-      const urlStep = parseInt(
+      const urlStep = Number.parseInt(
         new URLSearchParams(window.location.search).get("step") || "1",
       );
       setStep(urlStep);
@@ -148,8 +159,6 @@ export default function Payment() {
   };
 
   const handleSelectToAccount = (account: string) => {
-    // Setter account som toAccount i formData. Account må være en string. Når en knapp har denne
-    console.log("Selected account:", account); //TODO: Er denne jeg må bruke
     setFormData((prevData) => ({
       ...prevData,
       toAccount: account,
@@ -164,6 +173,18 @@ export default function Payment() {
       formData.amount.trim().length > 0;
     setOnSelectFields(isValid);
   }, [formData]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && step > 1) {
+        e.preventDefault();
+        handleGoBack();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleGoBack, step]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -261,14 +282,30 @@ export default function Payment() {
       <PaymentFifthStep formData={formData} onClick={handleGoToHomepage} />
     );
   }
+
   return (
-    <section>
+    <main
+      ref={mainRef}
+      tabIndex={-1}
+      className="outline-none"
+      aria-live="polite"
+    >
+      <div
+        id="step-announcer"
+        className="sr-only"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        Steg {step} av {isHard ? 3 : 4}
+      </div>
+
       <svg
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         width={100}
         height={100}
         className="absolute left-0 top-0 z-[-1] h-[500px] w-full text-[#015aa4]"
+        aria-hidden="true"
       >
         <path d="M0 0 L0 50 Q50 100 100 50 L100 0" fill="currentColor" />
       </svg>
@@ -276,6 +313,6 @@ export default function Payment() {
       <Heading title="Betal faktura" className="mb-16" />
 
       {stepComponent}
-    </section>
+    </main>
   );
 }
