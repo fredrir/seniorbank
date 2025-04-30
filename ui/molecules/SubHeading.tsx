@@ -1,10 +1,13 @@
 interface Props {
   title: string;
+  id?: string;
 }
 
-const SubHeading = ({ title }: Props) => {
+const SubHeading = ({ title, id }: Props) => {
   return (
-    <h2 className="mb-8 text-5xl font-bold text-seniorBankDarkBlue">{title}</h2>
+    <h2 id={id} className="mb-8 text-5xl font-bold text-seniorBankDarkBlue">
+      {title}
+    </h2>
   );
 };
 

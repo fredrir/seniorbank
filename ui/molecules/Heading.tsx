@@ -6,11 +6,12 @@ interface Props extends React.PropsWithChildren {
   title: string;
   className?: string;
   href?: string;
+  id?: string;
 }
 
-const Heading = ({ title, className, href, children }: Props) => {
+const Heading = ({ title, className, href, children, id }: Props) => {
   return (
-    <div className="group flex flex-row items-center bg-inherit">
+    <div id={id} className="group flex flex-row items-center bg-inherit">
       <div className="flex flex-col">
         <div className="flex flex-row items-center gap-2">
           {href && (
