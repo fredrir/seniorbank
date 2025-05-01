@@ -9,17 +9,21 @@ export function sum({ a, b }: { a: number; b: number }) {
   return a + b;
 }
 
+export function unique<T>(items: T[]): T[] {
+  return Array.from(new Set(items));
+}
+
 export function formatCurrency(amount: number, withDecimals = false) {
   return amount.toLocaleString("nb-NO", {
     style: "currency",
     currency: "NOK",
     minimumFractionDigits: withDecimals ? 2 : 0,
     maximumFractionDigits: withDecimals ? 2 : 0,
-  })
+  });
 }
 
 export function formatWeekday(date: Date) {
-  return date.toLocaleString("nb-NO", { weekday: "long" })
+  return date.toLocaleString("nb-NO", { weekday: "long" });
 }
 
 export function formatDateNumeric(date: Date) {
@@ -27,7 +31,7 @@ export function formatDateNumeric(date: Date) {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  })
+  });
 }
 
 export function capitalize(str: string) {

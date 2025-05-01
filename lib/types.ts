@@ -1,18 +1,6 @@
-import { BankAccount, Difficulty, Transaction } from "@prisma/client";
+import { Difficulty } from "@prisma/client";
 
 export type tParams = Promise<{ id: string }>;
-
-export type searchParams = Promise<{
-  search?: string;
-}>;
-
-export type TransactionDetails = Omit<
-  Transaction,
-  "fromAccountId" | "toAccountId"
-> & {
-  fromAccount: BankAccount;
-  toAccount: BankAccount;
-};
 
 export type RegisterAccountFormData = {
   firstName: string;
@@ -28,4 +16,22 @@ export type PaymentFormData = {
   amount: string;
   toAccount: string;
   fromAccount: string;
+};
+
+/**
+ * Disallows passing extra properties to a type.
+ * Useful for catching problems caused by changing generated types
+ * @template T - The class to convert
+ */
+export type NoExtraProperties<T, U extends T = T> = U &
+  Record<Exclude<keyof U, keyof T>, never>;
+
+/**
+ * Returns a data type from a class excluding methods.
+ * Useful for creating DTOs from domain classes
+ * @template T - The class to convert
+ */
+export type OnlyFields<T> = {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+  [K in keyof T as T[K] extends Function ? never : K]: T[K];
 };

@@ -22,10 +22,10 @@ enum Difficulty {
 model User {
   id               String        @id @default(cuid())
   email            String        @unique
-  name             String?
-  birthDate        DateTime?
-  phoneNumber      String?
-  address          String?
+  name             String
+  birthDate        DateTime
+  phoneNumber      String
+  address          String
   paymentDelayDays Int           @default(3)
   difficulty       Difficulty    @default(EASY)
   accounts         BankAccount[]
@@ -52,6 +52,8 @@ model Transaction {
   toAccount     BankAccount @relation(fields: [toAccountId], references: [id], name: "ToAccount")
   amount        Int
   dueDate       DateTime
+  flagged       Boolean @default(false)
+  approvedAt    DateTime?
 
   createdAt DateTime @default(now())
 }

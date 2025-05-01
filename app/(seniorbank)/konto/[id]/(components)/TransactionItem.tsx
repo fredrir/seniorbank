@@ -6,20 +6,25 @@ const transactionItemVariants = cva(
   {
     variants: {
       type: {
-        incoming: "bg-[#70c7aa]",
-        outgoing: "bg-[#b3cee4]"
-      }
-    }
-  }
-)
+        INBOUND: "bg-[#70c7aa]",
+        OUTBOUND: "bg-[#b3cee4]",
+      },
+    },
+  },
+);
 
 type TransactionItemProps = VariantProps<typeof transactionItemVariants> & {
-  title: string
-  category?: string
-  amount: number
+  title: string;
+  category?: string;
+  amount: number;
 };
 
-const TransactionItem = ({ title, category, amount, ...cvaProps }: TransactionItemProps) => {
+const TransactionItem = ({
+  title,
+  category,
+  amount,
+  ...cvaProps
+}: TransactionItemProps) => {
   return (
     <div className={transactionItemVariants({ ...cvaProps })}>
       <div>

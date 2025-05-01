@@ -26,6 +26,6 @@ const PaymentAccountCard = ({ title, amount, onClick, isSelected }: Props) => {
       </Button>
     </div>
   );
-}
+};
 
 export default PaymentAccountCard;

@@ -55,7 +55,7 @@ const FirstStep = ({ setFormData, setStep }: Props) => {
             setStep(2);
           }}
           key={index}
-          className="group relative flex w-full text-left max-w-2xl flex-col gap-4 rounded-2xl border-4 border-seniorBankDarkBlue bg-[#D3D3EA] p-4 hover:border-blue-500"
+          className="group relative flex w-full max-w-2xl flex-col gap-4 rounded-2xl border-4 border-seniorBankDarkBlue bg-[#D3D3EA] p-4 text-left hover:border-blue-500"
         >
           <h2 className="text-4xl font-bold text-seniorBankDarkBlue">
             {difficulty.level}

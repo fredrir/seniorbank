@@ -25,11 +25,11 @@ const accounts = [
 const AccountOverview = () => {
   return (
     <div className="flex flex-col rounded-3xl bg-seniorbankWhite">
-      {accounts.map((account, index) => (
+      {accounts.map((account) => (
         <Link
           href={`/kontakt/konto/${account.accountNumber}`}
           key={account.accountNumber}
-          className={`group flex cursor-pointer flex-row items-center justify-between ${index !== accounts.length - 1 && "border-b border-b-gray-300"} px-4 py-6`}
+          className={`group flex cursor-pointer flex-row items-center justify-between border-b border-b-gray-300 px-4 py-6 last:border-b-0`}
         >
           <h3 className="text-lg font-bold text-[#002776] md:text-xl">
             {account.name}

@@ -6,7 +6,7 @@ export default function ContactFooter() {
       <div className="bg-seniorbankWhite pb-12 pt-4">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-[#0a3380]">Eldrebanken</h2>
+            <h2 className="text-3xl font-bold text-[#0a3380]">Seniorbanken</h2>
           </div>
 
           <div className="mx-auto grid max-w-4xl grid-cols-1 gap-8 md:grid-cols-3">
@@ -21,10 +21,10 @@ export default function ContactFooter() {
               <p className="mb-2">
                 Epost:{" "}
                 <Link
-                  href="mailto:kontakt@eldrebanken.no"
+                  href="mailto:kontakt@seniorbank.no"
                   className="hover:underline"
                 >
-                  kontakt@eldrebanken.no
+                  kontakt@seniorbank.no
                 </Link>
               </p>
               <Link href="#" className="text-[#0a3380] hover:underline">

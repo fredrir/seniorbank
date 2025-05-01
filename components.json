@@ -13,7 +13,7 @@
   "aliases": {
     "components": "@/components",
     "utils": "@/lib/utils",
-    "ui": "@/ui/atoms",
+    "ui": "@/components/atoms",
     "lib": "@/lib",
     "hooks": "@/hooks"
   },

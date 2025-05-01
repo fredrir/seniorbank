@@ -1,14 +1,14 @@
 import ContactFooter from "@/app/(safetycontact)/kontakt/(components)/ContactFooter";
 import ContactNavbar from "@/app/(safetycontact)/kontakt/(components)/ContactNavbar";
 import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
-import { checkRegisteredUser } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 
 export default async function UserLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  await checkRegisteredUser();
+  await getSession();
 
   return (
     <>

@@ -28,7 +28,7 @@ export function SearchInput() {
 
   return (
     <div className="relative w-full">
-      <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-white/70" />
+      <Search className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-white/70" />
       <Input
         className="w-full rounded-full border-none bg-[#4D8CBF] pl-10 text-white placeholder:text-white/70"
         placeholder={isPending ? "Laster..." : "Søk.."}

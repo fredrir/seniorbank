@@ -1,9 +1,42 @@
 "use client";
 import { Timer, User, Lock } from "lucide-react";
-import { difficultyLevels } from "@/components/security-settings/difficultyLevels";
 import { useState } from "react";
 import { Button } from "@/ui/atoms/Button";
 import { Session } from "next-auth";
+import {
+  setPaymentDelayDays as setUserPaymentDelayDays,
+  setDifficulty as setUserDifficulty,
+} from "@/actions/user";
+import { Difficulty } from "@/model/domain/user/User";
+
+export const difficultyLevels = [
+  {
+    enum: "EASY" as const,
+    title: "Basis nivå",
+    description: [
+      "De fleste funksjoner er forenklet",
+      "Kun basisfunksjoner som saldooversikt og betaling av faste regninger",
+      "Viktige handlinger må godkjennes av din Trygghetskontakt før de blir gjennomført",
+    ],
+  },
+  {
+    enum: "MEDIUM" as const,
+    title: "Moderert kontroll",
+    description: [
+      "Litt flere muligheter, som å betale nye regninger og overføre mellom egne kontoer",
+      "Advarsler ved ukjente mottakere eller større transaksjoner",
+      "Enkel varsling til Trygghetskontakt ved behov",
+    ],
+  },
+  {
+    enum: "HARD" as const,
+    title: "Full frihet",
+    description: [
+      "Alle funksjoner tilgjengelige uten begrensninger",
+      "Du kan fortsatt velge å varsle din trygghetskontakt ved større eller uvanlige transaksjoner",
+    ],
+  },
+];
 
 interface Props {
   session: Session | null;
@@ -17,7 +50,7 @@ export default function SettingsWrapper({ session }: Props) {
     (d) => d.enum !== session?.user?.difficulty,
   );
 
-  const handleLevelChange = async (newLevel: string) => {
+  const handleLevelChange = async (newLevel: Difficulty) => {
     const confirmation = window.confirm(
       "Er du sikker på at du ønsker å endre ditt sikkerhetsnivå? Husk at dette vil varsle din tryggehtskontakt",
     );
@@ -25,13 +58,9 @@ export default function SettingsWrapper({ session }: Props) {
     if (!confirmation) return;
 
     try {
-      const res = await fetch("/api/update-difficulty", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ newDifficulty: newLevel }),
-      });
+      const err = await setUserDifficulty(newLevel);
 
-      if (!res.ok) throw new Error("Feil ved oppdatering");
+      if (err) throw new Error("Feil ved oppdatering");
       window.location.reload();
     } catch (err) {
       console.error("Kunne ikke oppdatere:", err);
@@ -43,13 +72,9 @@ export default function SettingsWrapper({ session }: Props) {
 
   const handlePaymentDelayChange = async () => {
     try {
-      const res = await fetch("/api/update-payment-delay", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ delayDays: selectedDelay }),
-      });
+      const err = await setUserPaymentDelayDays(Number(selectedDelay));
 
-      if (!res.ok) throw new Error("Kunne ikke oppdatere");
+      if (err) throw new Error("Kunne ikke oppdatere");
       window.location.reload();
     } catch (err) {
       console.error("Feil under betalingsutsettelse:", err);
@@ -111,9 +136,7 @@ export default function SettingsWrapper({ session }: Props) {
             onChange={(e) => setSelectedDelay(e.target.value)}
             className="mt-2 rounded border px-3 py-2"
           >
-            <option value="3">
-              3 dager
-            </option>
+            <option value="3">3 dager</option>
             <option value="4">4 dager</option>
             <option value="5">5 dager</option>
             <option value="1">6 dag</option>
@@ -162,10 +185,10 @@ export default function SettingsWrapper({ session }: Props) {
             onClick={() => handleLevelChange(level.enum)}
             className="mb-4 w-full max-w-xl rounded-xl border border-seniorBankDarkBlue bg-seniorBankLightPurple px-4 py-4 text-left hover:bg-seniorBankLightBlue"
           >
-            <h3 className="text-lg text-xl font-bold text-seniorBankDarkBlue">
+            <h3 className="text-xl font-bold text-seniorBankDarkBlue">
               {level.title}
             </h3>
-            <ul className="mt-2 list-disc pl-6 text-sm text-xl">
+            <ul className="mt-2 list-disc pl-6 text-xl">
               {level.description.map((desc, j) => (
                 <li key={j}>{desc}</li>
               ))}

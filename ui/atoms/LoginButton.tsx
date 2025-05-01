@@ -1,13 +1,18 @@
 "use client";
+
 import { Button } from "@/ui/atoms/Button";
 import { LockIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 
 const LoginButton = () => {
   const handleLogin = () => {
-    signIn("auth0", {
-      callbackUrl: "/",
-    });
+    signIn(
+      "auth0",
+      {
+        callbackUrl: "/",
+      },
+      { connection: "google-oauth2" },
+    );
   };
 
   return (

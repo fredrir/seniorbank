@@ -1,8 +1,15 @@
-import type { User } from "@prisma/client";
+import { DefaultSession } from "next-auth";
+import { JSONUserDTO } from "./application/mappers/JsonUserDTOMapper";
 
 declare module "next-auth" {
-  interface Session {
-    user: User | null;
+  interface Session extends DefaultSession {
+    userId: string;
     email: string;
+    user: JSONUserDTO | null;
+    isRegistered: boolean;
   }
+}
+
+export interface RegisteredSession extends Session {
+  user: JSONUserDTO;
 }

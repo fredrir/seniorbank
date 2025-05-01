@@ -7,7 +7,7 @@ import ThirdStep from "@/app/(authentication)/register/(components)/ThirdStep";
 import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import registerAccount from "@/actions/registerAccount";
+import { register } from "@/actions/user";
 import type { Session } from "next-auth";
 import { RegisterAccountFormData } from "@/lib/types";
 import { redirect } from "next/navigation";
@@ -25,7 +25,8 @@ const defaultFormData: RegisterAccountFormData = {
 
 export default function RegisterAccountForm({ session }: { session: Session }) {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState<RegisterAccountFormData>(defaultFormData);
+  const [formData, setFormData] =
+    useState<RegisterAccountFormData>(defaultFormData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -69,10 +70,10 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const response = await registerAccount(formData);
+    const error = await register(formData);
 
-    if (!response) {
-      toast.error("Noe gikk galt. Prøv igjen senere.");
+    if (error) {
+      toast.error(error.toString());
       return;
     } else {
       toast.success("Brukeren er opprettet!");
@@ -82,9 +83,12 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
 
   return (
     <>
-      <BackgroundGraphic variant="mid-wave" className="scale-x-[-1] top-36 h-[150vh] text-seniorbankBlue" />
+      <BackgroundGraphic
+        variant="mid-wave"
+        className="top-36 h-[150vh] scale-x-[-1] text-seniorbankBlue"
+      />
       <header
-        className={`mt-8 flex flex-row w-full justify-between gap-2 text-seniorBankDarkBlue`}
+        className={`mt-8 flex w-full flex-row justify-between gap-2 text-seniorBankDarkBlue`}
       >
         {step !== 1 && (
           <button onClick={() => handlePreviousStep()}>
@@ -97,15 +101,12 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
         </h2>
 
         <div>
-          <LogoutButton/>
+          <LogoutButton />
         </div>
       </header>
 
-      <div className="mt-16 flex flex-col items-center bg-seniorBankLightPurple rounded-2xl p-8 shadow-lg">
-        {
-          step !== 1 &&
-          <ProgressBar totalSteps={3} currentStep={step} />
-        }
+      <div className="mt-16 flex flex-col items-center rounded-2xl bg-seniorBankLightPurple p-8 shadow-lg">
+        {step !== 1 && <ProgressBar totalSteps={3} currentStep={step} />}
 
         {step === 1 && (
           <FirstStep setFormData={setFormData} setStep={setStep} />

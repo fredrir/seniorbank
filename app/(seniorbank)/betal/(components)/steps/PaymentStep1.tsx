@@ -19,8 +19,6 @@ const PaymentFirstStep = ({
   selectedAccount,
   isHard,
 }: PaymentFirstStepProps) => {
-
-
   const hardProgressbar = <ProgressBar totalSteps={3} currentStep={1} />;
   const mediumProgressbar = <ProgressBar totalSteps={4} currentStep={1} />;
 
@@ -32,7 +30,7 @@ const PaymentFirstStep = ({
           <h1 className="pl-10 text-3xl font-bold text-seniorBankDarkBlue">
             Velg konto du vil betale fra:{" "}
           </h1>
-          <div className="grid grid-cols-1 font-bold text-seniorBankDarkBlue gap-2 text-3xl rounded-lg justify-between">
+          <div className="grid grid-cols-1 justify-between gap-2 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
             {accountOptions.map((option, index) => (
               <PaymentAccountCard
                 key={index}

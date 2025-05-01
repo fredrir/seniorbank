@@ -1,35 +1,50 @@
-import { TransactionDetails } from "@/lib/types";
 import TransactionItem from "./TransactionItem";
 import { TransactionListDateDivider } from "./TransactionListDateDivider";
-import { User } from "@prisma/client";
 import React from "react";
-
-export function TransactionList({ transactions, user }: { transactions: TransactionDetails[], user: User }) {
-  return <div className="flex w-full flex-col rounded-3xl overflow-hidden">
-    {
-      transactions.map((transaction, index, array) => {
-        const isIncoming = transaction.fromAccount.userId === user.id;
+import { JsonTransaction } from "@/model/application/mappers/JsonTransactionDTOMapper";
+import { PublicBankAccountDetails } from "@/model/domain/payment/BankAccount";
+export function TransactionList({
+  transactions,
+  peerAccountDetails,
+}: {
+  transactions: JsonTransaction[];
+  peerAccountDetails: PublicBankAccountDetails[];
+}) {
+  return (
+    <div className="flex w-full flex-col overflow-hidden rounded-3xl">
+      {transactions.map((transaction, index, array) => {
+        const peerAccount = peerAccountDetails.find(
+          ({ id }) => id === transaction.peerAccountId,
+        )!;
 
         // If this transaction is on a different date than the previous one (and is not the first), we add a divider
-        const needsDivider = index !== 0 && transaction.dueDate.getDate() !== array[index - 1].dueDate.getDate();
+        const needsDivider =
+          index !== 0 &&
+          new Date(transaction.dueDate).getDate() !==
+            new Date(array[index - 1].dueDate).getDate();
 
-        const amount = isIncoming ? transaction.amount : -transaction.amount;
-        const peerAccount = isIncoming ? transaction.toAccount : transaction.fromAccount;
+        const amount =
+          transaction.direction === "INBOUND"
+            ? transaction.amount
+            : -transaction.amount;
 
-        return <React.Fragment key={transaction.id}>
-          {
-            needsDivider &&
-              <TransactionListDateDivider date={transaction.dueDate} />
-          }
+        return (
+          <React.Fragment key={transaction.id}>
+            {needsDivider && (
+              <TransactionListDateDivider
+                date={new Date(transaction.dueDate)}
+              />
+            )}
 
-          <TransactionItem
-            type={isIncoming ? "incoming" : "outgoing"}
-            title={peerAccount.name}
-            category={peerAccount.category ?? undefined}
-            amount={amount}
+            <TransactionItem
+              type={transaction.direction}
+              title={peerAccount.name}
+              category={peerAccount.category ?? undefined}
+              amount={amount}
             />
-        </React.Fragment>
-      })
-    }
-  </div>
+          </React.Fragment>
+        );
+      })}
+    </div>
+  );
 }

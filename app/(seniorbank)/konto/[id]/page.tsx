@@ -1,73 +1,33 @@
-import Heading from "@/ui/molecules/Heading";
-import { prisma } from "@/lib/db";
-import type { searchParams, tParams, TransactionDetails } from "@/lib/types";
+import { getSession } from "@/lib/auth";
+import { bankAccountService } from "@/model/core";
 import { formatCurrency } from "@/lib/utils";
+import Heading from "@/ui/molecules/Heading";
 import { notFound } from "next/navigation";
-import { checkRegisteredUser } from "@/lib/auth";
-import { TransactionList } from "./(components)/TransactionList";
 import { SearchInput } from "./(components)/SearchInput";
+import { TransactionList } from "./(components)/TransactionList";
 
 export default async function AccountPage(props: {
-  params: tParams;
-  searchParams: searchParams;
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ search: string }>;
 }) {
-  const { id } = await props.params;
-  const { search } = await props.searchParams;
-  const decodedId = decodeURIComponent(id);
+  const id = decodeURIComponent((await props.params).id);
 
-  const user = await checkRegisteredUser();
+  const { userId } = await getSession();
 
-  const account = await prisma.bankAccount.findUnique({
-    where: {
-      id: decodedId,
-    },
-  });
-
-  if (!account) {
+  const account = await bankAccountService.get(id, userId);
+  if (account === null) {
     notFound();
   }
 
-  const transactions: TransactionDetails[] = await prisma.transaction.findMany({
-    where: {
-      OR: [
-        {
-          fromAccountId: decodedId,
-        },
-        {
-          toAccountId: decodedId,
-        },
-      ],
-    },
-    include: {
-      fromAccount: true,
-      toAccount: true,
-    },
-  });
-
-  const filteredTransactions = search
-    ? transactions.filter((transaction) => {
-        const isIncoming = transaction.fromAccount.userId === user.id;
-        const peerAccount = isIncoming
-          ? transaction.toAccount
-          : transaction.fromAccount;
-
-        return (
-          peerAccount.name.toLowerCase().includes(search.toLowerCase()) ||
-          (peerAccount.category &&
-            peerAccount.category
-              .toLowerCase()
-              .includes(search.toLowerCase())) ||
-          transaction.id.toLowerCase().includes(search.toLowerCase())
-        );
-      })
-    : transactions;
+  const { transactions, peerAccountDetails } =
+    await bankAccountService.listTransactions(id, userId);
 
   return (
     <>
       <div className="max-w-fit">
         <Heading title={account.name} href="/konto">
           <p className="mr-2 mt-[-10px] text-end text-3xl text-seniorBankLightBlue">
-            {decodedId}
+            {id}
           </p>
         </Heading>
       </div>
@@ -80,15 +40,10 @@ export default async function AccountPage(props: {
         <div className="mb-4 mt-16 w-full px-4">
           <SearchInput />
         </div>
-        {filteredTransactions.length === 0 ? (
-          <div>
-            <p className="text-center text-2xl font-bold text-white">
-              {search ? "Ingen transaksjoner funnet" : "Ingen transaksjoner"}
-            </p>
-          </div>
-        ) : (
-          <TransactionList transactions={filteredTransactions} user={user} />
-        )}
+        <TransactionList
+          transactions={transactions}
+          peerAccountDetails={peerAccountDetails}
+        />
       </section>
     </>
   );

@@ -11,7 +11,7 @@ const AccountCard = ({ account }: Props) => {
   return (
     <Link
       href={`/konto/${account.id}`}
-      className="group flex w-full items-center justify-between border-seniorBankLightBlue p-6 border-b-[0.4rem] last:border-b-0"
+      className="group flex w-full items-center justify-between border-b-[0.4rem] border-seniorBankLightBlue p-6 last:border-b-0"
     >
       <h3 className="text-2xl font-bold text-seniorBankDarkBlue lg:text-3xl">
         {account.name}

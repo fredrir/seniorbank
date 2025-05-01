@@ -2,64 +2,59 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowLeftRight, House, Landmark, Wallet } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { LogoutButton } from "../molecules/LogoutButton";
+import { LogoutButton } from "@/ui/molecules/LogoutButton";
+import NavbarLink from "@/ui/molecules/NavbarLink";
+import { cva, VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-const navLinks = [
-  {
-    title: "Hjem",
-    icon: <House className="size-8" />,
-    path: "/",
+const navbarVariants = cva("relative w-full px-4", {
+  variants: {
+    variant: {
+      contact: "bg-[#F8E9DD]",
+      seniorbank: "bg-seniorbankBlue pt-1 pb-8 text-white",
+    },
   },
-  {
-    title: "Konto",
-    icon: <Landmark className="size-8" />,
-    path: "/konto",
-  },
-  {
-    title: "Overfør",
-    icon: <ArrowLeftRight className="size-8" />,
-    path: "/overfor",
-  },
-  {
-    title: "Betal",
-    icon: <Wallet className="size-8" />,
-    path: "/betal",
-  },
-];
+});
 
-const NavBar = () => {
-  const activePath = usePathname();
+interface NavbarProps extends VariantProps<typeof navbarVariants> {
+  links: { title: string; path: string; icon?: React.ReactNode }[];
+}
+
+const Navbar = ({ links, ...props }: NavbarProps) => {
+  const pathname = usePathname();
 
   return (
-    <div className="relative w-full bg-seniorbankBlue px-4 pb-8 pt-1">
+    <div className={navbarVariants(props)}>
       <nav className="flex w-full items-center justify-center">
-        <span className="flex flex-row items-center justify-center border-b-2 border-white">
-          {navLinks.map((link, index) => (
-            <Link
-              href={link.path}
-              key={index}
-              className={`flex flex-row items-center justify-center rounded-t-2xl p-4 text-2xl transition-colors ${
-                activePath === link.path
-                  ? "border-seniorBankLightBlue bg-seniorBankDarkBlue font-bold text-white"
-                  : "text-white hover:bg-seniorBankLightBlue hover:text-seniorBankDarkBlue"
-              }`}
-            >
-              <span className="flex flex-row items-center gap-2">
-                {link.icon}
-                {link.title}
-              </span>
-            </Link>
+        <span
+          className={cn("flex flex-row items-center justify-center", {
+            "border-b-2 border-white": props.variant === "seniorbank",
+          })}
+        >
+          {links.map(({ path, icon, title }) => (
+            <NavbarLink
+              active={pathname === path}
+              key={path}
+              icon={icon}
+              path={path}
+              title={title}
+            />
           ))}
         </span>
       </nav>
+      <div className="absolute bottom-0 right-0 top-0 my-auto mr-4 flex items-center">
+        <LogoutButton variant={props.variant} />
+      </div>
 
-      <div className="absolute right-0 top-0 m-4">
-        <LogoutButton />
+      <div className="absolute left-0 top-0 m-4">
+        {props.variant === "contact" && <Link href="/">Gå til seniorbank</Link>}
+        {props.variant === "seniorbank" && (
+          <Link href="/kontakt">Gå til kontaktside</Link>
+        )}
       </div>
     </div>
   );
 };
 
-export default NavBar;
+export default Navbar;

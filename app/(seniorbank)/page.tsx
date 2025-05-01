@@ -13,11 +13,13 @@ import {
   Wallet,
 } from "lucide-react";
 import HiddenMenuOptions from "@/app/(seniorbank)/(components)/HiddenMenuOptions";
-import { checkRegisteredUser } from "@/lib/auth";
-import { prisma } from "@/lib/db";
+import { getSession } from "@/lib/auth";
+import { bankAccountService } from "@/model/core";
 
 export default async function Home() {
-  const user = await checkRegisteredUser();
+  const { user } = await getSession();
+
+  const mainBankAccount = await bankAccountService.getUserMainAccount(user.id);
 
   const menuOptions = [
     {
@@ -71,13 +73,6 @@ export default async function Home() {
   const hiddenMenuOptions = menuOptions.filter(
     (option) => !option.availableFor.includes(user.difficulty),
   );
-
-  const mainBankAccount = await prisma.bankAccount.findFirst({
-    where: {
-      userId: user.id,
-      main: true,
-    },
-  });
 
   return (
     <>

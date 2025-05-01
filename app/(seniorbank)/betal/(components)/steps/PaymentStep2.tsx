@@ -6,7 +6,7 @@ import { Textarea } from "@/ui/atoms/Textarea";
 import { Input } from "@/ui/atoms/Input";
 import ApprovedAccountView from "../ApprovedAccountView";
 import { ProgressBar } from "@/ui/organisms/ProgressBar";
-import Combobox from "../../../../../ui/atoms/Combobox";
+import Combobox from "@/ui/atoms/Combobox";
 
 interface PaymentSecondStepProps {
   formData: {

@@ -10,14 +10,19 @@ interface Props {
   handleNextStep: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const SecondStep = ({ formData, handleChange, handleNextStep, email }: Props) => {
+const SecondStep = ({
+  formData,
+  handleChange,
+  handleNextStep,
+  email,
+}: Props) => {
   return (
     <div className="flex w-full flex-col items-center gap-8">
       <h2 className="text-3xl font-bold text-seniorBankDarkBlue">
         Personopplysninger
       </h2>
 
-      <form onSubmit={handleNextStep} className="space-y-6">
+      <form onSubmit={handleNextStep} className="w-full space-y-6 md:px-32">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="space-y-2">
             <label
@@ -128,7 +133,7 @@ const SecondStep = ({ formData, handleChange, handleNextStep, email }: Props) =>
         <div className="pt-4">
           <Button
             type="submit"
-            className="w-full rounded-xl bg-[#002776] py-4 text-3xl font-medium text-white hover:bg-[#001d5e]"
+            className="w-full rounded-xl py-6 text-3xl font-medium text-white hover:bg-[#001d5e]"
           >
             Neste steg
           </Button>

@@ -1,10 +1,11 @@
-import { prisma } from "@/lib/db";
 import {
   getServerSession as _getServerSession,
   NextAuthOptions,
 } from "next-auth";
 import Auth0 from "next-auth/providers/auth0";
 import { redirect } from "next/navigation";
+import { RegisteredSession } from "./next-auth";
+import { userService } from "@/model/core";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -16,47 +17,45 @@ export const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({ session }) {
-      if (!session.user?.email) {
-        throw new Error("No email found in session");
+    async session({ session, token }) {
+      if (!token.sub) {
+        console.error("No user id present in token");
+        return session;
       }
 
-      session.email = session.user.email;
+      if (!token.email) {
+        console.error("No email present in token");
+        return session;
+      }
 
-      const user = await prisma.user.findUnique({
-        where: { email: session.user.email },
-        include: {
-          accounts: true,
-        },
-      });
+      const user = await userService.get(token.sub);
 
+      session.userId = token.sub;
+      session.email = token.email;
       session.user = user;
+      session.isRegistered = Boolean(user);
 
       return session;
     },
   },
 };
 
-export async function getServerSession() {
-  return await _getServerSession(authOptions);
-}
+export async function getUnregisteredSession() {
+  const session = await _getServerSession(authOptions);
 
-export async function checkServerSession() {
-  const session = await getServerSession();
-
-  if (session === null) {
+  if (!session) {
     redirect("/login");
   }
 
   return session;
 }
 
-export async function checkRegisteredUser() {
-  const session = await checkServerSession();
+export async function getSession() {
+  const session = await getUnregisteredSession();
 
-  if (session.user === null) {
+  if (session.user === null || !session.isRegistered) {
     redirect("/register");
   }
 
-  return session.user;
+  return { ...session, user: session.user } satisfies RegisteredSession;
 }
