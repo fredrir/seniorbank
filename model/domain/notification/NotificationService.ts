@@ -1,3 +1,3 @@
 export interface NotificationService {
-  sendNotification: (userId: string, message: string) => Promise<void>;
+  sendContactNotification: (userId: string, message: string) => Promise<void>;
 }

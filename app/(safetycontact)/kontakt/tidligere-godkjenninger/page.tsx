@@ -1,13 +1,16 @@
+import { listApprovedTransactions } from "@/actions/bankAccount";
 import Heading from "../(components)/Heading";
 import PaymentList from "../(components)/PaymentList";
 
-export default function PreviousApprovalsPage() {
+export default async function PreviousApprovalsPage() {
+  const transactionData = await listApprovedTransactions();
+
   return (
     <main>
       <Heading title="Bekreft" href="/kontakt" className="pt-8" />
 
       <div className="mx-auto max-w-md">
-        <PaymentList />
+        <PaymentList transactionData={transactionData} />
       </div>
     </main>
   );

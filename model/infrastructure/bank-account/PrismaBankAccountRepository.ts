@@ -4,7 +4,10 @@ import {
   TransactionFilter,
 } from "@/model/domain/payment/BankAccountRepository";
 import type { PrismaClient } from "@prisma/client";
-import { PrismaTransactionDTOMapper } from "./mappers/PrismaTransactionDTOMapper";
+import {
+  PrismaTransactionDTO,
+  PrismaTransactionDTOMapper,
+} from "./mappers/PrismaTransactionDTOMapper";
 import { PrismaBankAccountDTOMapper } from "./mappers/PrismaBankAccountDTOMapper";
 import { Pagination } from "@/model/utils/types";
 import { BankAccount } from "@/model/domain/payment/BankAccount";
@@ -60,6 +63,10 @@ export class PrismaBankAccountRepository implements BankAccountRepository {
       take: page?.limit,
       skip: page && page.page && page.page * page.limit,
     });
+    console.log(
+      filter,
+      accountDTOs.map((a) => a.id),
+    );
 
     return accountDTOs.map((dto) =>
       PrismaBankAccountDTOMapper.deserialize(dto),
@@ -102,10 +109,19 @@ export class PrismaBankAccountRepository implements BankAccountRepository {
     });
   }
 
-  async getTransaction(id: string) {
-    const dto = await this.prisma.transaction.findUnique({ where: { id } });
+  async getTransaction(id: string, accountId: string) {
+    const dto = await this.prisma.transaction.findUnique({
+      where: {
+        id,
+        OR: [{ fromAccountId: accountId }, { toAccountId: accountId }],
+      },
+    });
 
-    return dto ? PrismaTransactionDTOMapper.deserialize(dto) : null;
+    if (dto === null) {
+      throw new Error(`Could not get transaction with id ${id}`);
+    }
+
+    return PrismaTransactionDTOMapper.deserialize(dto, accountId);
   }
 
   async createManyTransactions(transactions: Transaction[]) {
@@ -121,6 +137,13 @@ export class PrismaBankAccountRepository implements BankAccountRepository {
         transactions[i].accountId,
       ),
     );
+  }
+
+  async saveTransaction(transaction: Transaction) {
+    await this.prisma.transaction.update({
+      data: PrismaTransactionDTOMapper.serialize(transaction),
+      where: { id: transaction.id },
+    });
   }
 
   async createTransaction(transaction: Transaction) {
@@ -148,57 +171,45 @@ export class PrismaBankAccountRepository implements BankAccountRepository {
     const transactionDTOs = await this.prisma.transaction.findMany({
       where: {
         flagged: filter?.flagged,
-        approvedAt:
-          filter?.approved !== undefined
-            ? filter.approved
-              ? { not: null }
-              : null
-            : undefined,
+        held: filter.held,
         OR: [
           {
-            toAccountId: { in: filter?.accountIds },
-            OR: [
-              {
-                fromAccount: { name: { contains: filter?.query } },
-              },
-              {
-                fromAccount: { category: { contains: filter?.query } },
-              },
-            ],
+            fromAccountId: { in: filter.accountIds },
           },
           {
-            fromAccountId: { in: filter?.accountIds },
-            OR: [
-              {
-                toAccount: { name: { contains: filter?.query } },
-              },
-              {
-                toAccount: { category: { contains: filter?.query } },
-              },
-            ],
+            toAccountId: { in: filter.accountIds },
           },
         ],
+        approvalStatus: filter?.checked
+          ? {
+              not: null,
+            }
+          : undefined,
       },
+      orderBy: { dueDate: "desc" },
       take: page?.limit,
       skip: page && page.page && page.limit * page.page,
     });
 
+    return this.deserializeTransactionArray(transactionDTOs, filter.accountIds);
+  }
+
+  private deserializeTransactionArray(
+    dtos: PrismaTransactionDTO[],
+    accountId: string | string[],
+  ) {
+    const accountIds = Array.isArray(accountId) ? accountId : [accountId];
+
     const transactions = [];
-    for (const transactionDTO of transactionDTOs) {
-      if (filter.accountIds.includes(transactionDTO.fromAccountId)) {
+    for (const dto of dtos) {
+      if (accountIds.includes(dto.fromAccountId)) {
         transactions.push(
-          PrismaTransactionDTOMapper.deserialize(
-            transactionDTO,
-            transactionDTO.fromAccountId,
-          ),
+          PrismaTransactionDTOMapper.deserialize(dto, dto.fromAccountId),
         );
       }
-      if (filter.accountIds.includes(transactionDTO.toAccountId)) {
+      if (accountIds.includes(dto.toAccountId)) {
         transactions.push(
-          PrismaTransactionDTOMapper.deserialize(
-            transactionDTO,
-            transactionDTO.toAccountId,
-          ),
+          PrismaTransactionDTOMapper.deserialize(dto, dto.toAccountId),
         );
       }
     }

@@ -1,10 +1,14 @@
 import { OnlyFields } from "@/lib/types";
 
+export type ApprovalStatus = "APPROVED" | "DENIED" | null;
+
 export class Transaction {
   public readonly id?: string | undefined;
   public readonly direction: "OUTBOUND" | "INBOUND";
   public flagged: boolean;
-  public approvedAt: Date | null;
+  public held: boolean;
+  public approvalStatus: ApprovalStatus;
+  public approvalTime: Date | null;
   public accountId: string;
   public peerAccountId: string;
   public amount: number;
@@ -17,7 +21,9 @@ export class Transaction {
     accountId,
     peerAccountId,
     flagged,
-    approvedAt,
+    held,
+    approvalStatus: outcome,
+    approvalTime: outcomeChangedAt,
     amount,
     dueDate,
     createdAt,
@@ -30,8 +36,10 @@ export class Transaction {
     this.direction = direction;
     this.accountId = accountId;
     this.peerAccountId = peerAccountId;
+    this.held = held;
     this.flagged = flagged;
-    this.approvedAt = approvedAt;
+    this.approvalStatus = outcome;
+    this.approvalTime = outcomeChangedAt;
     this.amount = amount;
     this.dueDate = dueDate;
     this.createdAt = createdAt;
@@ -43,8 +51,10 @@ export class Transaction {
       peerAccountId,
       amount,
       direction: "OUTBOUND",
+      approvalStatus: null,
+      approvalTime: null,
       flagged: false,
-      approvedAt: null,
+      held: false,
       dueDate: new Date(),
     });
   }
@@ -53,12 +63,23 @@ export class Transaction {
     return Transaction.new(this.peerAccountId, this.accountId, this.amount);
   }
 
+  hold() {
+    this.held = true;
+  }
+
   flag() {
     this.flagged = true;
   }
 
   approve() {
-    this.approvedAt = new Date();
+    this.held = false;
+    this.approvalStatus = "APPROVED";
+    this.approvalTime = new Date();
+  }
+
+  deny() {
+    this.approvalStatus = "DENIED";
+    this.approvalTime = new Date();
   }
 
   isReversible() {
@@ -66,7 +87,7 @@ export class Transaction {
       return true;
     }
 
-    if (this.flagged && !this.approvedAt) {
+    if (this.held && this.approvalStatus !== "APPROVED") {
       return true;
     }
 

@@ -37,3 +37,7 @@ export function formatDateNumeric(date: Date) {
 export function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function mod(n: number, m: number) {
+  return ((n % m) + m) % m;
+}

@@ -5,10 +5,9 @@ import { Transaction as PrismaBankAccountTransaction } from "@prisma/client";
 
 export type PrismaTransactionDTO = Omit<
   NoExtraProperties<PrismaBankAccountTransaction>,
-  "createdAt" | "id"
+  "id"
 > & {
   id?: PrismaBankAccountTransaction["id"];
-  createdAt?: PrismaBankAccountTransaction["createdAt"];
 };
 
 /**
@@ -29,9 +28,10 @@ export const PrismaTransactionDTOMapper: DTOMapper<
       id,
       amount,
       dueDate,
-      createdAt,
+      approvalStatus,
+      approvalTime,
+      held,
       flagged,
-      approvedAt,
     }: PrismaTransactionDTO,
     accountId: string,
   ): Transaction {
@@ -45,10 +45,11 @@ export const PrismaTransactionDTOMapper: DTOMapper<
       accountId,
       peerAccountId,
       flagged,
-      approvedAt,
+      held,
       amount,
+      approvalStatus,
+      approvalTime,
       dueDate,
-      createdAt,
     });
   },
   serialize({
@@ -57,9 +58,10 @@ export const PrismaTransactionDTOMapper: DTOMapper<
     accountId,
     peerAccountId,
     dueDate,
-    approvedAt,
+    approvalStatus,
+    approvalTime,
     flagged,
-    createdAt,
+    held,
     id,
   }: Transaction): PrismaTransactionDTO {
     const [fromAccountId, toAccountId] =
@@ -72,9 +74,10 @@ export const PrismaTransactionDTOMapper: DTOMapper<
       dueDate,
       fromAccountId,
       toAccountId,
-      createdAt,
       flagged,
-      approvedAt,
+      held,
+      approvalStatus,
+      approvalTime,
       id,
     };
   },

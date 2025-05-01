@@ -18,11 +18,11 @@ import {
 } from "./mappers/JsonTransactionDTOMapper";
 import { FraudPreventionService } from "./FraudPreventionService";
 import { Transaction } from "../domain/payment/Transaction";
-import { NotificationService } from "../domain/notification/NotificationService";
 import { Pagination } from "../utils/types";
 
 export type TransactionListData = {
   transactions: JsonTransaction[];
+  accountDetails: PublicBankAccountDetails[];
   peerAccountDetails: PublicBankAccountDetails[];
 };
 
@@ -30,7 +30,6 @@ export class BankAccountService {
   constructor(
     private bankAccountRepository: BankAccountRepository,
     private fraudPreventionService: FraudPreventionService,
-    private notificationService: NotificationService,
   ) {}
 
   async get(id: string, userId: string): Promise<JsonBankAccount | null> {
@@ -66,8 +65,15 @@ export class BankAccountService {
     userId: string,
     filter?: BankAccountFilter,
     page?: Pagination,
-  ): Promise<BankAccount[]> {
-    return await this.bankAccountRepository.list({ ...filter, userId }, page);
+  ): Promise<JsonBankAccount[]> {
+    const accounts = await this.bankAccountRepository.list(
+      { ...filter, userId },
+      page,
+    );
+
+    return accounts.map((account) =>
+      JsonBankAccountDTOMapper.serialize(account),
+    );
   }
 
   async listHeldTransactions(userId: string): Promise<TransactionListData> {
@@ -76,8 +82,8 @@ export class BankAccountService {
     });
 
     const transactions = await this.bankAccountRepository.listTransactions({
-      flagged: true,
-      accountIds: accounts.map((account) => account.id),
+      held: true,
+      accountIds: accounts.map((account) => account.id!),
     });
 
     const peerAccountIds = unique(
@@ -91,6 +97,35 @@ export class BankAccountService {
       transactions: transactions.map((obj) =>
         JsonTransactionDTOMapper.serialize(obj),
       ),
+      accountDetails: accounts.map((account) => account.publicDetails()),
+      peerAccountDetails: peerAccounts.map((peerAccount) =>
+        peerAccount.publicDetails(),
+      ),
+    };
+  }
+
+  async listApprovedTransactions(userId: string): Promise<TransactionListData> {
+    const accounts = await this.bankAccountRepository.list({
+      userId,
+    });
+
+    const transactions = await this.bankAccountRepository.listTransactions({
+      checked: true,
+      accountIds: accounts.map((account) => account.id!),
+    });
+
+    const peerAccountIds = unique(
+      transactions.map((transaction) => transaction.peerAccountId),
+    );
+
+    const peerAccounts =
+      await this.bankAccountRepository.getMany(peerAccountIds);
+
+    return {
+      transactions: transactions.map((obj) =>
+        JsonTransactionDTOMapper.serialize(obj),
+      ),
+      accountDetails: accounts.map((account) => account.publicDetails()),
       peerAccountDetails: peerAccounts.map((peerAccount) =>
         peerAccount.publicDetails(),
       ),
@@ -103,8 +138,10 @@ export class BankAccountService {
     filter?: TransactionFilter,
     page?: Pagination,
   ): Promise<TransactionListData> {
-    // This checks that the user is authorized to access the bank account
-    const account = await this.get(accountId, userId);
+    const account = await this.bankAccountRepository.get(accountId);
+    if (account.userId !== userId) {
+      throw new Error(`Can't get transactions for other users account`);
+    }
 
     if (account === null) {
       throw new Error(`Could not find account with id: ${accountId}`);
@@ -129,6 +166,7 @@ export class BankAccountService {
       peerAccountDetails: peerAccounts.map((peerAccount) =>
         peerAccount.publicDetails(),
       ),
+      accountDetails: [account.publicDetails()],
     };
   }
 
@@ -137,7 +175,7 @@ export class BankAccountService {
     accountId: string,
     toAccountId: string,
     amount: number,
-  ): Promise<JsonTransaction> {
+  ): Promise<{ transaction: JsonTransaction; contactNotified: boolean }> {
     const transactionCreate = Transaction.new(accountId, toAccountId, amount);
 
     const account = await this.bankAccountRepository.get(
@@ -156,36 +194,64 @@ export class BankAccountService {
       throw new Error(`Insufficient balance on account ${account.id}`);
     }
 
-    const isSuspicious =
-      await this.fraudPreventionService.isTransactionSuspicious(
+    const { contactNotified } =
+      await this.fraudPreventionService.processTransaction(
         transactionCreate,
         account,
         peerAccount,
       );
-
-    if (isSuspicious) {
-      this.notificationService.sendNotification(
-        userId,
-        "Transaction marked as suspicious and needs approval!",
-      );
-
-      transactionCreate.flag();
-    }
-
     const transaction =
       await this.bankAccountRepository.createTransaction(transactionCreate);
 
-    return JsonTransactionDTOMapper.serialize(transaction);
+    return {
+      transaction: JsonTransactionDTOMapper.serialize(transaction),
+      contactNotified,
+    };
   }
 
-  async revertTransaction(transactionId: string, userId: string) {
-    const transaction =
-      await this.bankAccountRepository.getTransaction(transactionId);
+  async approveTransaction(
+    transactionId: string,
+    accountId: string,
+    userId: string,
+  ) {
+    const transaction = await this.bankAccountRepository.getTransaction(
+      transactionId,
+      accountId,
+    );
 
-    if (transaction === null) {
-      throw new Error(`Could not find transaction`);
+    if (transaction.approvalStatus !== null) {
+      throw new Error(`Transaction is already approved or denied`);
     }
+
     const account = await this.bankAccountRepository.get(transaction.accountId);
+    if (account === null) {
+      throw new Error(`Could not get account`);
+    }
+
+    if (account.userId !== userId) {
+      throw new Error(`Not authorized to access this account`);
+    }
+
+    transaction.approve();
+
+    await this.bankAccountRepository.saveTransaction(transaction);
+  }
+
+  async denyTransaction(
+    transactionId: string,
+    accountId: string,
+    userId: string,
+  ) {
+    const transaction = await this.bankAccountRepository.getTransaction(
+      transactionId,
+      accountId,
+    );
+
+    if (transaction.approvalStatus !== null) {
+      throw new Error(`Transaction is already approved or denied`);
+    }
+
+    const account = await this.bankAccountRepository.get(accountId);
     if (account === null) {
       throw new Error(`Could not get account`);
     }
@@ -201,5 +267,8 @@ export class BankAccountService {
     await this.bankAccountRepository.createTransaction(
       transaction.getRevertTransaction(),
     );
+
+    transaction.deny();
+    await this.bankAccountRepository.saveTransaction(transaction);
   }
 }

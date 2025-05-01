@@ -13,8 +13,11 @@ export default async function UserLayout({
   return (
     <>
       <ContactNavbar />
+
       <BackgroundGraphic variant="mid-wave" className="text-[#F8E9DD]" />
-      <div className="mx-auto max-w-4xl px-2 md:px-0">{children} </div>
+
+      <main className="mx-auto max-w-4xl px-2 md:px-0">{children} </main>
+
       <ContactFooter />
     </>
   );

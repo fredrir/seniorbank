@@ -44,6 +44,11 @@ model BankAccount {
   ingoingTransactions  Transaction[] @relation("ToAccount")
 }
 
+enum Approval {
+  APPROVED
+  DENIED
+}
+
 model Transaction {
   id            String      @id @default(cuid())
   fromAccountId String
@@ -52,8 +57,9 @@ model Transaction {
   toAccount     BankAccount @relation(fields: [toAccountId], references: [id], name: "ToAccount")
   amount        Int
   dueDate       DateTime
-  flagged       Boolean @default(false)
-  approvedAt    DateTime?
 
-  createdAt DateTime @default(now())
+  flagged        Boolean @default(false)
+  held           Boolean @default(false)
+  approvalStatus Approval?
+  approvalTime   DateTime?
 }

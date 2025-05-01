@@ -1,24 +1,37 @@
+import { ApprovalStatus } from "@/model/domain/payment/Transaction";
+
 interface PaymentProps {
-  payment: {
-    id: string;
-    date: string;
-    amount: number;
-    recipient: string;
-    status: "Godkjent" | "Avvist" | "Venter";
-  };
+  date: Date;
+  amount: number;
+  recipient: string;
+  status: ApprovalStatus;
 }
 
-export default function PaymentCard({ payment }: PaymentProps) {
+function statusLabel(status: ApprovalStatus): string {
+  switch (status) {
+    case "APPROVED":
+      return "Godkjent";
+    case "DENIED":
+      return "Avslått";
+    case null:
+      return "Venter";
+  }
+}
+
+export default function PaymentCard({
+  date,
+  amount,
+  recipient,
+  status,
+}: PaymentProps) {
   const getBorderColor = () => {
-    switch (payment.status) {
-      case "Godkjent":
+    switch (status) {
+      case "APPROVED":
         return "border-l-green-500";
-      case "Avvist":
+      case "DENIED":
         return "border-l-red-500";
-      case "Venter":
+      case null:
         return "border-l-blue-500";
-      default:
-        return "border-l-gray-300";
     }
   };
 
@@ -36,7 +49,7 @@ export default function PaymentCard({ payment }: PaymentProps) {
             Dato:
           </span>
           <span className="ml-2 text-sm text-seniorBankDarkBlue">
-            {payment.date}
+            {date.toLocaleDateString()}
           </span>
         </div>
 
@@ -45,7 +58,7 @@ export default function PaymentCard({ payment }: PaymentProps) {
             Beløp:
           </span>
           <span className="ml-2 text-sm text-seniorBankDarkBlue">
-            {formatAmount(payment.amount)} kr
+            {formatAmount(amount)} kr
           </span>
         </div>
 
@@ -54,7 +67,7 @@ export default function PaymentCard({ payment }: PaymentProps) {
             Mottaker:
           </span>
           <span className="ml-2 text-sm text-seniorBankDarkBlue">
-            {payment.recipient}
+            {recipient}
           </span>
         </div>
 
@@ -63,7 +76,7 @@ export default function PaymentCard({ payment }: PaymentProps) {
             Status:
           </span>
           <span className="ml-2 text-sm text-seniorBankDarkBlue">
-            {payment.status}
+            {statusLabel(status)}
           </span>
         </div>
       </div>

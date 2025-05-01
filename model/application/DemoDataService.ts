@@ -28,7 +28,6 @@ export class DemoDataService {
     name: string;
     category: string;
     countryCode: string;
-    userId: string;
   }) {
     const existingAccount = await this.bankAccountRepository.find(fields);
 
@@ -39,6 +38,7 @@ export class DemoDataService {
     const newAccount = await this.bankAccountRepository.create(
       new BankAccount({
         ...fields,
+        userId: null,
         balance: 0,
         id: DemoDataService.randomBankAccountNumber(),
         main: false,
@@ -67,43 +67,39 @@ export class DemoDataService {
       name: "Rema 1000",
       category: "Dagligvare",
       countryCode: "NO",
-      userId,
     });
 
     const sitAccount = await this.findOrCreateDemoPeerAccount({
       name: "SIT kantine",
       category: "Kiosk",
       countryCode: "NO",
-      userId,
     });
 
     const jokerSamfAccount = await this.findOrCreateDemoPeerAccount({
       name: "Joker stud.samf.",
       category: "Dagligvare",
       countryCode: "NO",
-      userId,
     });
 
     const clippersAccount = await this.findOrCreateDemoPeerAccount({
       name: "Klippers",
       category: "Kosmetikk",
       countryCode: "NO",
-      userId,
     });
 
     const privatePersonAccount = await this.findOrCreateDemoPeerAccount({
       name: "Navn Navnesen",
       category: "Privatperson",
       countryCode: "NO",
-      userId,
     });
 
     const transactionDefaults = {
-      userId,
       accountId: mainAccount.id,
       direction: "OUTBOUND" as const,
       flagged: false,
-      approvedAt: null,
+      held: false,
+      approvalStatus: null,
+      approvalTime: null,
     };
 
     await this.bankAccountRepository.createManyTransactions(

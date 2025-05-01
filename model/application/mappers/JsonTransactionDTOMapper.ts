@@ -6,13 +6,14 @@ const schema = z
   .object({
     id: z.string().optional(),
     direction: z.enum(["OUTBOUND", "INBOUND"]),
-    approvedAt: z.string().datetime().optional(),
+    approvalStatus: z.enum(["APPROVED", "DENIED"]).nullable(),
+    approvalTime: z.string().datetime().nullable(),
     flagged: z.boolean(),
+    held: z.boolean(),
     accountId: z.string(),
     peerAccountId: z.string(),
     amount: z.number(),
     dueDate: z.string().date(),
-    createdAt: z.string().datetime().optional(),
     isReversible: z.boolean().optional(),
   })
   .strict();
@@ -23,19 +24,17 @@ export const JsonTransactionDTOMapper: DTOMapper<Transaction, JsonTransaction> =
   {
     serialize: (transaction) => ({
       ...transaction,
-      createdAt: transaction.createdAt?.toISOString(),
-      approvedAt: transaction.approvedAt?.toISOString(),
+      approvalTime: transaction.approvalTime?.toISOString() ?? null,
       dueDate: transaction.dueDate.toISOString(),
       isReversible: transaction.isReversible(),
     }),
     deserialize: (dto) => {
-      const { dueDate, approvedAt, createdAt, ...data } = schema.parse(dto);
+      const { dueDate, approvalTime, ...data } = schema.parse(dto);
 
       return new Transaction({
         ...data,
         dueDate: new Date(dueDate),
-        createdAt: createdAt ? new Date(createdAt) : undefined,
-        approvedAt: approvedAt ? new Date(approvedAt) : null,
+        approvalTime: approvalTime ? new Date(approvalTime) : null,
       });
     },
   };

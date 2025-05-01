@@ -3,63 +3,31 @@
 import { useState, useRef, useEffect } from "react";
 import { Search, ChevronDown } from "lucide-react";
 import PaymentCard from "./PaymentCard";
+import { TransactionListData } from "@/model/application/BankAccountService";
+import { ApprovalStatus } from "@/model/domain/payment/Transaction";
 
-type PaymentStatus = "Godkjent" | "Avvist" | "Venter";
-
-// Define payment data structure
-interface Payment {
-  id: string;
-  date: string;
-  amount: number;
-  recipient: string;
-  status: PaymentStatus;
-}
-
-// Sample payment data
-const payments: Payment[] = [
-  {
-    id: "1",
-    date: "02.02.2025",
-    amount: 15000,
-    recipient: "Hansen byggeselskap AS",
-    status: "Godkjent",
-  },
-  {
-    id: "2",
-    date: "04.10.2025",
-    amount: 150000,
-    recipient: "Slim Shady",
-    status: "Avvist",
-  },
-  {
-    id: "3",
-    date: "29.05.2025",
-    amount: 19000,
-    recipient: "Sparebank eiendom",
-    status: "Venter",
-  },
-  {
-    id: "4",
-    date: "02.02.2025",
-    amount: 15000,
-    recipient: "Hansen byggeselskap AS",
-    status: "Godkjent",
-  },
-];
-
-export default function PaymentList() {
+export default function PaymentList({
+  transactionData: { transactions, peerAccountDetails },
+}: {
+  transactionData: TransactionListData;
+}) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [filter, setFilter] = useState("Alle");
+  const [filter, setFilter] = useState<ApprovalStatus | undefined>(undefined);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const filteredPayments = payments.filter((payment) => {
+  const filteredPayments = transactions.filter((transaction) => {
+    const peerAccount = peerAccountDetails.find(
+      (peer) => peer.id === transaction.peerAccountId,
+    )!;
     const matchesSearch =
-      payment.recipient.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      payment.date.includes(searchQuery) ||
-      payment.amount.toString().includes(searchQuery);
+      peerAccount.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      peerAccount.category?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      transaction.dueDate.toString().includes(searchQuery) ||
+      transaction.amount.toString().includes(searchQuery);
 
-    const matchesFilter = filter === "Alle" || payment.status === filter;
+    const matchesFilter =
+      filter === undefined || transaction.approvalStatus === filter;
 
     return matchesSearch && matchesFilter;
   });
@@ -81,8 +49,11 @@ export default function PaymentList() {
     };
   }, []);
 
-  // Custom select options
-  const options = ["Alle", "Godkjent", "Avvist", "Venter"];
+  const options = [
+    [undefined, "Alle"],
+    ["APPROVED", "Godkjent"],
+    ["DENIED", "Avslått"],
+  ] as const;
 
   return (
     <div className="min-h-[60vh] space-y-4 overflow-hidden">
@@ -107,7 +78,7 @@ export default function PaymentList() {
           aria-haspopup="listbox"
           aria-expanded={isOpen}
         >
-          <span>{filter}</span>
+          <span>{options.find(([option]) => filter === option)![1]}</span>
           <ChevronDown
             className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
           />
@@ -121,7 +92,7 @@ export default function PaymentList() {
               aria-labelledby="custom-select"
               tabIndex={-1}
             >
-              {options.map((option) => (
+              {options.map(([option, label]) => (
                 <li
                   key={option}
                   className={`cursor-pointer px-4 py-2 text-sm hover:bg-gray-100 ${
@@ -136,7 +107,7 @@ export default function PaymentList() {
                     setIsOpen(false);
                   }}
                 >
-                  {option}
+                  {label}
                 </li>
               ))}
             </ul>
@@ -145,9 +116,20 @@ export default function PaymentList() {
       </div>
 
       <div className="space-y-4">
-        {filteredPayments.map((payment) => (
-          <PaymentCard key={payment.id} payment={payment} />
-        ))}
+        {filteredPayments.map((transaction) => {
+          const peerAccount = peerAccountDetails.find(
+            (peer) => transaction.peerAccountId === peer.id,
+          )!;
+          return (
+            <PaymentCard
+              key={`${transaction.id} ${transaction.direction}`}
+              date={new Date(transaction.dueDate)}
+              recipient={peerAccount.name}
+              status={transaction.approvalStatus}
+              amount={transaction.amount}
+            />
+          );
+        })}
       </div>
     </div>
   );

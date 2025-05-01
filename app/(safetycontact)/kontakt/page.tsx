@@ -1,11 +1,14 @@
 import AccountOverview from "@/app/(safetycontact)/kontakt/(components)/AccountOverview";
 import ActionOverview from "@/app/(safetycontact)/kontakt/(components)/ActionOverview";
-import ApprovalCarousel from "@/app/(safetycontact)/kontakt/(components)/ApprovalSlider";
+import ApprovalCarousel from "@/app/(safetycontact)/kontakt/(components)/ApprovalCarousel";
 import Heading from "./(components)/Heading";
 import { getSession } from "@/lib/auth";
+import { listHeldTransactions } from "@/actions/bankAccount";
 
 export default async function ContactPersonPage() {
   const { user } = await getSession();
+
+  const heldTransactions = await listHeldTransactions();
 
   return (
     <main>
@@ -15,7 +18,7 @@ export default async function ContactPersonPage() {
         Her kan du hjelpe til å sikre {user.name} sine bankhandlinger.
       </h3>
 
-      <ApprovalCarousel />
+      <ApprovalCarousel initialTransactions={heldTransactions} />
 
       <section className="mx-auto grid max-w-3xl grid-cols-2 gap-16 pb-16 pt-24">
         <div>

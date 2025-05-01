@@ -10,14 +10,14 @@ import { PrismaUserRepository } from "./infrastructure/user/PrismaUserRepository
 const bankAccountRepository = new PrismaBankAccountRepository(prisma);
 const userRepository = new PrismaUserRepository(prisma);
 
-const fraudPreventionService = new FraudPreventionService(
-  bankAccountRepository,
-);
 const notificationService = new DummyNotificationService();
+const fraudPreventionService = new FraudPreventionService(
+  userRepository,
+  notificationService,
+);
 export const bankAccountService = new BankAccountService(
   bankAccountRepository,
   fraudPreventionService,
-  notificationService,
 );
 export const demoDataService = new DemoDataService(bankAccountRepository);
 export const userService = new UserService(userRepository, demoDataService);
