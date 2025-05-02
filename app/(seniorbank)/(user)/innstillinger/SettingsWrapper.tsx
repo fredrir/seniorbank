@@ -161,11 +161,11 @@ export default function SettingsWrapper({ session }: Props) {
           </span>
         </p>
 
-        <div className="mt-7 max-w-xl rounded-xl border border-seniorbankBlue bg-seniorBankLightPink px-3 py-3">
+        <div className="mt-7 max-w-full rounded-xl border border-seniorbankBlue bg-seniorBankLightPink px-4 py-3">
           <p className="mt-6 font-extrabold">
           Ditt nåværende nivå: <strong>{currentLevel?.title}</strong>
           </p>
-          <ul className="mt-3 list-disc pl-20">
+          <ul className="mt-3 mb-3 list-disc pl-20">
             {currentLevel?.description.map((line, i) => (
               <li key={i}>{line}</li>
             ))}
