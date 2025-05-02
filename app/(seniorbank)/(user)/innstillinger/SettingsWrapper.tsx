@@ -143,7 +143,7 @@ export default function SettingsWrapper({ session }: Props) {
         </label>
 
         <Button
-          className="hover:bg-seniorBankDarkGreen ml-10 mt-4 rounded-md bg-seniorBankGreen px-3 py-2 text-sm font-bold text-white"
+          className="ml-10 mt-4 rounded-md bg-seniorbankBlue scroll-px-36 py-6 text-2xl text-white hover:bg-seniorBankLightBlue hover:text-seniorBankDarkBlue max-w-fit"
           onClick={handlePaymentDelayChange}
         >
           Oppdater betalingsutsettelse
@@ -152,7 +152,7 @@ export default function SettingsWrapper({ session }: Props) {
 
       <div>
         <h2 className="mt-20 text-xl font-bold text-seniorBankDarkBlue sm:text-4xl">
-          <Lock /> Sikkerhetsnivå
+          <Lock /> Forenklingsnivå
         </h2>
         <p className="mb-2 mt-5 font-bold">
           Du kan endre sikkerhetsnivået ditt{" "}
@@ -163,7 +163,7 @@ export default function SettingsWrapper({ session }: Props) {
 
         <div className="mt-7 max-w-xl rounded-xl border border-seniorbankBlue bg-seniorBankLightPink px-3 py-3">
           <p className="mt-6 font-extrabold">
-            Dette er det nivået du har: <strong>{currentLevel?.title}</strong>
+          Ditt nåværende nivå: <strong>{currentLevel?.title}</strong>
           </p>
           <ul className="mt-3 list-disc pl-20">
             {currentLevel?.description.map((line, i) => (
@@ -173,7 +173,7 @@ export default function SettingsWrapper({ session }: Props) {
         </div>
 
         <h2 className="mb-6 mt-16 text-xl font-bold text-seniorBankDarkBlue sm:text-3xl">
-          Velg nytt sikkerhetsnivå
+        Trykk på en av boksene for å velge nytt forenklingsnivå - Det kan alltids endre senere
         </h2>
 
         <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
