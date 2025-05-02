@@ -8,7 +8,6 @@ import {
   setDifficulty as setUserDifficulty,
 } from "@/actions/user";
 import type { Difficulty } from "@/model/domain/user/User";
-import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 
 export const difficultyLevels = [
   {

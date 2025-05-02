@@ -42,10 +42,10 @@ export async function listHeldTransactions() {
   return await bankAccountService.listHeldTransactions(user.id);
 }
 
-export async function listApprovedTransactions() {
+export async function listAllTransactions() {
   const { user } = await getSession();
 
-  return await bankAccountService.listApprovedTransactions(user.id);
+  return await bankAccountService.listAllTransactions(user.id);
 }
 
 export async function approveTransaction(id: string, accountId: string) {

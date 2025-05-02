@@ -1,4 +1,3 @@
-import { ProgressBar } from "@/ui/organisms/ProgressBar";
 import { JsonBankAccount } from "@/model/application/mappers/JsonBankAccountDTOMapper";
 import { PropsWithChildren } from "react";
 import { PaymentFormData } from "../../types";

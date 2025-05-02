@@ -19,7 +19,6 @@ const PaymentConfirmationStep = ({
   accounts,
   peerAccounts,
   onGoBack,
-  onStepCompleted,
 }: PaymentConfirmationStepProps) => {
   const isHard = true;
 

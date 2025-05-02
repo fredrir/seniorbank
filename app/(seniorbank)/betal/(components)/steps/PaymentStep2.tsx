@@ -132,7 +132,7 @@ const PaymentSecondStep = ({
               });
             }}
           >
-            Tilbake
+            Neste
           </PaymentFormNavbar>
         </div>
       </div>

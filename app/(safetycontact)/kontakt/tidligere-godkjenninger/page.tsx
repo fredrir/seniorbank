@@ -1,9 +1,9 @@
-import { listApprovedTransactions } from "@/actions/bankAccount";
+import { listAllTransactions } from "@/actions/bankAccount";
 import Heading from "../(components)/Heading";
 import PaymentList from "../(components)/PaymentList";
 
 export default async function PreviousApprovalsPage() {
-  const transactionData = await listApprovedTransactions();
+  const transactionData = await listAllTransactions();
 
   return (
     <main>

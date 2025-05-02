@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import toast from "react-hot-toast";
 import PaymentFirstStep from "./steps/PaymentStep1";
 import PaymentSecondStep from "./steps/PaymentStep2";
 import PaymentThirdStep from "./steps/PaymentStep3";
@@ -22,20 +21,6 @@ export default function PaymentForm({
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<Partial<PaymentFormData>>({});
 
-  const handleSubmit = () => {
-    toast.success("Betalingen er gjennomført.", {
-      duration: 4000,
-      position: "top-right",
-      style: {
-        background: "#F8E9DD",
-        color: "#1C1B1F",
-        fontSize: "16px",
-        fontWeight: "500",
-      },
-    });
-    setStep(5);
-  };
-
   const onGoBack = () => {
     setStep(step - 1);
   };
@@ -44,7 +29,7 @@ export default function PaymentForm({
     const data = { ...formData, ...newData };
 
     if (step === 3) {
-      const { contactNotified } = await createTransaction(
+      await createTransaction(
         data.fromAccountId!,
         data.toAccountId!,
         data.amount!,

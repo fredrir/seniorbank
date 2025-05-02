@@ -85,13 +85,12 @@ export class BankAccountService {
     );
   }
 
-  async listHeldTransactions(userId: string): Promise<TransactionListData> {
+  async listAllTransactions(userId: string): Promise<TransactionListData> {
     const accounts = await this.bankAccountRepository.list({
       userId,
     });
 
     const transactions = await this.bankAccountRepository.listTransactions({
-      held: true,
       accountIds: accounts.map((account) => account.id!),
     });
 
@@ -113,14 +112,14 @@ export class BankAccountService {
     };
   }
 
-  async listApprovedTransactions(userId: string): Promise<TransactionListData> {
+  async listHeldTransactions(userId: string): Promise<TransactionListData> {
     const accounts = await this.bankAccountRepository.list({
       userId,
     });
 
     const transactions = await this.bankAccountRepository.listTransactions({
-      held: true,
       accountIds: accounts.map((account) => account.id!),
+      held: true,
     });
 
     const peerAccountIds = unique(

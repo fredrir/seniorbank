@@ -17,6 +17,10 @@ export default function PaymentList({
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const filteredPayments = transactions.filter((transaction) => {
+    if (transaction.approvalStatus === null) {
+      return false;
+    }
+
     const peerAccount = peerAccountDetails.find(
       (peer) => peer.id === transaction.peerAccountId,
     )!;
@@ -94,7 +98,7 @@ export default function PaymentList({
             >
               {options.map(([option, label]) => (
                 <li
-                  key={option}
+                  key={option ?? "undefined"}
                   className={`cursor-pointer px-4 py-2 text-sm hover:bg-gray-100 ${
                     filter === option
                       ? "bg-gray-50 font-medium text-blue-600"

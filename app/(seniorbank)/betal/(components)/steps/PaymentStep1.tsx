@@ -36,7 +36,7 @@ const PaymentFirstStep = ({
         hideBackButton
         problem={formData.fromAccountId ? undefined : "Du må velge en konto"}
       >
-        Tilbake
+        Neste
       </PaymentFormNavbar>
     </>
   );
