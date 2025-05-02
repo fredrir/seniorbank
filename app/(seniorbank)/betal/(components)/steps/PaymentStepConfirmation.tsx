@@ -1,27 +1,34 @@
 "use client";
 
-import { Button } from "@/ui/atoms/Button";
 import { ProgressBar } from "@/ui/organisms/ProgressBar";
+import { PaymentFormData } from "../../types";
+import { JsonBankAccount } from "@/model/application/mappers/JsonBankAccountDTOMapper";
+import { PaymentFormNavbar } from "../PaymentFormButton";
+import { PublicBankAccountDetails } from "@/model/domain/payment/BankAccount";
 
-interface PaymentFourthStepProps {
-  onClick: () => void;
+interface PaymentConfirmationStepProps {
+  onStepCompleted: (data: object) => void;
+  peerAccounts: PublicBankAccountDetails[];
+  accounts: JsonBankAccount[];
+  formData: Partial<PaymentFormData>;
   onGoBack: () => void;
-  onGoToHomepage: () => void;
-  formData: {
-    comment: string;
-    amount: string;
-    toAccount: string;
-    fromAccount: string;
-  };
-  isHard: boolean;
 }
+
 const PaymentConfirmationStep = ({
   formData,
-  onClick,
-  isHard,
+  accounts,
+  peerAccounts,
   onGoBack,
-  onGoToHomepage,
-}: PaymentFourthStepProps) => {
+  onStepCompleted,
+}: PaymentConfirmationStepProps) => {
+  const isHard = true;
+
+  const fromAccount = accounts.find(
+    (account) => account.id === formData.fromAccountId,
+  );
+  const toAccount = peerAccounts.find(
+    (account) => account.id === formData.toAccountId,
+  );
   return (
     <section>
       <div className="mt-6 rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple">
@@ -39,11 +46,11 @@ const PaymentConfirmationStep = ({
             </div>
             <div>
               <p>Fra konto:</p>
-              <p className="mb-6 mt-4 indent-4">{formData.fromAccount}</p>
+              <p className="mb-6 mt-4 indent-4">{fromAccount?.name}</p>
             </div>
             <div>
               <p>Til konto:</p>
-              <p className="mb-6 mt-4 indent-4">{formData.toAccount}</p>
+              <p className="mb-6 mt-4 indent-4">{toAccount?.name}</p>
             </div>
             <div>
               <p>Kommentar:</p>
@@ -52,24 +59,12 @@ const PaymentConfirmationStep = ({
           </div>
         </div>
 
-        <div
-          className={`m-10 flex items-stretch ${isHard ? "justify-end" : "justify-between"}`}
+        <PaymentFormNavbar
+          onGoBack={onGoBack}
+          onGoForward={() => (window.location.href = "/")}
         >
-          {!isHard && (
-            <Button
-              className="w-[45%] flex-col p-8 px-4 text-2xl"
-              onClick={onGoBack}
-            >
-              Tilbake
-            </Button>
-          )}
-          <Button
-            className="w-[45%] flex-col p-8 px-4 text-2xl"
-            onClick={isHard ? onGoToHomepage : onClick}
-          >
-            {isHard ? "Hjem" : "Bekreft"}
-          </Button>
-        </div>
+          Ferdig
+        </PaymentFormNavbar>
       </div>
     </section>
   );

@@ -24,6 +24,12 @@ export async function listAccounts() {
   return await bankAccountService.list(user.id);
 }
 
+export async function listApprovedPeers() {
+  const { user } = await getSession();
+
+  return await bankAccountService.listApprovedPeers(user.id);
+}
+
 export async function getAccount(id: string) {
   const { user } = await getSession();
 

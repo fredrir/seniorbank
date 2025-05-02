@@ -8,6 +8,7 @@ import {
   setDifficulty as setUserDifficulty,
 } from "@/actions/user";
 import type { Difficulty } from "@/model/domain/user/User";
+import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 
 export const difficultyLevels = [
   {
@@ -68,13 +69,18 @@ export default function SettingsWrapper({ session }: Props) {
     }
   };
 
-  const [selectedDelay, setSelectedDelay] = useState("3");
+  const [selectedDelay, setSelectedDelay] = useState(
+    session?.user?.paymentDelayDays?.toString() ?? "3",
+  );
 
   const handlePaymentDelayChange = async () => {
     try {
       const err = await setUserPaymentDelayDays(Number(selectedDelay));
 
-      if (err) throw new Error("Kunne ikke oppdatere");
+      if (err) {
+        console.error(err);
+        throw new Error("Kunne ikke oppdatere");
+      }
       window.location.reload();
     } catch (err) {
       console.error("Feil under betalingsutsettelse:", err);
@@ -92,12 +98,14 @@ export default function SettingsWrapper({ session }: Props) {
         om deg
       </p>
 
-      <div className="max-w-xl rounded-xl border border-seniorbankBlue bg-seniorBankLightBlue px-2 py-2">
-        <h4 className="mb-5 text-xl font-bold text-seniorBankDarkBlue sm:text-4xl">
-          <User className="text-40xl mt-2" />
-          Din profil
-        </h4>
-        <ul className="mt-4 space-y-4">
+      <div className="max-w-xl rounded-xl border border-seniorbankBlue bg-seniorBankLightBlue p-8">
+        <div className="flex items-start justify-between">
+          <h4 className="mb-5 text-xl font-bold text-seniorBankDarkBlue sm:text-4xl">
+            Din profil
+          </h4>
+          <User className="size-8" />
+        </div>
+        <ul className="space-y-4">
           <li>
             <strong>Navn:</strong> {session?.user?.name || "Ikke oppgitt"}
           </li>
@@ -107,103 +115,109 @@ export default function SettingsWrapper({ session }: Props) {
         </ul>
       </div>
 
-      <div>
-        <h2 className="mt-20 text-xl font-bold text-seniorBankDarkBlue sm:text-4xl">
-          <Timer></Timer>
-          Betalingsutsettelse
-        </h2>
-        <p className="mt-5 font-bold">
-          Velge ny betalingsutsettelse for dine betalinger{" "}
-          <span className="text-seniorBankBlue font-semibold">
-            <i>- dette vil varsle din tryggehetskontakt</i>
-          </span>
-        </p>
-        <p className="mb-5 mt-5 border border-seniorBankLightBlue bg-seniorBankWhitePurple text-seniorbankBlue">
+      <div className="rounded-xl border border-seniorbankBlue bg-seniorBankLightBlue p-8">
+        <div className="flex justify-between">
+          <h2 className="text-xl font-bold text-seniorBankDarkBlue sm:text-4xl">
+            Betalingsutsettelse
+          </h2>
+
+          <Timer className="size-10" />
+        </div>
+        <div className="my-4 rounded-lg border border-seniorBankLightBlue bg-seniorBankWhitePurple p-3 text-seniorbankBlue">
           Dine nåværende betalinger har en utsatt dato på:{" "}
           <strong className="text-seniorBankDarkBlue">
             {session?.user?.paymentDelayDays ?? "ukjent"} dager
           </strong>
-        </p>
+        </div>
 
-        <label className="mt-5 font-semibold">
-          Velg antall dager på ny betalingsutsettelse{" "}
-          <p className="font-thin text-seniorBankDarkBlue">(minimum 3 dager)</p>{" "}
-          <br></br>
+        <label className="flex items-center" htmlFor="paymentDelay">
+          Velge ny betalingsutsettelse for dine betalinger{" "}
+          <span className="text-seniorBankBlue font-semibold">
+            <i> - dette vil varsle din tryggehetskontakt</i>
+          </span>
+        </label>
+
+        <div className="flex items-center space-x-4">
           <select
             value={selectedDelay}
+            id="paymentDelay"
             onChange={(e) => setSelectedDelay(e.target.value)}
-            className="mt-2 rounded border px-3 py-2"
+            className="rounded border px-4 py-2"
           >
             <option value="3">3 dager</option>
             <option value="4">4 dager</option>
             <option value="5">5 dager</option>
-            <option value="1">6 dag</option>
-            <option value="2">7 dager</option>
+            <option value="6">6 dager</option>
+            <option value="7">7 dager</option>
           </select>
-        </label>
 
-        <Button
-          className="ml-10 mt-4 rounded-md bg-seniorbankBlue scroll-px-36 py-6 text-2xl text-white hover:bg-seniorBankLightBlue hover:text-seniorBankDarkBlue max-w-fit"
-          onClick={handlePaymentDelayChange}
-        >
-          Oppdater betalingsutsettelse
-        </Button>
+          <Button
+            className="rounded-md bg-seniorbankBlue py-6 text-2xl text-white hover:bg-seniorBankDarkBlue"
+            onClick={handlePaymentDelayChange}
+          >
+            Oppdater betalingsutsettelse
+          </Button>
+        </div>
       </div>
 
-      <div>
-        <h2 className="mt-20 text-xl font-bold text-seniorBankDarkBlue sm:text-4xl">
-          <Lock /> Forenklingsnivå
-        </h2>
-        <p className="mb-2 mt-5 font-bold">
-          Du kan endre sikkerhetsnivået ditt{" "}
-          <span className="text-seniorBankBlue font-semibold">
-            <i>- dette vil varsle din tryggehetskontakt</i>
-          </span>
-        </p>
+      <div className="flex flex-col space-y-6 rounded-xl border border-seniorBankLightBlue p-8">
+        <div className="flex justify-between">
+          <h2 className="text-xl font-bold text-seniorBankDarkBlue sm:text-4xl">
+            Forenklingsnivå
+          </h2>
 
-        <div className="mt-7 max-w-full rounded-xl border border-seniorbankBlue bg-seniorBankLightPink px-4 py-3">
-          <p className="mt-6 font-extrabold">
-          Ditt nåværende nivå: <strong>{currentLevel?.title}</strong>
+          <Lock className="size-10" />
+        </div>
+
+        <div className="rounded-xl border border-seniorbankBlue bg-seniorBankLightPink p-6">
+          <p className="font-extrabold">
+            Ditt nåværende nivå: <strong>{currentLevel?.title}</strong>
           </p>
-          <ul className="mt-3 mb-3 list-disc pl-20">
+          <ul className="ml-4 list-disc">
             {currentLevel?.description.map((line, i) => (
               <li key={i}>{line}</li>
             ))}
           </ul>
         </div>
 
-        <h2 className="mb-6 mt-16 text-xl font-bold text-seniorBankDarkBlue sm:text-3xl">
-        Trykk på en av boksene for å velge nytt forenklingsnivå - Det kan alltids endre senere
-        </h2>
+        <div></div>
 
-        <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {otherLevels.map((level, i) => (
-            <button
-              key={i}
-              onClick={() => handleLevelChange(level.enum)}
-              className="focus:ring-seniorBankBlue group relative w-full rounded-xl border-2 border-seniorBankDarkBlue bg-seniorBankLightPurple p-6 text-left transition-all duration-300 hover:bg-seniorBankLightBlue hover:shadow-lg focus:outline-none focus:ring-2"
-            >
-              <div className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border-2 border-seniorBankDarkBlue opacity-70 transition-all group-hover:bg-seniorBankDarkBlue group-hover:text-white group-hover:opacity-100">
-                <Lock className="h-4 w-4" />
-              </div>
-              <h3 className="mb-3 text-xl font-bold text-seniorBankDarkBlue">
-                {level.title}
-              </h3>
-              <ul className="mt-2 space-y-2">
-                {level.description.map((desc, j) => (
-                  <li key={j} className="flex items-start gap-2">
-                    <div className="mt-1 text-seniorBankDarkBlue">•</div>
-                    <span>{desc}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 text-center">
-                <span className="bg-seniorBankBlue inline-block rounded-full px-4 py-2 font-medium text-seniorBankDarkBlue transition-transform group-hover:bg-seniorBankDarkBlue group-hover:text-white">
-                  Velg dette nivået
-                </span>
-              </div>
-            </button>
-          ))}
+        <section className="flex flex-col space-y-4">
+          <div>
+            <h2 className="text-xl font-bold text-seniorBankDarkBlue sm:text-3xl">
+              Trykk på en av boksene for å velge nytt forenklingsnivå{" "}
+            </h2>
+            <p>(Dette vil varsle din tryggehetskontakt)</p>
+          </div>
+          <div className="flex gap-8">
+            {otherLevels.map((level, i) => (
+              <button
+                key={i}
+                onClick={() => handleLevelChange(level.enum)}
+                className="focus:ring-seniorBankBlue group relative w-full rounded-xl border-2 border-seniorBankDarkBlue bg-seniorBankLightPurple p-6 text-left transition-all duration-300 hover:bg-seniorBankLightBlue hover:shadow-lg focus:outline-none focus:ring-2"
+              >
+                <div className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border-2 border-seniorBankDarkBlue opacity-70 transition-all group-hover:bg-seniorBankDarkBlue group-hover:text-white group-hover:opacity-100">
+                  <Lock className="h-4 w-4" />
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-seniorBankDarkBlue">
+                  {level.title}
+                </h3>
+                <ul className="mt-2 space-y-2">
+                  {level.description.map((desc, j) => (
+                    <li key={j} className="flex items-start gap-2">
+                      <div className="mt-1 text-seniorBankDarkBlue">•</div>
+                      <span>{desc}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4 text-center">
+                  <span className="bg-seniorBankBlue inline-block rounded-full px-4 py-2 font-medium text-seniorBankDarkBlue transition-transform group-hover:bg-seniorBankDarkBlue group-hover:text-white">
+                    Velg dette nivået
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
         </section>
       </div>
     </section>

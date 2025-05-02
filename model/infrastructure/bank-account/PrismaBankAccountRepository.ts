@@ -140,6 +140,7 @@ export class PrismaBankAccountRepository implements BankAccountRepository {
   }
 
   async saveTransaction(transaction: Transaction) {
+    console.log(transaction);
     await this.prisma.transaction.update({
       data: PrismaTransactionDTOMapper.serialize(transaction),
       where: { id: transaction.id },

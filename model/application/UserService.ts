@@ -2,11 +2,13 @@ import { UserRepository } from "@/model/domain/user/UserRepository";
 import { JSONUserDTO, JsonUserDTOMapper } from "./mappers/JsonUserDTOMapper";
 import { DemoDataService } from "./DemoDataService";
 import { Difficulty } from "../domain/user/User";
+import { NotificationService } from "../domain/notification/NotificationService";
 
 export class UserService {
   constructor(
     private userRepository: UserRepository,
     private demoDataService: DemoDataService,
+    private notificationService: NotificationService,
   ) {}
 
   async register(userCreateDTO: JSONUserDTO) {
@@ -29,24 +31,34 @@ export class UserService {
     return user ? JsonUserDTOMapper.serialize(user) : null;
   }
 
-  async setPaymentDelayDays(id: string, days: number) {
-    const user = await this.userRepository.get(id);
+  async setPaymentDelayDays(userId: string, days: number) {
+    const user = await this.userRepository.get(userId);
 
     if (user === null) {
-      throw new Error(`Could not find user with id ${id}`);
+      throw new Error(`Could not find user with id ${userId}`);
     }
 
     user.setPaymentDelayDays(days);
 
+    await this.notificationService.sendContactNotification(
+      userId,
+      `Bruker har oppdatert sitt sikkerhetsnivå!`,
+    );
+
     await this.userRepository.save(user);
   }
 
-  async setDifficulty(id: string, difficulty: Difficulty) {
-    const user = await this.userRepository.get(id);
+  async setDifficulty(userId: string, difficulty: Difficulty) {
+    const user = await this.userRepository.get(userId);
 
     if (user === null) {
-      throw new Error(`Could not find user with id ${id}`);
+      throw new Error(`Could not find user with id ${userId}`);
     }
+
+    await this.notificationService.sendContactNotification(
+      userId,
+      `Bruker har endret dager utsettelse på betalinger`,
+    );
 
     user.setDifficulty(difficulty);
 

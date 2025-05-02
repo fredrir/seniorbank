@@ -8,10 +8,7 @@ import {
   JsonBankAccount,
 } from "./mappers/JsonBankAccountDTOMapper";
 import { unique } from "@/lib/utils";
-import {
-  BankAccount,
-  PublicBankAccountDetails,
-} from "../domain/payment/BankAccount";
+import { PublicBankAccountDetails } from "../domain/payment/BankAccount";
 import {
   JsonTransaction,
   JsonTransactionDTOMapper,
@@ -59,6 +56,18 @@ export class BankAccountService {
     }
 
     return JsonBankAccountDTOMapper.serialize(bankAccount);
+  }
+
+  async listApprovedPeers(userId: string): Promise<PublicBankAccountDetails[]> {
+    const accounts = await this.bankAccountRepository.list({ userId });
+    const transactions = await this.bankAccountRepository.listTransactions({
+      accountIds: accounts.map((account) => account.id),
+    });
+    const peerAccountIds = unique(transactions.map((t) => t.peerAccountId));
+    const peerAccounts =
+      await this.bankAccountRepository.getMany(peerAccountIds);
+
+    return peerAccounts.map((account) => account.publicDetails());
   }
 
   async list(
@@ -110,7 +119,7 @@ export class BankAccountService {
     });
 
     const transactions = await this.bankAccountRepository.listTransactions({
-      checked: true,
+      held: true,
       accountIds: accounts.map((account) => account.id!),
     });
 
@@ -269,6 +278,7 @@ export class BankAccountService {
     );
 
     transaction.deny();
+
     await this.bankAccountRepository.saveTransaction(transaction);
   }
 }

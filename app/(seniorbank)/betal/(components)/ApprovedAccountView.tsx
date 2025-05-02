@@ -3,7 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { Button } from "@/ui/atoms/Button";
 
 interface Props {
-  onClick: () => void;
+  onSelect: () => void;
   title: string;
   accountNumber: string;
   isSelected?: boolean;
@@ -12,7 +12,7 @@ interface Props {
 const ApprovedAccountView = ({
   title,
   accountNumber,
-  onClick,
+  onSelect: onClick,
   isSelected,
 }: Props) => {
   return (

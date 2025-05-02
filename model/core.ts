@@ -20,4 +20,8 @@ export const bankAccountService = new BankAccountService(
   fraudPreventionService,
 );
 export const demoDataService = new DemoDataService(bankAccountRepository);
-export const userService = new UserService(userRepository, demoDataService);
+export const userService = new UserService(
+  userRepository,
+  demoDataService,
+  notificationService,
+);

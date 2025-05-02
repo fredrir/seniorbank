@@ -80,6 +80,7 @@ export class Transaction {
   deny() {
     this.approvalStatus = "DENIED";
     this.approvalTime = new Date();
+    this.held = false;
   }
 
   isReversible() {

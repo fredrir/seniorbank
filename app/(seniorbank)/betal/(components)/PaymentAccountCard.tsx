@@ -13,7 +13,7 @@ interface Props {
 
 const PaymentAccountCard = ({ title, amount, onClick, isSelected }: Props) => {
   return (
-    <div className="m-2 grid grid-cols-1 justify-between rounded-lg text-3xl font-bold text-seniorBankDarkBlue shadow-md">
+    <div className="grid grid-cols-1 justify-between rounded-lg text-3xl font-bold text-seniorBankDarkBlue shadow-md">
       <Button
         className={`group flex w-full cursor-pointer flex-row items-center justify-between gap-4 border-4 border-seniorBankWhitePurple p-16 ps-4 text-3xl text-seniorBankDarkBlue hover:border-blue-500 hover:text-seniorbankWhite ${isSelected ? "border-seniorBankGreen bg-seniorBankGreen text-white" : "bg-seniorBankWhitePurple"} `}
         onClick={onClick}

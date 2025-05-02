@@ -1,149 +1,143 @@
 "use client";
 
-import { Button } from "@/ui/atoms/Button";
 import { BanknoteIcon } from "lucide-react";
 import { Textarea } from "@/ui/atoms/Textarea";
 import { Input } from "@/ui/atoms/Input";
 import ApprovedAccountView from "../ApprovedAccountView";
-import { ProgressBar } from "@/ui/organisms/ProgressBar";
 import Combobox from "@/ui/atoms/Combobox";
+import { PaymentFormData } from "../../types";
+import { PublicBankAccountDetails } from "@/model/domain/payment/BankAccount";
+import { JsonBankAccount } from "@/model/application/mappers/JsonBankAccountDTOMapper";
+import { useState } from "react";
+import { PaymentFormNavbar } from "../PaymentFormButton";
 
 interface PaymentSecondStepProps {
-  formData: {
+  onStepCompleted: (data: {
+    toAccountId: string;
+    amount: number;
     comment: string;
-    amount: string;
-    toAccount: string;
-    fromAccount: string;
-  };
+  }) => void;
+  approvedPeers: PublicBankAccountDetails[];
+  accounts: JsonBankAccount[];
+  formData: Partial<PaymentFormData>;
   onGoBack: () => void;
-  onhandleAccountNumber: (accountNumber: string) => void;
-  onClick: () => void;
-  onSelectFields: boolean;
-  onSelectAccount: (account: string) => void;
-  isInputInvalid: (inputValue: string) => string | boolean;
-  approvedAccountOptions: { title: string; accountNumber: string }[];
-  transactionOptions: { accountNumber: string }[];
-  selectedAccount: string;
-  handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => void;
-  isHard: boolean;
 }
 
-const approvedAccounts = [
-  {
-    value: "1836.82.37294",
-    label: "1836.82.37294",
-  },
-  {
-    value: "4839.47.24957",
-    label: "4839.47.24957",
-  },
-  {
-    value: "2845.92.37593",
-    label: "2845.92.37593",
-  },
-];
-
 const PaymentSecondStep = ({
+  onStepCompleted,
+  approvedPeers,
   formData,
-  handleChange,
-  onSelectFields,
   onGoBack,
-  isHard,
-  onClick,
-  isInputInvalid,
-  onSelectAccount,
-  approvedAccountOptions,
-  selectedAccount,
-}: PaymentSecondStepProps) => (
-  <section>
-    <div className="mt-6 rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple">
-      <ProgressBar totalSteps={isHard ? 3 : 4} currentStep={2} />
-      <h1 className="pl-10 text-3xl font-bold text-seniorBankDarkBlue">
-        {isHard ? "Trygghetskontakt vil bli varslet" : "Velg mottaker"}
-      </h1>
-      <div className="m-10 grid grid-cols-1 justify-between gap-1 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
-        {isHard ? (
-          <>
-            <p>Fra konto: </p>
-            <div className="flex h-20 items-center rounded-md border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10 ps-3 !text-2xl">
-              <p>{formData.fromAccount}</p>
-            </div>
-            <p>Til konto: </p>
-            <Combobox
-              onChange={onSelectAccount}
-              isInputInvalid={isInputInvalid}
-              defaultOptions={approvedAccounts}
-              inputPlaceholder="Skriv inn kontonummer her ..."
-            />
+}: PaymentSecondStepProps) => {
+  const isHard = true;
 
-            <div className="relative">
-              <p>Beløp</p>
-              <Input
-                id="amount"
-                value={formData.amount}
-                onChange={handleChange}
-                type="text"
-                inputMode="numeric"
-                pattern="\d*"
-                placeholder="Skriv inn beløp her ..."
-                name="paymentAmount"
-                className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10 !text-2xl placeholder:text-2xl"
-              />
-              <BanknoteIcon className="absolute right-2 top-3/4 size-8 -translate-y-1/2 transform text-seniorBankDarkBlue" />
-            </div>
-            <p>Kommentar: </p>
-            <Textarea
-              id="comment"
-              value={formData.comment}
-              onChange={handleChange}
-              placeholder="Skriv inn kommentar her ... "
-              className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pt-4 !text-2xl placeholder:text-2xl"
-            />
-          </>
-        ) : (
-          <>
-            <section>
-              <div className="grid grid-cols-1 justify-between gap-1 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
-                {approvedAccountOptions.map((option, index) => (
-                  <ApprovedAccountView
-                    key={index}
-                    title={option.title}
-                    accountNumber={option.accountNumber}
-                    onClick={() => onSelectAccount(option.title)}
-                    isSelected={selectedAccount === option.title}
-                  />
-                ))}
+  const [stepData, setStepData] = useState<{
+    toAccountId?: string;
+    amount: string;
+    comment: string;
+  }>({
+    amount: formData.amount?.toString() ?? "",
+    comment: formData.comment ?? "",
+    toAccountId: formData.toAccountId,
+  });
+
+  return (
+    <section>
+      <div className="mt-6 rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple">
+        <h1 className="pl-10 text-3xl font-bold text-seniorBankDarkBlue">
+          Velg mottaker
+        </h1>
+        <div className="m-10 grid grid-cols-1 justify-between gap-1 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
+          {isHard ? (
+            <>
+              <p>Fra konto: </p>
+              <div className="flex h-20 items-center rounded-md border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10 ps-3 !text-2xl">
+                <p>{formData.fromAccountId}</p>
               </div>
-            </section>
-          </>
-        )}
-        <div className="mb-8 mt-8 flex justify-between gap-4">
-          <Button
-            className="w-[45%] flex-col p-8 px-4 text-2xl"
-            onClick={onGoBack}
+              <p>Til konto: </p>
+              <Combobox
+                onChange={(toAccountId) =>
+                  setStepData((data) => ({ ...data, toAccountId }))
+                }
+                isInputInvalid={(input) =>
+                  input.length > 6 && input.length < 12
+                }
+                defaultOptions={approvedPeers.map((peer) => ({
+                  value: peer.id,
+                  label: `${peer.name} - ${peer.id}`,
+                }))}
+                inputPlaceholder="Skriv inn kontonummer her ..."
+              />
+
+              <div className="relative">
+                <p>Beløp</p>
+                <Input
+                  id="amount"
+                  value={stepData.amount}
+                  onChange={({ target: { value: amount } }) =>
+                    setStepData((data) => ({ ...data, amount }))
+                  }
+                  type="text"
+                  inputMode="numeric"
+                  pattern="\d*"
+                  placeholder="Skriv inn beløp her ..."
+                  name="paymentAmount"
+                  className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pr-10 !text-2xl placeholder:text-2xl"
+                />
+                <BanknoteIcon className="absolute right-2 top-3/4 size-8 -translate-y-1/2 transform text-seniorBankDarkBlue" />
+              </div>
+              <p>Kommentar: </p>
+              <Textarea
+                id="comment"
+                value={formData.comment}
+                onChange={({ target: { value: comment } }) =>
+                  setStepData((data) => ({ ...data, comment }))
+                }
+                placeholder="Skriv inn kommentar her ... "
+                className="h-20 border-2 border-seniorBankDarkBlue bg-seniorbankWhite pt-4 !text-2xl placeholder:text-2xl"
+              />
+            </>
+          ) : (
+            <>
+              <section>
+                <div className="grid grid-cols-1 justify-between gap-1 rounded-lg text-3xl font-bold text-seniorBankDarkBlue">
+                  {approvedPeers.map((option) => (
+                    <ApprovedAccountView
+                      key={option.id}
+                      title={option.name}
+                      accountNumber={option.id}
+                      onSelect={() =>
+                        setStepData((data) => ({
+                          ...data,
+                          toAccountId: option.id,
+                        }))
+                      }
+                      isSelected={stepData.toAccountId === option.id}
+                    />
+                  ))}
+                </div>
+              </section>
+            </>
+          )}
+          <PaymentFormNavbar
+            onGoBack={onGoBack}
+            onGoForward={() => {
+              if (!stepData.toAccountId) {
+                return;
+              }
+              onStepCompleted({
+                amount: Number(stepData.amount),
+                comment: stepData.comment,
+                toAccountId: stepData.toAccountId,
+              });
+            }}
           >
             Tilbake
-          </Button>
-          <Button
-            className="w-[45%] flex-col p-8 px-4 text-2xl"
-            onClick={onClick}
-            disabled={isHard ? !onSelectFields : !selectedAccount}
-          >
-            {isHard
-              ? !onSelectFields
-                ? "Fyll inn feltene"
-                : "Neste"
-              : !selectedAccount
-                ? "Du må velge en konto"
-                : "Neste"}
-          </Button>
+          </PaymentFormNavbar>
         </div>
-        <div></div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default PaymentSecondStep;
