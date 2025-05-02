@@ -6,7 +6,8 @@ import {
   CardDescription,
   CardFooter,
 } from "@/ui/atoms/Card";
-import { Link, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 export default function TransferConfirmation({
   contactNotified,

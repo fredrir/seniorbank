@@ -3,8 +3,8 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative mt-10 bg-seniorbankBlue p-10 text-center text-white">
-      <div className="relative z-10 mx-auto max-w-5xl">
+    <footer className="mt-24 bg-seniorbankBlue p-10 text-center text-white">
+      <div className="mx-auto max-w-5xl">
         {/* Overall Header */}
         <div className="mb-10 text-left">
           <h1 className="text-4xl font-bold">Seniorbanken</h1>
