@@ -3,28 +3,39 @@
 import { Input } from "@/ui/atoms/Input";
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 
-export function SearchInput() {
+export function SearchInput({
+  initialSearch = "",
+}: {
+  initialSearch?: string;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
   const currentSearch = searchParams.get("search") || "";
+  const [searchTerm, setSearchTerm] = useState(initialSearch || currentSearch);
 
-  const handleSearch = (term: string) => {
-    startTransition(() => {
-      const params = new URLSearchParams(searchParams);
+  useEffect(() => {
+    const debounceTimeout = setTimeout(() => {
+      if (searchTerm !== currentSearch) {
+        startTransition(() => {
+          const params = new URLSearchParams(searchParams);
 
-      if (term) {
-        params.set("search", term);
-      } else {
-        params.delete("search");
+          if (searchTerm) {
+            params.set("search", searchTerm);
+          } else {
+            params.delete("search");
+          }
+
+          router.replace(`?${params.toString()}`, { scroll: false });
+        });
       }
+    }, 300);
 
-      router.replace(`?${params.toString()}`, { scroll: false });
-    });
-  };
+    return () => clearTimeout(debounceTimeout);
+  }, [searchTerm, router, searchParams, currentSearch]);
 
   return (
     <div className="relative w-full">
@@ -32,8 +43,8 @@ export function SearchInput() {
       <Input
         className="w-full rounded-full border-none bg-[#4D8CBF] pl-10 text-white placeholder:text-white/70"
         placeholder={isPending ? "Laster..." : "Søk.."}
-        value={currentSearch}
-        onChange={(e) => handleSearch(e.target.value)}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
         aria-label="Søk transaksjoner"
       />
     </div>

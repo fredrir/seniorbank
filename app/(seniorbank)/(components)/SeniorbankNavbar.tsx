@@ -1,5 +1,11 @@
 import Navbar from "@/ui/organisms/NavBar";
-import { House, Landmark, ArrowLeftRight, Wallet } from "lucide-react";
+import {
+  House,
+  Landmark,
+  ArrowLeftRight,
+  Wallet,
+  Settings,
+} from "lucide-react";
 
 const links = [
   {
@@ -21,6 +27,11 @@ const links = [
     title: "Betal",
     icon: <Wallet className="size-8" />,
     path: "/betal",
+  },
+  {
+    title: "Innstillinger",
+    icon: <Settings className="size-8" />,
+    path: "/innstillinger",
   },
 ];
 

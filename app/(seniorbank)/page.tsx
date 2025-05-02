@@ -33,7 +33,7 @@ export default async function Home() {
       title: "Betaling",
       description: "Betale fakturaer og opprett AvtaleGiro",
       icon: <Wallet className="size-16" />,
-      availableFor: ["MEDIUM", "HARD"],
+      availableFor: ["EASY", "MEDIUM", "HARD"],
       href: "/betal",
     },
     {
@@ -82,10 +82,7 @@ export default async function Home() {
           title={user ? `Hei, ${user.name}` : "Hei, Navn Navnesen"}
           className="mb-8"
         />
-        <p className="text-3xl text-white">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod incididunt.
-        </p>
+        <p className="text-3xl text-white">Velkommen til Seniorbank</p>
 
         {mainBankAccount !== null && (
           <div className="absolute top-[375px]">

@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
-    "postinstall": "prisma generate",
-    "build": "prisma generate && next build",
+    "postinstall": "prisma generate --no-engine",
+    "build": "prisma generate --no-engine && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",

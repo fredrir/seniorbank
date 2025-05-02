@@ -45,21 +45,21 @@ const Footer: React.FC = () => {
 
           {/* Om Oss Column */}
           <div>
-            <h4 className="mb-5 text-lg font-bold">Om Oss</h4>
+            <h4 className="mb-5 text-lg font-bold">Diverse</h4>
             <ul className="space-y-2">
               <li>
-                <a href="/about" className="text-white hover:underline">
-                  Vår Historie
+                <a href="/kontaktside" className="text-white hover:underline">
+                  Spør om hjelp
                 </a>
               </li>
               <li>
-                <a href="/team" className="text-white hover:underline">
-                  Teamet
+                <a href="/meldinger" className="text-white hover:underline">
+                  Meldinger
                 </a>
               </li>
               <li>
-                <a href="/careers" className="text-white hover:underline">
-                  Karriere
+                <a href="/innstillinger" className="text-white hover:underline">
+                  Innstillinger
                 </a>
               </li>
             </ul>

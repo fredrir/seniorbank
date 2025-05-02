@@ -8,9 +8,10 @@ import { TransactionList } from "./(components)/TransactionList";
 
 export default async function AccountPage(props: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ search: string }>;
+  searchParams: Promise<{ search?: string }>;
 }) {
   const id = decodeURIComponent((await props.params).id);
+  const { search = "" } = await props.searchParams;
 
   const { userId } = await getSession();
 
@@ -21,6 +22,24 @@ export default async function AccountPage(props: {
 
   const { transactions, peerAccountDetails } =
     await bankAccountService.listTransactions(id, userId);
+
+  const filteredTransactions = search
+    ? transactions.filter((transaction) => {
+        const peerAccount = peerAccountDetails.find(
+          ({ id }) => id === transaction.peerAccountId,
+        );
+
+        return (
+          peerAccount?.name.toLowerCase().includes(search.toLowerCase()) ||
+          (transaction.id?.toLowerCase() ?? "").includes(
+            search.toLowerCase(),
+          ) ||
+          (peerAccount?.category || "")
+            .toLowerCase()
+            .includes(search.toLowerCase())
+        );
+      })
+    : transactions;
 
   return (
     <>
@@ -38,10 +57,10 @@ export default async function AccountPage(props: {
           {formatCurrency(account.balance, true)}
         </h2>
         <div className="mb-4 mt-16 w-full px-4">
-          <SearchInput />
+          <SearchInput initialSearch={search} />
         </div>
         <TransactionList
-          transactions={transactions}
+          transactions={filteredTransactions}
           peerAccountDetails={peerAccountDetails}
         />
       </section>
