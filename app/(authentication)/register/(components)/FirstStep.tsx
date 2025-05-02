@@ -1,5 +1,5 @@
 import { RegisterAccountFormData } from "@/lib/types";
-import { ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const difficulties = [
   {
@@ -55,7 +55,7 @@ const FirstStep = ({ setFormData, setStep }: Props) => {
             setStep(2);
           }}
           key={index}
-          className="group relative flex w-full max-w-2xl flex-col gap-4 rounded-2xl border-4 border-seniorBankDarkBlue bg-[#D3D3EA] p-4 text-left hover:border-blue-500"
+          className="group relative flex w-full max-w-2xl flex-col gap-4 rounded-2xl border-4 border-seniorBankDarkBlue bg-white p-4 text-left hover:border-blue-500"
         >
           <h2 className="text-4xl font-bold text-seniorBankDarkBlue">
             {difficulty.level}
@@ -73,7 +73,10 @@ const FirstStep = ({ setFormData, setStep }: Props) => {
             ))}
           </article>
 
-          <ChevronRight className="absolute right-4 top-4 size-16 text-seniorBankDarkBlue transition-transform duration-200 group-hover:translate-x-1" />
+          <div className="absolute right-4 top-4 flex items-center gap-2 rounded-lg bg-seniorBankDarkBlue px-4 py-2 text-white">
+            <span className="text-lg font-medium">Velg</span>
+            <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-1" />
+          </div>
         </button>
       ))}
     </div>

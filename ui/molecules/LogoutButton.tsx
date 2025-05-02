@@ -18,7 +18,10 @@ const variants = cva(
   },
 );
 
-export function LogoutButton(props: VariantProps<typeof variants>) {
+export function LogoutButton({
+  title,
+  ...props
+}: VariantProps<typeof variants> & { title?: string }) {
   const handleLogout = () =>
     signOut({
       callbackUrl: "/",
@@ -27,7 +30,7 @@ export function LogoutButton(props: VariantProps<typeof variants>) {
 
   return (
     <button className={variants(props)} onClick={handleLogout}>
-      Logg ut
+      {title ? title : "Logg ut"}
     </button>
   );
 }

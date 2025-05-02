@@ -1,18 +1,21 @@
 "use client";
 
+import type React from "react";
+
 import { ProgressBar } from "@/ui/organisms/ProgressBar";
 import FirstStep from "@/app/(authentication)/register/(components)/FirstStep";
 import SecondStep from "@/app/(authentication)/register/(components)/SecondStep";
 import ThirdStep from "@/app/(authentication)/register/(components)/ThirdStep";
-import { ChevronLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { register } from "@/actions/user";
 import type { Session } from "next-auth";
-import { RegisterAccountFormData } from "@/lib/types";
+import type { RegisterAccountFormData } from "@/lib/types";
 import { redirect } from "next/navigation";
 import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 import { LogoutButton } from "@/ui/molecules/LogoutButton";
+import FourthStep from "./FourthStep";
 
 const defaultFormData: RegisterAccountFormData = {
   firstName: "",
@@ -27,6 +30,7 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
   const [step, setStep] = useState(1);
   const [formData, setFormData] =
     useState<RegisterAccountFormData>(defaultFormData);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -44,7 +48,26 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
         formData.phoneNumber === "" ||
         formData.address === ""
       ) {
-        toast.error("Fyll ut alle feltene før du går videre");
+        toast.error("Vennligst fyll ut alle feltene før du går videre");
+        return;
+      }
+
+      const birthDate = new Date(formData.birthDate);
+      const today = new Date();
+      const age = today.getFullYear() - birthDate.getFullYear();
+
+      if (isNaN(birthDate.getTime())) {
+        toast.error("Ugyldig fødselsdato");
+        return;
+      }
+
+      if (age < 18 || age > 120) {
+        toast.error("Ugyldig alder. Du må være mellom 18 og 120 år.");
+        return;
+      }
+
+      if (formData.phoneNumber.length !== 8) {
+        toast.error("Telefonnummeret må bestå av 8 siffer");
         return;
       }
     }
@@ -55,12 +78,12 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
   const handlePreviousStep = () => {
     if (step === 2) {
       setFormData({
+        ...formData,
         firstName: "",
         lastName: "",
         birthDate: "",
         phoneNumber: "",
         address: "",
-        difficulty: "EASY",
       });
     }
 
@@ -69,6 +92,13 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!termsAccepted) {
+      toast.error(
+        "Du må godkjenne vilkårene før du kan fullføre registreringen",
+      );
+      return;
+    }
 
     const error = await register(formData);
 
@@ -91,8 +121,13 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
         className={`mt-8 flex w-full flex-row justify-between gap-2 text-seniorBankDarkBlue`}
       >
         {step !== 1 && (
-          <button onClick={() => handlePreviousStep()}>
-            <ChevronLeft className={"size-16"} />
+          <button
+            onClick={handlePreviousStep}
+            className="flex items-center gap-2 rounded-lg bg-seniorBankDarkBlue px-4 py-2 text-white hover:bg-blue-800"
+            aria-label="Gå tilbake"
+          >
+            <ArrowLeft className="size-6" />
+            <span className="text-lg font-medium">Tilbake</span>
           </button>
         )}
 
@@ -101,12 +136,12 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
         </h2>
 
         <div>
-          <LogoutButton />
+          <LogoutButton title="Avbryt" />
         </div>
       </header>
 
-      <div className="mt-16 flex flex-col items-center rounded-2xl bg-seniorBankLightPurple p-8 shadow-lg">
-        {step !== 1 && <ProgressBar totalSteps={3} currentStep={step} />}
+      <div className="mt-16 flex flex-col items-center rounded-2xl bg-white p-8 shadow-lg">
+        {step !== 1 && <ProgressBar totalSteps={4} currentStep={step} />}
 
         {step === 1 && (
           <FirstStep setFormData={setFormData} setStep={setStep} />
@@ -121,7 +156,21 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
           />
         )}
 
-        {step === 3 && <ThirdStep handleSubmit={handleSubmit} />}
+        {step === 3 && (
+          <ThirdStep
+            termsAccepted={termsAccepted}
+            setTermsAccepted={setTermsAccepted}
+            handleNextStep={handleNextStep}
+          />
+        )}
+
+        {step === 4 && (
+          <FourthStep
+            formData={formData}
+            email={session.email}
+            handleSubmit={handleSubmit}
+          />
+        )}
       </div>
     </>
   );
