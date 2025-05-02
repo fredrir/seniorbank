@@ -2,17 +2,17 @@
 import { Timer, User, Lock } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/ui/atoms/Button";
-import { Session } from "next-auth";
+import type { Session } from "next-auth";
 import {
   setPaymentDelayDays as setUserPaymentDelayDays,
   setDifficulty as setUserDifficulty,
 } from "@/actions/user";
-import { Difficulty } from "@/model/domain/user/User";
+import type { Difficulty } from "@/model/domain/user/User";
 
 export const difficultyLevels = [
   {
     enum: "EASY" as const,
-    title: "Basis nivå",
+    title: "Nivå 3 - Høy grad av forenkling",
     description: [
       "De fleste funksjoner er forenklet",
       "Kun basisfunksjoner som saldooversikt og betaling av faste regninger",
@@ -21,7 +21,7 @@ export const difficultyLevels = [
   },
   {
     enum: "MEDIUM" as const,
-    title: "Moderert kontroll",
+    title: "Nivå 2 - Moderat forenkling",
     description: [
       "Litt flere muligheter, som å betale nye regninger og overføre mellom egne kontoer",
       "Advarsler ved ukjente mottakere eller større transaksjoner",
@@ -30,7 +30,7 @@ export const difficultyLevels = [
   },
   {
     enum: "HARD" as const,
-    title: "Full frihet",
+    title: "Nivå 1 - Lite forenkling",
     description: [
       "Alle funksjoner tilgjengelige uten begrensninger",
       "Du kan fortsatt velge å varsle din trygghetskontakt ved større eller uvanlige transaksjoner",
@@ -92,7 +92,6 @@ export default function SettingsWrapper({ session }: Props) {
         om deg
       </p>
 
-      {/* Profil */}
       <div className="max-w-xl rounded-xl border border-seniorbankBlue bg-seniorBankLightBlue px-2 py-2">
         <h4 className="mb-5 text-xl font-bold text-seniorBankDarkBlue sm:text-4xl">
           <User className="text-40xl mt-2" />
@@ -108,7 +107,6 @@ export default function SettingsWrapper({ session }: Props) {
         </ul>
       </div>
 
-      {/* Betaingsutsettelse */}
       <div>
         <h2 className="mt-20 text-xl font-bold text-seniorBankDarkBlue sm:text-4xl">
           <Timer></Timer>
@@ -116,20 +114,20 @@ export default function SettingsWrapper({ session }: Props) {
         </h2>
         <p className="mt-5 font-bold">
           Velge ny betalingsutsettelse for dine betalinger{" "}
-          <span className="text-seniorBankLightBlue">
+          <span className="text-seniorBankBlue font-semibold">
             <i>- dette vil varsle din tryggehetskontakt</i>
           </span>
         </p>
         <p className="mb-5 mt-5 border border-seniorBankLightBlue bg-seniorBankWhitePurple text-seniorbankBlue">
           Dine nåværende betalinger har en utsatt dato på:{" "}
-          <strong>{session?.user?.paymentDelayDays ?? "ukjent"} dager</strong>
+          <strong className="text-seniorBankDarkBlue">
+            {session?.user?.paymentDelayDays ?? "ukjent"} dager
+          </strong>
         </p>
 
         <label className="mt-5 font-semibold">
           Velg antall dager på ny betalingsutsettelse{" "}
-          <p className="font-thin text-seniorBankLightBlue">
-            (minimum 3 dager)
-          </p>{" "}
+          <p className="font-thin text-seniorBankDarkBlue">(minimum 3 dager)</p>{" "}
           <br></br>
           <select
             value={selectedDelay}
@@ -145,28 +143,27 @@ export default function SettingsWrapper({ session }: Props) {
         </label>
 
         <Button
-          className="ml-10 mt-4 rounded-md bg-seniorBankLightGreen px-3 py-2 text-sm text-white hover:bg-seniorBankGreen"
+          className="hover:bg-seniorBankDarkGreen ml-10 mt-4 rounded-md bg-seniorBankGreen px-3 py-2 text-sm font-bold text-white"
           onClick={handlePaymentDelayChange}
         >
           Oppdater betalingsutsettelse
         </Button>
       </div>
 
-      {/* Sikkerhetsnivå */}
       <div>
         <h2 className="mt-20 text-xl font-bold text-seniorBankDarkBlue sm:text-4xl">
           <Lock /> Sikkerhetsnivå
         </h2>
         <p className="mb-2 mt-5 font-bold">
           Du kan endre sikkerhetsnivået ditt{" "}
-          <span className="text-seniorBankLightBlue">
+          <span className="text-seniorBankBlue font-semibold">
             <i>- dette vil varsle din tryggehetskontakt</i>
           </span>
         </p>
 
         <div className="mt-7 max-w-xl rounded-xl border border-seniorbankBlue bg-seniorBankLightPink px-3 py-3">
           <p className="mt-6 font-extrabold">
-            Ditt nåværende nivå: <strong>{currentLevel?.title}</strong>
+            Dette er det nivået du har: <strong>{currentLevel?.title}</strong>
           </p>
           <ul className="mt-3 list-disc pl-20">
             {currentLevel?.description.map((line, i) => (
@@ -175,26 +172,39 @@ export default function SettingsWrapper({ session }: Props) {
           </ul>
         </div>
 
-        <h2 className="mb-3 mt-20 text-xl font-bold text-seniorBankDarkBlue sm:text-3xl">
-          VELG NYTT NIVÅ
+        <h2 className="mb-6 mt-16 text-xl font-bold text-seniorBankDarkBlue sm:text-3xl">
+          Velg nytt sikkerhetsnivå
         </h2>
 
-        {otherLevels.map((level, i) => (
-          <button
-            key={i}
-            onClick={() => handleLevelChange(level.enum)}
-            className="mb-4 w-full max-w-xl rounded-xl border border-seniorBankDarkBlue bg-seniorBankLightPurple px-4 py-4 text-left hover:bg-seniorBankLightBlue"
-          >
-            <h3 className="text-xl font-bold text-seniorBankDarkBlue">
-              {level.title}
-            </h3>
-            <ul className="mt-2 list-disc pl-6 text-xl">
-              {level.description.map((desc, j) => (
-                <li key={j}>{desc}</li>
-              ))}
-            </ul>
-          </button>
-        ))}
+        <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {otherLevels.map((level, i) => (
+            <button
+              key={i}
+              onClick={() => handleLevelChange(level.enum)}
+              className="focus:ring-seniorBankBlue group relative w-full rounded-xl border-2 border-seniorBankDarkBlue bg-seniorBankLightPurple p-6 text-left transition-all duration-300 hover:bg-seniorBankLightBlue hover:shadow-lg focus:outline-none focus:ring-2"
+            >
+              <div className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border-2 border-seniorBankDarkBlue opacity-70 transition-all group-hover:bg-seniorBankDarkBlue group-hover:text-white group-hover:opacity-100">
+                <Lock className="h-4 w-4" />
+              </div>
+              <h3 className="mb-3 text-xl font-bold text-seniorBankDarkBlue">
+                {level.title}
+              </h3>
+              <ul className="mt-2 space-y-2">
+                {level.description.map((desc, j) => (
+                  <li key={j} className="flex items-start gap-2">
+                    <div className="mt-1 text-seniorBankDarkBlue">•</div>
+                    <span>{desc}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 text-center">
+                <span className="bg-seniorBankBlue inline-block rounded-full px-4 py-2 font-medium text-seniorBankDarkBlue transition-transform group-hover:bg-seniorBankDarkBlue group-hover:text-white">
+                  Velg dette nivået
+                </span>
+              </div>
+            </button>
+          ))}
+        </section>
       </div>
     </section>
   );
