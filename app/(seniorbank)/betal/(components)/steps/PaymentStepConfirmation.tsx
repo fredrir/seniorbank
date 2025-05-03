@@ -1,6 +1,5 @@
 "use client";
 
-import { ProgressBar } from "@/ui/organisms/ProgressBar";
 import { PaymentFormData } from "../../types";
 import { JsonBankAccount } from "@/model/application/mappers/JsonBankAccountDTOMapper";
 import { PaymentFormNavbar } from "../PaymentFormButton";
@@ -31,8 +30,6 @@ const PaymentConfirmationStep = ({
   return (
     <section>
       <div className="mt-6 rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple">
-        <ProgressBar totalSteps={isHard ? 3 : 4} currentStep={4} />
-
         <h1 className="ml-10 text-3xl font-bold text-seniorBankDarkBlue">
           {isHard ? "Betalingskvittering" : "Bekreft betaling"}
         </h1>
