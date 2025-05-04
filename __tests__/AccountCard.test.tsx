@@ -2,8 +2,8 @@ import React from "react";
 import { expect, test, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { formatCurrency } from "@/lib/utils";
-import AccountCard from "./AccountCard";
 import { BankAccount } from "@prisma/client";
+import AccountCard from "@/app/(seniorbank)/konto/(components)/AccountCard";
 
 vi.mock("next/link", () => ({
   default: ({

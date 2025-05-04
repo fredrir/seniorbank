@@ -3,8 +3,8 @@ import { expect, test, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { getSession } from "@/lib/auth";
 import { bankAccountService } from "@/model/core";
-import AccountOverviewPage from "./page";
 import { BankAccount } from "@prisma/client";
+import AccountOverviewPage from "@/app/(seniorbank)/konto/page";
 
 // Mock the dependencies
 vi.mock("@/lib/auth", () => ({
@@ -116,10 +116,10 @@ describe("AccountOverviewPage", () => {
     expect(getSession).toHaveBeenCalled();
     expect(bankAccountService.list).toHaveBeenCalledWith("user-123");
 
-    const accountCards = screen.getAllByTestId("account-card");
-    expect(accountCards).toHaveLength(2);
-    expect(accountCards[0]).toHaveAttribute("data-account-id", "acc-1");
-    expect(accountCards[1]).toHaveAttribute("data-account-id", "acc-2");
+    const accountLinks = screen.getAllByRole("link");
+    expect(accountLinks).toHaveLength(2);
+    expect(accountLinks[0]).toHaveAttribute("href", "/konto/acc-1");
+    expect(accountLinks[1]).toHaveAttribute("href", "/konto/acc-2");
   });
 
   test("displays security warning message", async () => {

@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import { describe, test, expect, beforeEach, vi } from "vitest";
-import Home from "@/app/(seniorbank)/page";
 import { getSession } from "@/lib/auth";
 import { bankAccountService } from "@/model/core";
 import React from "react";
 import { User } from "@/model/domain/user/User";
 import { BankAccount } from "@/model/domain/payment/BankAccount";
 import { Difficulty } from "@/model/domain/user/User";
+import Home from "@/app/(seniorbank)/page";
 
 vi.mock("@/ui/molecules/Heading", () => ({
   default: ({ title }: { title: string }) => (

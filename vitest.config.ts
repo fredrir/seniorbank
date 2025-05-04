@@ -7,10 +7,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "."),
     },
   },
-
   test: {
     globals: true,
     environment: "jsdom",
     setupFiles: ["./vitest.setup.ts"],
+    include: ["__tests__/**/*.test.{ts,tsx}"],
   },
 });
