@@ -17,11 +17,16 @@ const variants = cva(
     },
   },
 );
+interface LogoutButtonProps extends VariantProps<typeof variants> {
+  title?: string;
+  disabled?: boolean;
+}
 
 export function LogoutButton({
   title,
+  disabled = false,
   ...props
-}: VariantProps<typeof variants> & { title?: string }) {
+}: LogoutButtonProps) {
   const handleLogout = () =>
     signOut({
       callbackUrl: "/",
@@ -29,7 +34,11 @@ export function LogoutButton({
     });
 
   return (
-    <button className={variants(props)} onClick={handleLogout}>
+    <button
+      className={variants(props)}
+      onClick={handleLogout}
+      disabled={disabled}
+    >
       {title ? title : "Logg ut"}
     </button>
   );

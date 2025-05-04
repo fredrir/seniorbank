@@ -15,6 +15,7 @@ import { redirect } from "next/navigation";
 import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 import { LogoutButton } from "@/ui/molecules/LogoutButton";
 import FourthStep from "@/app/(authentication)/register/(components)/FourthStep";
+import LoadingOverlay from "@/app/(authentication)/register/(components)/LoadingOverlay";
 
 const defaultFormData: RegisterAccountFormData = {
   firstName: "",
@@ -30,6 +31,7 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
   const [formData, setFormData] =
     useState<RegisterAccountFormData>(defaultFormData);
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -100,10 +102,13 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setIsSubmitting(true);
+
     const error = await register(formData);
 
     if (error) {
       toast.error(error.toString());
+      setIsSubmitting(false);
       return;
     }
 
@@ -113,6 +118,7 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
 
   return (
     <>
+      <LoadingOverlay isVisible={isSubmitting} />
       <BackgroundGraphic
         variant="mid-wave"
         className="top-36 h-[150vh] scale-x-[-1] text-seniorbankBlue"
@@ -124,6 +130,7 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
               onClick={handlePreviousStep}
               className="flex items-center gap-2 rounded-lg bg-seniorBankDarkBlue px-4 py-2 text-white hover:bg-blue-800"
               aria-label="Gå tilbake"
+              disabled={isSubmitting}
             >
               <ArrowLeft className="size-6" />
               <span className="text-2xl font-medium">Tilbake</span>
@@ -134,7 +141,7 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
           {step === 1 ? "Opprett ny bruker" : "Fyll ut din informasjon"}
         </h2>
         <div>
-          <LogoutButton title="Avbryt" />
+          <LogoutButton title="Avbryt" disabled={isSubmitting} />
         </div>
       </header>
       <div className="mt-16 flex flex-col items-center rounded-2xl bg-white p-8 shadow-lg">
@@ -162,6 +169,7 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
             formData={formData}
             email={session.email}
             handleSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
           />
         )}
       </div>
