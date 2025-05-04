@@ -119,14 +119,16 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
       />
       <header className="mt-8 flex w-full flex-row justify-between gap-2 text-seniorBankDarkBlue">
         {step !== 1 && (
-          <button
-            onClick={handlePreviousStep}
-            className="flex items-center gap-2 rounded-lg bg-seniorBankDarkBlue px-4 py-2 text-white hover:bg-blue-800"
-            aria-label="Gå tilbake"
-          >
-            <ArrowLeft className="size-6" />
-            <span className="text-lg font-medium">Tilbake</span>
-          </button>
+          <div>
+            <button
+              onClick={handlePreviousStep}
+              className="flex items-center gap-2 rounded-lg bg-seniorBankDarkBlue px-4 py-2 text-white hover:bg-blue-800"
+              aria-label="Gå tilbake"
+            >
+              <ArrowLeft className="size-6" />
+              <span className="text-2xl font-medium">Tilbake</span>
+            </button>
+          </div>
         )}
         <h2 className="py-4 text-4xl font-bold">
           {step === 1 ? "Opprett ny bruker" : "Fyll ut din informasjon"}
