@@ -30,7 +30,7 @@ export function ProgressBar({ totalSteps, currentStep, title }: Props) {
 
             {index < totalSteps - 1 && (
               <div
-                className={`mx-8 h-1 w-16 md:w-24 ${index < currentStep - 1 ? "bg-[#70c7aa]" : "bg-seniorBankLightPurple"}`}
+                className={`mx-8 h-1 w-16 md:w-24 ${index < currentStep - 1 ? "bg-[#70c7aa]" : "bg-seniorBankLightBlue"}`}
               ></div>
             )}
           </div>
