@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { JsonBankAccount } from "@/model/application/mappers/JsonBankAccountDTOMapper";
 import TransferForm, { TransferFormData } from "./TransferForm";
 import { useState } from "react";

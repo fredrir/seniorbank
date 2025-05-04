@@ -1,7 +1,6 @@
 "use client";
 
-import type React from "react";
-
+import React from "react";
 import { ProgressBar } from "@/ui/organisms/ProgressBar";
 import FirstStep from "@/app/(authentication)/register/(components)/FirstStep";
 import SecondStep from "@/app/(authentication)/register/(components)/SecondStep";
@@ -15,7 +14,8 @@ import type { RegisterAccountFormData } from "@/lib/types";
 import { redirect } from "next/navigation";
 import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 import { LogoutButton } from "@/ui/molecules/LogoutButton";
-import FourthStep from "./FourthStep";
+import FourthStep from "@/app/(authentication)/register/(components)/FourthStep";
+import LoadingOverlay from "@/app/(authentication)/register/(components)/LoadingOverlay";
 
 const defaultFormData: RegisterAccountFormData = {
   firstName: "",
@@ -31,6 +31,7 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
   const [formData, setFormData] =
     useState<RegisterAccountFormData>(defaultFormData);
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -72,7 +73,16 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
       }
     }
 
-    setStep(step + 1);
+    if (step === 3) {
+      if (!termsAccepted) {
+        toast.error(
+          "Du må godkjenne vilkårene før du kan fullføre registreringen",
+        );
+        return;
+      }
+    }
+
+    setStep((prev) => prev + 1);
   };
 
   const handlePreviousStep = () => {
@@ -86,67 +96,59 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
         address: "",
       });
     }
-
-    setStep(step - 1);
+    setStep((prev) => prev - 1);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!termsAccepted) {
-      toast.error(
-        "Du må godkjenne vilkårene før du kan fullføre registreringen",
-      );
-      return;
-    }
+    setIsSubmitting(true);
 
     const error = await register(formData);
 
     if (error) {
       toast.error(error.toString());
+      setIsSubmitting(false);
       return;
-    } else {
-      toast.success("Brukeren er opprettet!");
-      redirect("/");
     }
+
+    toast.success("Brukeren er opprettet!");
+    redirect("/");
   };
 
   return (
     <>
+      <LoadingOverlay isVisible={isSubmitting} />
       <BackgroundGraphic
         variant="mid-wave"
         className="top-36 h-[150vh] scale-x-[-1] text-seniorbankBlue"
       />
-      <header
-        className={`mt-8 flex w-full flex-row justify-between gap-2 text-seniorBankDarkBlue`}
-      >
+      <header className="mt-8 flex w-full flex-row justify-between gap-2 text-seniorBankDarkBlue">
         {step !== 1 && (
-          <button
-            onClick={handlePreviousStep}
-            className="flex items-center gap-2 rounded-lg bg-seniorBankDarkBlue px-4 py-2 text-white hover:bg-blue-800"
-            aria-label="Gå tilbake"
-          >
-            <ArrowLeft className="size-6" />
-            <span className="text-lg font-medium">Tilbake</span>
-          </button>
+          <div>
+            <button
+              onClick={handlePreviousStep}
+              className="flex items-center gap-2 rounded-lg bg-seniorBankDarkBlue px-4 py-2 text-white hover:bg-blue-800"
+              aria-label="Gå tilbake"
+              disabled={isSubmitting}
+            >
+              <ArrowLeft className="size-6" />
+              <span className="text-2xl font-medium">Tilbake</span>
+            </button>
+          </div>
         )}
-
         <h2 className="py-4 text-4xl font-bold">
           {step === 1 ? "Opprett ny bruker" : "Fyll ut din informasjon"}
         </h2>
-
         <div>
-          <LogoutButton title="Avbryt" />
+          <LogoutButton title="Avbryt" disabled={isSubmitting} />
         </div>
       </header>
-
       <div className="mt-16 flex flex-col items-center rounded-2xl bg-white p-8 shadow-lg">
         {step !== 1 && <ProgressBar totalSteps={4} currentStep={step} />}
-
         {step === 1 && (
           <FirstStep setFormData={setFormData} setStep={setStep} />
         )}
-
         {step === 2 && (
           <SecondStep
             formData={formData}
@@ -155,7 +157,6 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
             handleNextStep={handleNextStep}
           />
         )}
-
         {step === 3 && (
           <ThirdStep
             termsAccepted={termsAccepted}
@@ -163,12 +164,12 @@ export default function RegisterAccountForm({ session }: { session: Session }) {
             handleNextStep={handleNextStep}
           />
         )}
-
         {step === 4 && (
           <FourthStep
             formData={formData}
             email={session.email}
             handleSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
           />
         )}
       </div>

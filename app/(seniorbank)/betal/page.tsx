@@ -7,7 +7,7 @@ export default async function Payment() {
 
   return (
     <section className="rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple p-12">
-      <PaymentForm accounts={accounts} approvedPeers={approvedPeers} />;
+      <PaymentForm accounts={accounts} approvedPeers={approvedPeers} />
     </section>
   );
 }

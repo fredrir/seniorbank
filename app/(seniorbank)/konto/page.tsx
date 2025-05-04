@@ -2,7 +2,7 @@ import Heading from "@/ui/molecules/Heading";
 import SubHeading from "@/ui/molecules/SubHeading";
 import { ShieldAlert } from "lucide-react";
 import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
-
+import React from "react";
 import AccountCard from "./(components)/AccountCard";
 import { getSession } from "@/lib/auth";
 import { bankAccountService } from "@/model/core";

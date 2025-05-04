@@ -28,8 +28,8 @@ export default function TransferPreview({
         <h2 className="text-center text-2xl font-bold text-[#2D2D7E]">
           Bekreft overføring
         </h2>
-        <div className="mx-auto flex items-center justify-center rounded-full bg-[#F2F2F9] px-2 py-4 shadow-inner">
-          <p className="text-xl font-bold text-[#2D2D7E]">
+        <div className="mx-auto flex h-40 w-40 items-center justify-center rounded-full bg-[#F2F2F9] px-2 py-4 shadow-inner">
+          <p className="text-2xl font-bold text-[#2D2D7E]">
             {formatCurrency(amount)}
           </p>
         </div>

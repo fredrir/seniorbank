@@ -1,3 +1,4 @@
+import React from "react";
 import { TransferPage } from "./(components)/TransferPage";
 import { listAccounts } from "@/actions/bankAccount";
 
