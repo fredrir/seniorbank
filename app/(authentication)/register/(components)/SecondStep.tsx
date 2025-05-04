@@ -1,6 +1,6 @@
 "use client";
 import type { RegisterAccountFormData } from "@/lib/types";
-import type React from "react";
+import React from "react";
 
 import { Button } from "@/ui/atoms/Button";
 import { Input } from "@/ui/atoms/Input";

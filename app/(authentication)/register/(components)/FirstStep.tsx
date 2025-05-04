@@ -1,3 +1,4 @@
+import React from "react";
 import { RegisterAccountFormData } from "@/lib/types";
 import { ArrowRight } from "lucide-react";
 
