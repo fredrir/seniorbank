@@ -3,8 +3,10 @@ import { describe, test, expect, beforeEach, vi } from "vitest";
 import Home from "@/app/(seniorbank)/page";
 import { getSession } from "@/lib/auth";
 import { bankAccountService } from "@/model/core";
-import type { BankAccount, Difficulty, User } from "@prisma/client";
 import React from "react";
+import { User } from "@/model/domain/user/User";
+import { BankAccount } from "@/model/domain/payment/BankAccount";
+import { Difficulty } from "@/model/domain/user/User";
 
 vi.mock("@/ui/molecules/Heading", () => ({
   default: ({ title }: { title: string }) => (
@@ -86,6 +88,8 @@ describe("Home Component", () => {
       address: "123 Test St",
       paymentDelayDays: 3,
       difficulty: "EASY",
+      setDifficulty: vi.fn(),
+      setPaymentDelayDays: vi.fn(),
     };
 
     const mockBankAccount: BankAccount = {
@@ -96,10 +100,17 @@ describe("Home Component", () => {
       balance: 1000,
       main: true,
       countryCode: "NO",
+      publicDetails() {
+        return {
+          id: this.id,
+          name: this.name,
+          category: this.category,
+        };
+      },
     };
 
     vi.mocked(getSession).mockResolvedValue({
-      user: mockUser,
+      user: { ...mockUser, birthDate: mockUser.birthDate.toISOString() },
       userId: mockUser.id,
       email: mockUser.email,
       isRegistered: true,
@@ -132,6 +143,8 @@ describe("Home Component", () => {
       address: "123 Test St",
       paymentDelayDays: 3,
       difficulty: "MEDIUM",
+      setDifficulty: vi.fn(),
+      setPaymentDelayDays: vi.fn(),
     };
 
     const mockBankAccount: BankAccount = {
@@ -142,10 +155,17 @@ describe("Home Component", () => {
       balance: 1000,
       main: true,
       countryCode: "NO",
+      publicDetails() {
+        return {
+          id: this.id,
+          name: this.name,
+          category: this.category,
+        };
+      },
     };
 
     vi.mocked(getSession).mockResolvedValue({
-      user: mockUser,
+      user: { ...mockUser, birthDate: mockUser.birthDate.toISOString() },
       userId: mockUser.id,
       email: mockUser.email,
       isRegistered: true,
@@ -177,6 +197,8 @@ describe("Home Component", () => {
       address: "123 Test St",
       paymentDelayDays: 3,
       difficulty: "HARD",
+      setDifficulty: vi.fn(),
+      setPaymentDelayDays: vi.fn(),
     };
 
     const mockBankAccount: BankAccount = {
@@ -187,10 +209,17 @@ describe("Home Component", () => {
       balance: 1000,
       main: true,
       countryCode: "NO",
+      publicDetails() {
+        return {
+          id: this.id,
+          name: this.name,
+          category: this.category,
+        };
+      },
     };
 
     vi.mocked(getSession).mockResolvedValue({
-      user: mockUser,
+      user: { ...mockUser, birthDate: mockUser.birthDate.toISOString() },
       userId: mockUser.id,
       email: mockUser.email,
       isRegistered: true,
@@ -219,10 +248,12 @@ describe("Home Component", () => {
       address: "123 Test St",
       paymentDelayDays: 3,
       difficulty: "EASY",
+      setDifficulty: vi.fn(),
+      setPaymentDelayDays: vi.fn(),
     };
 
     vi.mocked(getSession).mockResolvedValue({
-      user: mockUser,
+      user: { ...mockUser, birthDate: mockUser.birthDate.toISOString() },
       userId: mockUser.id,
       email: mockUser.email,
       isRegistered: true,

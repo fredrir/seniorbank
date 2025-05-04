@@ -1,3 +1,4 @@
+import React from "react";
 import { formatCurrency } from "@/lib/utils";
 import { BankAccount } from "@prisma/client";
 import { ChevronRight } from "lucide-react";
