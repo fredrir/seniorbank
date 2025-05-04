@@ -6,7 +6,7 @@ const schema = z.object({
   id: z.string(),
   email: z.string(),
   name: z.string(),
-  birthDate: z.string(),
+  birthDate: z.date(),
   phoneNumber: z.string(),
   address: z.string(),
   paymentDelayDays: z.number(),
@@ -17,7 +17,7 @@ export type JSONUserDTO = z.infer<typeof schema>;
 
 export const JsonUserDTOMapper: DTOMapper<User, JSONUserDTO> = {
   serialize: ({ birthDate, ...userRest }) => ({
-    birthDate: birthDate.toISOString(),
+    birthDate: birthDate,
     ...userRest,
   }),
 

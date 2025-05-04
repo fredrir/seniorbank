@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import type React from "react";
 
 type GraphicVariant =
   | "top-halfcircle"

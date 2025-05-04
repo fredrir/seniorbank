@@ -1,3 +1,4 @@
+import React from "react";
 import Heading from "@/ui/molecules/Heading";
 import SubHeading from "@/ui/molecules/SubHeading";
 import { BankAccountCard } from "@/app/(seniorbank)/(components)/BankAccountCard";
@@ -47,7 +48,7 @@ export default async function Home() {
       title: "Meldinger",
       description: "Les meldinger og varslinger fra banken",
       icon: <MailIcon className="size-16" />,
-      availableFor: ["HARD"],
+      availableFor: ["EASY", "MEDIUM", "HARD"],
     },
     {
       title: "Spør om hjelp",
@@ -56,7 +57,6 @@ export default async function Home() {
       availableFor: ["EASY", "MEDIUM", "HARD"],
       href: "/kontaktside",
     },
-
     {
       title: "Innstillinger",
       description: "Endre på instillinger og infomasjon",
@@ -95,7 +95,9 @@ export default async function Home() {
         <SubHeading title="Handlinger" />
 
         <div
-          className={`grid w-full grid-cols-1 gap-8 ${user.difficulty === "EASY" ? "" : "md:grid-cols-2"}`}
+          className={`grid w-full grid-cols-1 gap-8 ${
+            user.difficulty === "EASY" ? "" : "md:grid-cols-2"
+          }`}
         >
           {filteredMenuOptions.map((option, index) => (
             <MenuOption
