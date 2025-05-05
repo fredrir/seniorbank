@@ -5,7 +5,7 @@ import { MessageType } from "@/lib/types";
 import MessageList from "./(components)/MessageList";
 import MessageHeader from "./(components)/MessageHeader";
 
-export const messageData: MessageType[] = [
+const messageData: MessageType[] = [
   {
     id: "1",
     title: "Viktig informasjon om din konto",
