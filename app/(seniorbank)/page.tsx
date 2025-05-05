@@ -6,9 +6,9 @@ import MenuOption from "@/app/(seniorbank)/(components)/MenuOptions";
 import { WarningSection } from "@/app/(seniorbank)/(components)/WarningSection";
 import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 import {
-  ArrowBigDownDash,
-  Banknote,
+  ArrowLeftRight,
   HelpCircle,
+  Landmark,
   MailIcon,
   Settings,
   Wallet,
@@ -26,7 +26,7 @@ export default async function Home() {
     {
       title: "Kontoer",
       description: "Se oversikt over dine kontoer",
-      icon: <Banknote className="size-16" />,
+      icon: <Landmark className="size-16" />,
       href: "/konto",
       availableFor: ["EASY", "MEDIUM", "HARD"],
     },
@@ -40,7 +40,7 @@ export default async function Home() {
     {
       title: "Overfør",
       description: "Overfør penger mellom egne kontoer",
-      icon: <ArrowBigDownDash className="size-16" />,
+      icon: <ArrowLeftRight className="size-16" />,
       availableFor: ["EASY", "MEDIUM", "HARD"],
       href: "/overfor",
     },
