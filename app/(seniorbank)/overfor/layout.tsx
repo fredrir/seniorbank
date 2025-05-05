@@ -4,13 +4,15 @@ import { PropsWithChildren } from "react";
 
 export default function OverforLayout({ children }: PropsWithChildren) {
   return (
-    <section className="container mx-auto h-[60vh]">
+    <section className="container mx-auto min-h-[60vh]">
       <BackgroundGraphic variant="top-halfcircle" className="text-[#015aa4]" />
       <Heading
         title="Overfør"
         className="mb-4 text-5xl font-bold text-seniorbankWhite"
       />
-      <div className="flex w-full justify-center font-bold">{children}</div>
+      <div className="flex w-full justify-center py-8 font-bold">
+        {children}
+      </div>
     </section>
   );
 }

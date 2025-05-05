@@ -8,6 +8,7 @@ import TransferPreview from "./TransferPreview";
 import { createTransaction } from "@/actions/bankAccount";
 import TransferConfirmation from "./TransferConfirmation";
 import toast from "react-hot-toast";
+import LoadingOverlay from "@/app/(authentication)/register/(components)/LoadingOverlay";
 
 function showToast(message: string) {
   toast.success(message, {
@@ -23,6 +24,7 @@ function showToast(message: string) {
 }
 
 export function TransferPage({ accounts }: { accounts: JsonBankAccount[] }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<TransferFormData | null>(null);
   const [result, setResult] = useState<Awaited<
     ReturnType<typeof createTransaction>
@@ -41,27 +43,35 @@ export function TransferPage({ accounts }: { accounts: JsonBankAccount[] }) {
     )!;
 
     return (
-      <TransferPreview
-        toAccount={toAccount}
-        fromAccount={fromAccount}
-        amount={formData.amount}
-        handleCancel={() => setFormData(null)}
-        handleConfirm={async () => {
-          const result = await createTransaction(
-            fromAccount.id,
-            toAccount.id,
-            formData.amount,
-          );
+      <>
+        <LoadingOverlay
+          isVisible={isSubmitting}
+          message="Vennligst vent mens overføringen blir prosessert"
+        />
+        <TransferPreview
+          toAccount={toAccount}
+          fromAccount={fromAccount}
+          amount={formData.amount}
+          handleCancel={() => setFormData(null)}
+          handleConfirm={async () => {
+            setIsSubmitting(true);
+            const result = await createTransaction(
+              fromAccount.id,
+              toAccount.id,
+              formData.amount,
+            );
 
-          showToast(
-            result.contactNotified
-              ? "Overføringen er gjennomført. Trygghetskontrakten er varslet."
-              : "Overføringen er gjennomført.",
-          );
+            showToast(
+              result.contactNotified
+                ? "Overføringen er gjennomført. Trygghetskontrakten er varslet."
+                : "Overføringen er gjennomført.",
+            );
 
-          setResult(result);
-        }}
-      />
+            setResult(result);
+            setIsSubmitting(false);
+          }}
+        />
+      </>
     );
   }
 
