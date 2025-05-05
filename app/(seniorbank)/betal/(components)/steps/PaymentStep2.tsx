@@ -44,12 +44,27 @@ const PaymentSecondStep = ({
   // Validate if we can proceed to the next step
   const isAmountValid =
     !isNaN(Number(stepData.amount)) && Number(stepData.amount) > 0;
+
+  // Check if the amount is a valid number and greater than zero
+  const isValidAmount = (amount: string) => {
+    const parsedAmount = parseFloat(amount);
+    return !isNaN(parsedAmount) && parsedAmount > 0;
+  };
+
+  const isNotSameAccount = (accountId: string) => {
+    return accountId === formData.fromAccountId;
+  };
+
   const canProceed = Boolean(stepData.toAccountId) && isAmountValid;
   const problem = !stepData.toAccountId
     ? "Du må velge en mottaker"
     : !isAmountValid
       ? "Du må angi et gyldig beløp"
-      : undefined;
+      : isNotSameAccount(stepData.toAccountId!)
+        ? "Du kan ikke betale til deg selv"
+        : !isValidAmount(stepData.amount)
+          ? "Beløpet må være større enn 0"
+          : undefined;
 
   return (
     <section
@@ -93,7 +108,15 @@ const PaymentSecondStep = ({
                     }
                     defaultOptions={approvedPeers.map((peer) => ({
                       value: peer.id,
-                      label: `${peer.name} - ${peer.id} - ${peer.balance}`,
+                      label: `${peer.id} - ${peer.name} - ${peer.balance.toLocaleString(
+                        "nb-NO",
+                        {
+                          style: "currency",
+                          currency: "NOK",
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0,
+                        },
+                      )}`,
                     }))}
                     inputPlaceholder="Skriv inn kontonummer her ..."
                     aria-required="true"
