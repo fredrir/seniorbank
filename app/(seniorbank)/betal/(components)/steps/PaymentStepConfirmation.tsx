@@ -57,6 +57,7 @@ const PaymentConfirmationStep = ({
 
         <PaymentFormNavbar
           onGoBack={onGoBack}
+          hideBackButton
           onGoForward={() => (window.location.href = "/")}
         >
           Ferdig

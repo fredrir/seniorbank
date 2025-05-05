@@ -11,6 +11,7 @@ import { ProgressBar } from "@/ui/organisms/ProgressBar";
 import { PaymentFormData } from "../types";
 import { createTransaction } from "@/actions/bankAccount";
 import toast from "react-hot-toast";
+import LoadingOverlay from "@/app/(authentication)/register/(components)/LoadingOverlay";
 
 export default function PaymentForm({
   accounts,
@@ -135,6 +136,10 @@ export default function PaymentForm({
 
   return (
     <>
+      <LoadingOverlay
+        isVisible={isSubmitting}
+        message="Vennligst vent mens betaling blir prosessert..."
+      />
       <ProgressBar totalSteps={4} currentStep={step} />
       {component}
     </>

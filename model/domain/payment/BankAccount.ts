@@ -2,7 +2,7 @@ import { OnlyFields } from "@/lib/types";
 
 export type PublicBankAccountDetails = Pick<
   BankAccountData,
-  "id" | "name" | "category"
+  "id" | "name" | "category" | "balance"
 >;
 
 export class BankAccount {
@@ -37,6 +37,7 @@ export class BankAccount {
       id: this.id,
       name: this.name,
       category: this.category,
+      balance: this.balance,
     };
   }
 }

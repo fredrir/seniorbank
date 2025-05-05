@@ -35,6 +35,12 @@ const PaymentFirstStep = ({
       <PaymentFormNavbar
         hideBackButton
         problem={formData.fromAccountId ? undefined : "Du må velge en konto"}
+        onGoForward={
+          formData.fromAccountId
+            ? () =>
+                onStepCompleted({ fromAccountId: formData.fromAccountId || "" })
+            : undefined
+        }
       >
         Neste
       </PaymentFormNavbar>
