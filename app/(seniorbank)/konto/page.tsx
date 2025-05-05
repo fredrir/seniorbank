@@ -37,9 +37,6 @@ export default async function AccountOverviewPage() {
           </div>
         </div>
       </section>
-      <section className="my-16 md:my-32">
-        <SubHeading title="Fond" />
-      </section>
     </>
   );
 }

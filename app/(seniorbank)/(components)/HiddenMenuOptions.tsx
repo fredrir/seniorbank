@@ -28,7 +28,9 @@ const HiddenMenuOptions = ({ hiddenMenuOptions }: Props) => {
       </button>
 
       {hiddenMenuOptions.length > 0 && showHidden && (
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div
+          className={`grid grid-cols-1 gap-8 ${hiddenMenuOptions.length > 1 ? "md:grid-cols-2" : "md:grid-cols-1"} `}
+        >
           {hiddenMenuOptions.map((option, index) => (
             <MenuOption
               title={option.title}

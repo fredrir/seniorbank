@@ -6,7 +6,7 @@ export default async function Payment() {
   const approvedPeers = await listApprovedPeers();
 
   return (
-    <section className="rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple p-12">
+    <section className="mb-16 rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple p-12">
       <PaymentForm accounts={accounts} approvedPeers={approvedPeers} />
     </section>
   );
