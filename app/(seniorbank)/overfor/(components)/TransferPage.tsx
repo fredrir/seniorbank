@@ -10,17 +10,27 @@ import TransferConfirmation from "./TransferConfirmation";
 import toast from "react-hot-toast";
 import LoadingOverlay from "@/app/(authentication)/register/(components)/LoadingOverlay";
 
-function showToast(message: string) {
-  toast.success(message, {
-    duration: 4000,
-    position: "top-right",
-    style: {
-      background: "#D3D3EA",
-      color: "#000",
-      fontSize: "16px",
-      fontWeight: "bold",
-    },
-  });
+function showToast(message: string, error: boolean = false) {
+  const toastStyle = {
+    background: error ? "#F8D7DA" : "#D3D3EA",
+    color: "#000",
+    fontSize: "16px",
+    fontWeight: "bold",
+  };
+
+  if (error) {
+    toast.error(message, {
+      duration: 4000,
+      position: "top-right",
+      style: toastStyle,
+    });
+  } else {
+    toast.success(message, {
+      duration: 4000,
+      position: "top-right",
+      style: toastStyle,
+    });
+  }
 }
 
 export function TransferPage({ accounts }: { accounts: JsonBankAccount[] }) {
@@ -55,20 +65,30 @@ export function TransferPage({ accounts }: { accounts: JsonBankAccount[] }) {
           handleCancel={() => setFormData(null)}
           handleConfirm={async () => {
             setIsSubmitting(true);
-            const result = await createTransaction(
-              fromAccount.id,
-              toAccount.id,
-              formData.amount,
-            );
 
-            showToast(
-              result.contactNotified
-                ? "Overføringen er gjennomført. Trygghetskontrakten er varslet."
-                : "Overføringen er gjennomført.",
-            );
+            try {
+              const result = await createTransaction(
+                fromAccount.id,
+                toAccount.id,
+                formData.amount,
+              );
 
-            setResult(result);
-            setIsSubmitting(false);
+              showToast(
+                result.contactNotified
+                  ? "Overføringen er gjennomført. Trygghetskontrakten er varslet."
+                  : "Overføringen er gjennomført.",
+              );
+
+              setResult(result);
+              setIsSubmitting(false);
+            } catch (error) {
+              setIsSubmitting(false);
+              showToast(
+                "Overføringen mislyktes. Vennligst prøv igjen senere.",
+                true,
+              );
+              console.error("Transaction failed:", error);
+            }
           }}
         />
       </>

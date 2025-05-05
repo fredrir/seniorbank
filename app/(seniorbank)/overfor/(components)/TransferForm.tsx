@@ -50,6 +50,20 @@ export default function TransferForm({
       setError("Du kan ikke overføre penger til samme konto.");
       return;
     }
+
+    if (Number(amount) <= 0) {
+      setError("Beløpet må være større enn 0.");
+      return;
+    }
+
+    const fromAccount = accounts.find(
+      (account) => account.id === fromAccountId,
+    )!;
+
+    if (Number(amount) > fromAccount.balance) {
+      setError("Du har ikke nok penger på kontoen.");
+      return;
+    }
   };
 
   return (
