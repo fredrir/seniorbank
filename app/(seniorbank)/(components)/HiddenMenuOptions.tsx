@@ -8,7 +8,7 @@ interface Props {
     title: string;
     description: string;
     icon: React.ReactNode;
-    href?: string;
+    href: string;
   }[];
 }
 
