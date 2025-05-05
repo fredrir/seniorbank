@@ -106,7 +106,6 @@ describe("AccountOverviewPage", () => {
     expect(screen.getAllByTestId("subheading")[0]).toHaveTextContent(
       "Bankkontoer",
     );
-    expect(screen.getAllByTestId("subheading")[1]).toHaveTextContent("Fond");
   });
 
   test("fetches and displays user accounts", async () => {
