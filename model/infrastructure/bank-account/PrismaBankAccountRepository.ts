@@ -17,12 +17,20 @@ export class PrismaBankAccountRepository implements BankAccountRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
   async get(id: string) {
-    const accountDTO = await this.prisma.bankAccount.findUnique({
+    let accountDTO = await this.prisma.bankAccount.findUnique({
       where: { id },
     });
 
+    // If the account is not found, create a new one with default values
     if (accountDTO === null) {
-      throw new Error(`Could not find bank account with id ${id}`);
+      accountDTO = await this.prisma.bankAccount.create({
+        data: {
+          id,
+          name: "Ikke registrert",
+          balance: 0,
+          countryCode: "NO",
+        },
+      });
     }
 
     return PrismaBankAccountDTOMapper.deserialize(accountDTO);

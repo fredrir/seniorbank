@@ -20,68 +20,90 @@ export default function PaymentForm({
 }) {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<Partial<PaymentFormData>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onGoBack = () => {
     setStep(step - 1);
   };
 
   async function onStepCompleted(newData: Partial<PaymentFormData>) {
-    const data = { ...formData, ...newData };
+    const updatedData = { ...formData, ...newData };
+    setFormData(updatedData);
 
+    // Only create transaction when confirming in step 4
     if (step === 3) {
-      await createTransaction(
-        data.fromAccountId!,
-        data.toAccountId!,
-        data.amount!,
-      );
+      setIsSubmitting(true);
+      try {
+        await createTransaction(
+          updatedData.fromAccountId!,
+          updatedData.toAccountId!,
+          updatedData.amount!,
+        );
+        setStep(step + 1);
+      } catch (error) {
+        console.error("Transaction failed:", error);
+        // Handle error state here
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      setStep(step + 1);
     }
-
-    setFormData(data);
-    setStep((step) => step + 1);
   }
 
   let component;
-
-  if (step === 1) {
-    component = (
-      <PaymentFirstStep
-        onStepCompleted={onStepCompleted}
-        accounts={accounts}
-        formData={formData}
-      />
-    );
-  } else if (step === 2) {
-    component = (
-      <PaymentSecondStep
-        onStepCompleted={onStepCompleted}
-        approvedPeers={approvedPeers}
-        accounts={accounts}
-        formData={formData}
-        onGoBack={onGoBack}
-      />
-    );
-  } else if (step === 3) {
-    component = (
-      <PaymentThirdStep
-        formData={formData}
-        onGoBack={onGoBack}
-        peerAccounts={approvedPeers}
-        accounts={accounts}
-        onStepCompleted={onStepCompleted}
-      />
-    );
-  } else if (step === 4) {
-    component = (
-      <PaymentConfirmationStep
-        formData={formData}
-        peerAccounts={approvedPeers}
-        accounts={accounts}
-        onGoBack={onGoBack}
-        onStepCompleted={onStepCompleted}
-      />
-    );
-  } else {
-    setStep(1);
+  switch (step) {
+    case 1:
+      component = (
+        <PaymentFirstStep
+          onStepCompleted={onStepCompleted}
+          accounts={accounts}
+          formData={formData}
+        />
+      );
+      break;
+    case 2:
+      component = (
+        <PaymentSecondStep
+          onStepCompleted={onStepCompleted}
+          approvedPeers={approvedPeers}
+          accounts={accounts}
+          formData={formData}
+          onGoBack={onGoBack}
+        />
+      );
+      break;
+    case 3:
+      component = (
+        <PaymentThirdStep
+          formData={formData}
+          onGoBack={onGoBack}
+          peerAccounts={approvedPeers}
+          accounts={accounts}
+          onStepCompleted={onStepCompleted}
+          isSubmitting={isSubmitting}
+        />
+      );
+      break;
+    case 4:
+      component = (
+        <PaymentConfirmationStep
+          formData={formData}
+          peerAccounts={approvedPeers}
+          accounts={accounts}
+          onGoBack={onGoBack}
+          onStepCompleted={onStepCompleted}
+        />
+      );
+      break;
+    default:
+      component = (
+        <PaymentFirstStep
+          onStepCompleted={onStepCompleted}
+          accounts={accounts}
+          formData={formData}
+        />
+      );
   }
 
   return (

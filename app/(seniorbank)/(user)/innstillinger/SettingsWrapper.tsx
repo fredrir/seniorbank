@@ -89,7 +89,7 @@ export default function SettingsWrapper({ session }: Props) {
 
   return (
     <section className="mx-auto max-w-5xl space-y-8 py-8 text-lg">
-      <div className="mb-10 text-center">
+      <div className="mb-10 text-start">
         <h3 className="mb-4 text-4xl font-bold text-seniorBankDarkBlue sm:text-5xl">
           Dine innstillinger
         </h3>

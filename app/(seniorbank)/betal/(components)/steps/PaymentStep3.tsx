@@ -10,6 +10,7 @@ interface PaymentThirdStepProps {
   peerAccounts: PublicBankAccountDetails[];
   onGoBack: () => void;
   formData: Partial<PaymentFormData>;
+  isSubmitting?: boolean;
 }
 
 function Field({ children, label }: PropsWithChildren<{ label: string }>) {
@@ -29,6 +30,7 @@ const PaymentThirdStep = ({
   accounts,
   peerAccounts,
   formData,
+  isSubmitting = false,
 }: PaymentThirdStepProps) => {
   const isHard = true;
 
@@ -51,14 +53,17 @@ const PaymentThirdStep = ({
           </div>
 
           <Field label="Fra konto">{fromAccount?.name}</Field>
-          <Field label="Til konto">{toAccount?.name}</Field>
+          <Field label="Til konto">
+            {toAccount ? toAccount.name : formData.toAccountId}
+          </Field>
           <Field label="Kommentar">{formData.comment}</Field>
         </div>
         <PaymentFormNavbar
           onGoBack={onGoBack}
           onGoForward={() => onStepCompleted({})}
+          problem={isSubmitting ? "Behandler..." : undefined}
         >
-          Neste
+          {isSubmitting ? "Behandler..." : "Bekreft"}
         </PaymentFormNavbar>
       </div>
     </section>

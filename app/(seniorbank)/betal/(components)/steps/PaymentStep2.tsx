@@ -41,6 +41,16 @@ const PaymentSecondStep = ({
     toAccountId: formData.toAccountId,
   });
 
+  // Validate if we can proceed to the next step
+  const isAmountValid =
+    !isNaN(Number(stepData.amount)) && Number(stepData.amount) > 0;
+  const canProceed = Boolean(stepData.toAccountId) && isAmountValid;
+  const problem = !stepData.toAccountId
+    ? "Du må velge en mottaker"
+    : !isAmountValid
+      ? "Du må angi et gyldig beløp"
+      : undefined;
+
   return (
     <section>
       <div className="mt-6 rounded-xl border-4 border-seniorBankLightPurple bg-seniorBankLightPurple">
@@ -89,7 +99,7 @@ const PaymentSecondStep = ({
               <p>Kommentar: </p>
               <Textarea
                 id="comment"
-                value={formData.comment}
+                value={stepData.comment}
                 onChange={({ target: { value: comment } }) =>
                   setStepData((data) => ({ ...data, comment }))
                 }
@@ -121,14 +131,15 @@ const PaymentSecondStep = ({
           )}
           <PaymentFormNavbar
             onGoBack={onGoBack}
+            problem={problem}
             onGoForward={() => {
-              if (!stepData.toAccountId) {
+              if (!canProceed) {
                 return;
               }
               onStepCompleted({
                 amount: Number(stepData.amount),
                 comment: stepData.comment,
-                toAccountId: stepData.toAccountId,
+                toAccountId: stepData.toAccountId!,
               });
             }}
           >

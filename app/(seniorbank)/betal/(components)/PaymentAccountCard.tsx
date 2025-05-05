@@ -20,7 +20,16 @@ const PaymentAccountCard = ({ title, amount, onClick, isSelected }: Props) => {
       >
         <div className="felx-row flex gap-4">
           <h1 className=" ">{title}</h1>
-          <h1 className="">{amount}</h1>
+          <h1 className="">
+            {" "}
+            -{" "}
+            {amount.toLocaleString("no-NO", {
+              style: "currency",
+              currency: "NOK",
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}
+          </h1>
         </div>
         <ChevronRight className="size-16 transition-transform duration-200 group-hover:translate-x-1" />
       </Button>

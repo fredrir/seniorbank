@@ -12,7 +12,7 @@ const navbarVariants = cva("relative w-full px-4", {
   variants: {
     variant: {
       contact: "bg-[#F8E9DD]",
-      seniorbank: "bg-seniorbankBlue pt-1 pb-8 text-white",
+      seniorbank: "bg-seniorbankBlue pt-1 pb-2 text-white",
     },
   },
 });
@@ -43,7 +43,7 @@ const Navbar = ({ links, ...props }: NavbarProps) => {
           ))}
         </span>
       </nav>
-      <div className="absolute bottom-0 right-0 top-0 my-auto mr-4 flex items-center">
+      <div className="absolute bottom-0 right-0 top-3 my-auto mr-4">
         <LogoutButton variant={props.variant} />
       </div>
 
