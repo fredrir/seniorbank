@@ -10,6 +10,7 @@ import { PublicBankAccountDetails } from "@/model/domain/payment/BankAccount";
 import { ProgressBar } from "@/ui/organisms/ProgressBar";
 import { PaymentFormData } from "../types";
 import { createTransaction } from "@/actions/bankAccount";
+import toast from "react-hot-toast";
 
 export default function PaymentForm({
   accounts,
@@ -30,19 +31,45 @@ export default function PaymentForm({
     const updatedData = { ...formData, ...newData };
     setFormData(updatedData);
 
-    // Only create transaction when confirming in step 4
     if (step === 3) {
       setIsSubmitting(true);
       try {
-        await createTransaction(
+        const result = await createTransaction(
           updatedData.fromAccountId!,
           updatedData.toAccountId!,
           updatedData.amount!,
         );
         setStep(step + 1);
+
+        if (result.contactNotified) {
+          toast.success(
+            "Betalingen er gjennomført. Trygghetskontrakten er varslet.",
+            {
+              duration: 4000,
+              position: "top-right",
+              style: {
+                background: "#D3D3EA",
+                color: "#000",
+                fontSize: "16px",
+                fontWeight: "bold",
+              },
+            },
+          );
+        } else {
+          toast.success("Betalingen er gjennomført.", {
+            duration: 4000,
+            position: "top-right",
+            style: {
+              background: "#D3D3EA",
+              color: "#000",
+              fontSize: "16px",
+              fontWeight: "bold",
+            },
+          });
+        }
       } catch (error) {
+        toast.error("Overføringen mislyktes. Vennligst prøv igjen senere.");
         console.error("Transaction failed:", error);
-        // Handle error state here
       } finally {
         setIsSubmitting(false);
       }

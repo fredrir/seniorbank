@@ -3,13 +3,17 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-export function SuccessToast() {
+interface Props {
+  title?: string;
+}
+
+export function SuccessToast({ title = "Overføringen" }: Props) {
   const [hasShownToast, setHasShownToast] = useState(false);
 
   useEffect(() => {
     if (!hasShownToast) {
       toast.success(
-        "Overføringen er gjennomført. Trygghetskontrakten er varslet.",
+        `${title} er gjennomført. Trygghetskontrakten er varslet.`,
         {
           duration: 4000,
           position: "top-right",
@@ -23,7 +27,7 @@ export function SuccessToast() {
       );
       setHasShownToast(true);
     }
-  }, [hasShownToast]);
+  }, [hasShownToast, title]);
 
   return null;
 }
