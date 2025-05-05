@@ -11,7 +11,7 @@ const actions = [
   {
     name: "Sikkerhet og hjelp",
     icon: Shield,
-    href: "/kontakt/sikkerhet",
+    href: "/kontakt/kontakt",
   },
   {
     name: "Innstillinger",

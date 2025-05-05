@@ -16,7 +16,9 @@ export default async function UserLayout({
 
       <BackgroundGraphic variant="mid-wave" className="text-[#F8E9DD]" />
 
-      <main className="mx-auto max-w-4xl px-2 md:px-0">{children} </main>
+      <main className="mx-auto min-h-[80vh] max-w-4xl px-2 md:px-0">
+        {children}{" "}
+      </main>
 
       <ContactFooter />
     </>
