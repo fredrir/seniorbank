@@ -4,6 +4,7 @@ import ApprovalCarousel from "@/app/(safetycontact)/kontakt/(components)/Approva
 import Heading from "./(components)/Heading";
 import { getSession } from "@/lib/auth";
 import { listHeldTransactions } from "@/actions/bankAccount";
+import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 
 export default async function ContactPersonPage() {
   const { user } = await getSession();
@@ -11,7 +12,8 @@ export default async function ContactPersonPage() {
   const heldTransactions = await listHeldTransactions();
 
   return (
-    <main>
+    <>
+      <BackgroundGraphic variant="mid-wave" className="text-[#F8E9DD]" />
       <Heading title={`Velkommen, trygghetskontakt!`} className="pt-8" />
 
       <h3 className="mx-auto max-w-3xl pt-4 text-lg">
@@ -37,6 +39,6 @@ export default async function ContactPersonPage() {
           <ActionOverview />
         </div>
       </section>
-    </main>
+    </>
   );
 }

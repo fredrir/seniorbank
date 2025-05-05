@@ -1,5 +1,5 @@
 import React from "react";
-import { ChevronRight, Clock10, Shield, Settings } from "lucide-react";
+import { ChevronRight, Clock10, Shield } from "lucide-react";
 import Link from "next/link";
 
 const actions = [
@@ -12,11 +12,6 @@ const actions = [
     name: "Sikkerhet og hjelp",
     icon: Shield,
     href: "/kontakt/kontakt",
-  },
-  {
-    name: "Innstillinger",
-    icon: Settings,
-    href: "/kontakt/innstillinger",
   },
 ];
 

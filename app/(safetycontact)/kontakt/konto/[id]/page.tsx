@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth";
 import Heading from "../../(components)/Heading";
 import { bankAccountService } from "@/model/core";
 import { TransactionSearch } from "../../(components)/TransactionSearch";
+import { BackgroundGraphic } from "@/ui/molecules/BackgroundGraphic";
 
 export default async function ContactAccountPage(props: {
   params: Promise<{ id: string }>;
@@ -18,6 +19,7 @@ export default async function ContactAccountPage(props: {
 
   return (
     <>
+      <BackgroundGraphic variant="top-halfcircle" className="text-[#F8E9DD]" />
       <div className="max-w-fit">
         <Heading title={account.name} href="/kontakt" />
         <p className="mr-2 mt-2 text-end text-base text-seniorbankBlue">
