@@ -6,7 +6,7 @@ interface Props {
   title: string;
   description: string;
   icon: React.ReactNode;
-  href?: string; //TODO currently optional, but should be required
+  href: string;
 }
 
 const MenuOption = ({ title, description, icon, href = "/" }: Props) => {

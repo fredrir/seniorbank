@@ -8,6 +8,7 @@ import {
   setDifficulty as setUserDifficulty,
 } from "@/actions/user";
 import type { Difficulty } from "@/model/domain/user/User";
+import Heading from "@/ui/molecules/Heading";
 
 export const difficultyLevels = [
   {
@@ -90,9 +91,11 @@ export default function SettingsWrapper({ session }: Props) {
   return (
     <section className="mx-auto max-w-5xl space-y-8 py-8 text-lg">
       <div className="mb-10 text-start">
-        <h3 className="mb-4 text-4xl font-bold text-seniorBankDarkBlue sm:text-5xl">
-          Dine innstillinger
-        </h3>
+        <Heading
+          title="Dine innstillinger"
+          className="text-seniorBankDarkBlue"
+        />
+
         <p className="mx-auto max-w-2xl text-seniorBankDarkBlue/80">
           Her vil du få en oversikt over dine innstillinger og hva som er lagret
           om deg

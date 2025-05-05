@@ -35,3 +35,15 @@ export type OnlyFields<T> = {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   [K in keyof T as T[K] extends Function ? never : K]: T[K];
 };
+
+export type MessageType = {
+  id: string;
+  title: string;
+  content: string;
+  date: string;
+  isRead: boolean;
+  icon: string;
+  iconColor: string;
+  iconBgColor: string;
+  borderColor: string;
+};

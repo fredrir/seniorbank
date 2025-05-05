@@ -49,6 +49,7 @@ export default async function Home() {
       description: "Les meldinger og varslinger fra banken",
       icon: <MailIcon className="size-16" />,
       availableFor: ["EASY", "MEDIUM", "HARD"],
+      href: "/meldinger",
     },
     {
       title: "Spør om hjelp",
