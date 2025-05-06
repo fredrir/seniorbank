@@ -1,6 +1,7 @@
 "use client";
 
 import Heading from "@/ui/molecules/Heading";
+import SafetyContactHeading from "@/app/(safetycontact)/kontakt/(components)/Heading";
 import { Filter, Search, X } from "lucide-react";
 import { useState } from "react";
 
@@ -11,6 +12,7 @@ interface MessageHeaderProps {
   setFilterOption: (option: string) => void;
   sortOption: string;
   setSortOption: (option: string) => void;
+  safetyContact?: boolean;
 }
 
 export default function MessageHeader({
@@ -20,13 +22,18 @@ export default function MessageHeader({
   setFilterOption,
   sortOption,
   setSortOption,
+  safetyContact = false,
 }: MessageHeaderProps) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   return (
     <div className="space-y-4 pb-6">
       <div className="flex items-center justify-between">
-        <Heading title="Meldinger" className="text-seniorBankDarkBlue" />
+        {safetyContact ? (
+          <SafetyContactHeading title="Meldinger" />
+        ) : (
+          <Heading title="Meldinger" className="text-seniorBankDarkBlue" />
+        )}
         <div className="flex items-center gap-2">
           <button
             className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium ${
