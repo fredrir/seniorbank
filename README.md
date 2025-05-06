@@ -58,7 +58,7 @@ which provides digital banking solutions for multiple Norwegian banks
 
 ## Prerequisites
 
-- **Node.js** v14 or higher
+- **Node.js** v18 or higher
 - **Docker** & **Docker Compose**
 - **Auth0** account ([https://auth0.com](https://auth0.com))
 
