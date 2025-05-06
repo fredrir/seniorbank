@@ -6,7 +6,10 @@
 
 **SeniorBank is a prototype** designed to enhance digital banking security for elderly users and vulnerable groups who are increasingly targeted by online fraud
 
-**The project** focuses on preventing common scams such as phishing, investment fraud, and romance scams while ensuring accessibility and ease of use
+**The project** The project focused on designing a conceptual banking prototype from scratch that combines user-friendly design with fraud prevention concepts, serving as a foundation for more secure digital banking experiences tailored to elderly users.
+
+The resulting prototype features simplified user flows and interface elements adapted to individuals with limited digital skills. Rather than being a finished product, the solution is intended to showcase ideas and inspire further work on inclusive and secure online banking.The report outlines the technical implementation, the agile development process, and the
+outcome: a web-based prototype released under an open source license
 
 **This initiative** was developed in collaboration with
 **SpareBank 1 Utvikling**
@@ -37,38 +40,197 @@ which provides digital banking solutions for multiple Norwegian banks
 
 <br>
 
-# Technologies
+# How to run
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Table of Contents
 
-Some of the challenges you faced and features you hope to implement in the future:
+1. [Prerequisites](#prerequisites)
+2. [Getting Started](#getting-started)
+3. [Environment Variables](#environment-variables)
+4. [Auth0 Configuration](#auth0-configuration)
+5. [Database Setup & Migrations](#database-setup--migrations)
+6. [Running the App](#running-the-app)
+7. [Building & Production](#building--production)
+8. [Useful Commands](#useful-commands)
+9. [Troubleshooting](#troubleshooting)
+
+---
+
+## Prerequisites
+
+- **Node.js** v14 or higher
+- **Docker** & **Docker Compose**
+- **Auth0** account ([https://auth0.com](https://auth0.com))
+
+---
 
 ## Getting Started
 
-Firstly, run the development server:
+1. **Clone the repo**
 
-```bash
-pnpm run dev
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
+   ```
+
+2. **Install pnpm**
+
+   ```bash
+   npm install -g pnpm@latest-10
+   ```
+
+3. **Install dependencies**
+
+   ```bash
+   pnpm install
+   ```
+
+4. **Copy `.env` file**
+
+   ```bash
+   cp .env.example .env
+   ```
+
+5. **Fill in environment variables** (see [Environment Variables](#environment-variables)).
+
+---
+
+## Environment Variables
+
+Create a file named `.env` in the project root with the following keys:
+
+```env
+# PostgreSQL connection string (Prisma)
+DATABASE_URL="postgresql://postgres:password@localhost:5432/mydb?schema=public"
+
+# NextAuth.js settings\NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET=#Use [openssl rand -hex 32] to generate a 32 bytes value
+
+# Auth0 (Identity Provider)
+AUTH0_ISSUER="https://YOUR_DOMAIN.auth0.com"
+AUTH0_CLIENT_ID="YOUR_AUTH0_CLIENT_ID"
+AUTH0_CLIENT_SECRET="YOUR_AUTH0_CLIENT_SECRET"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> **Note:** Wrap values in quotes if they contain special characters.
 
-You can start editing the page by modifying `app/page.tsx`.
-<br>- The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Auth0 Configuration
 
-## Learn More
+1. Log in to your Auth0 dashboard.
+2. **Create a new Application** > _Regular Web Application_.
+3. Go to **Settings** and add the following:
 
-To learn more about Next.js, take a look at the following resources:
+   - **Allowed Callback URLs:** `http://localhost:3000/api/auth/callback/auth0`
+   - **Allowed Logout URLs:** `http://localhost:3000`
+   - **Allowed Web Origins:** `http://localhost:3000`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Copy **Domain** (e.g. `your-tenant.us.auth0.com`) into `AUTH0_ISSUER`.
+5. Copy **Client ID** & **Client Secret** into `AUTH0_CLIENT_ID` and `AUTH0_CLIENT_SECRET`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For more details, see the [Auth0 Next.js Quickstart](https://auth0.com/docs/quickstart/webapp/nextjs).
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Database Setup & Migrations
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project uses **Docker Compose** to run PostgreSQL locally.
+
+1. **Start PostgreSQL container**
+
+   ```bash
+   docker-compose up -d
+   ```
+
+2. **Generate Prisma Client**
+
+   ```bash
+   npx prisma generate
+   ```
+
+3. **Run migrations**
+
+   ```bash
+   npx prisma migrate dev --name init
+   ```
+
+4. **Inspect your database** (optional)
+
+   ```bash
+   npx prisma studio
+   ```
+
+---
+
+## Running the App
+
+- **Development**
+
+  ```bash
+  pnpm run dev
+  ```
+
+  The app will be available at [http://localhost:3000](http://localhost:3000).
+
+- **Production** (build + start)
+
+  ```bash
+  pnpm run build
+  pnpm start
+  ```
+
+---
+
+## Building & Production
+
+1. **Build**
+
+   ```bash
+   pnpm run build
+   ```
+
+2. **Start**
+
+   ```bash
+   pnpm start
+   ```
+
+3. **Dockerize** (optional)
+
+   ```bash
+   docker build -t my-app .
+   docker run -e DATABASE_URL="$DATABASE_URL" \
+              -e NEXTAUTH_URL="$NEXTAUTH_URL" \
+              -e NEXTAUTH_SECRET="$NEXTAUTH_SECRET" \
+              -e AUTH0_ISSUER="$AUTH0_ISSUER" \
+              -e AUTH0_CLIENT_ID="$AUTH0_CLIENT_ID" \
+              -e AUTH0_CLIENT_SECRET="$AUTH0_CLIENT_SECRET" \
+              -p 3000:3000 my-app
+   ```
+
+---
+
+## Useful Commands
+
+| Command                               | Description                        |
+| ------------------------------------- | ---------------------------------- |
+| `pnpm run dev`                        | Start dev server                   |
+| `pnpm run build`                      | Compile for production             |
+| `pnpm start`                          | Run compiled app                   |
+| `pnpm prisma migrate dev --name init` | Apply migrations & generate client |
+| `pnpm prisma studio`                  | Open Prisma Studio GUI             |
+| `docker-compose up -d`                | Start Docker containers            |
+| `docker-compose down`                 | Stop & remove Docker containers    |
+
+---
+
+## Troubleshooting
+
+- **Database connection errors**: Ensure Docker container is running and `DATABASE_URL` is correct.
+- **Auth0 callback errors**: Check that callback/logout URLs in Auth0 settings match your `NEXTAUTH_URL`.
+- **Prisma issues**: Try regenerating the client:
+
+  ```bash
+  pnpm prisma generate
+  ```

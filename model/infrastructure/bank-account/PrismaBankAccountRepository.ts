@@ -71,10 +71,6 @@ export class PrismaBankAccountRepository implements BankAccountRepository {
       take: page?.limit,
       skip: page && page.page && page.page * page.limit,
     });
-    console.log(
-      filter,
-      accountDTOs.map((a) => a.id),
-    );
 
     return accountDTOs.map((dto) =>
       PrismaBankAccountDTOMapper.deserialize(dto),
