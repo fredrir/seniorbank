@@ -8,17 +8,6 @@ import { BankAccount } from "@/model/domain/payment/BankAccount";
 import { Difficulty } from "@/model/domain/user/User";
 import Home from "@/app/(seniorbank)/page";
 
-const mockUser: User = new User({
-  id: "123",
-  name: "Test User",
-  email: "test@example.com",
-  birthDate: new Date("2000-01-01T00:00:00.000Z"),
-  phoneNumber: "1234567890",
-  address: "123 Test St",
-  paymentDelayDays: 3,
-  difficulty: "MEDIUM",
-});
-
 const mockBankAccount: BankAccount = new BankAccount({
   id: "acc123",
   name: "Main Account",
@@ -100,6 +89,17 @@ describe("Home Component", () => {
   });
 
   test("renders correctly for EASY difficulty user", async () => {
+    const mockUser: User = new User({
+      id: "123",
+      name: "Test User",
+      email: "test@example.com",
+      birthDate: new Date("2000-01-01T00:00:00.000Z"),
+      phoneNumber: "1234567890",
+      address: "123 Test St",
+      paymentDelayDays: 3,
+      difficulty: "EASY",
+    });
+
     vi.mocked(getSession).mockResolvedValue({
       user: { ...mockUser, birthDate: mockUser.birthDate.toISOString() },
       userId: mockUser.id,
@@ -125,6 +125,17 @@ describe("Home Component", () => {
   });
 
   test("renders correctly for MEDIUM difficulty user", async () => {
+    const mockUser: User = new User({
+      id: "123",
+      name: "Test User",
+      email: "test@example.com",
+      birthDate: new Date("2000-01-01T00:00:00.000Z"),
+      phoneNumber: "1234567890",
+      address: "123 Test St",
+      paymentDelayDays: 3,
+      difficulty: "MEDIUM",
+    });
+
     vi.mocked(getSession).mockResolvedValue({
       user: { ...mockUser, birthDate: mockUser.birthDate.toISOString() },
       userId: mockUser.id,
@@ -149,6 +160,17 @@ describe("Home Component", () => {
   });
 
   test("renders correctly for HARD difficulty user", async () => {
+    const mockUser: User = new User({
+      id: "123",
+      name: "Test User",
+      email: "test@example.com",
+      birthDate: new Date("2000-01-01T00:00:00.000Z"),
+      phoneNumber: "1234567890",
+      address: "123 Test St",
+      paymentDelayDays: 3,
+      difficulty: "HARD",
+    });
+
     vi.mocked(getSession).mockResolvedValue({
       user: { ...mockUser, birthDate: mockUser.birthDate.toISOString() },
       userId: mockUser.id,
