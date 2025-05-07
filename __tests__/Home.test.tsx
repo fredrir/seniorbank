@@ -8,6 +8,27 @@ import { BankAccount } from "@/model/domain/payment/BankAccount";
 import { Difficulty } from "@/model/domain/user/User";
 import Home from "@/app/(seniorbank)/page";
 
+const mockUser: User = new User({
+  id: "123",
+  name: "Test User",
+  email: "test@example.com",
+  birthDate: new Date("2000-01-01T00:00:00.000Z"),
+  phoneNumber: "1234567890",
+  address: "123 Test St",
+  paymentDelayDays: 3,
+  difficulty: "MEDIUM",
+});
+
+const mockBankAccount: BankAccount = new BankAccount({
+  id: "acc123",
+  name: "Main Account",
+  category: "Checking",
+  userId: "123",
+  balance: 1000,
+  main: true,
+  countryCode: "NO",
+});
+
 vi.mock("@/ui/molecules/Heading", () => ({
   default: ({ title }: { title: string }) => (
     <h1 data-testid="heading">{title}</h1>
@@ -79,36 +100,6 @@ describe("Home Component", () => {
   });
 
   test("renders correctly for EASY difficulty user", async () => {
-    const mockUser: User = {
-      id: "123",
-      name: "Test User",
-      email: "test@example.com",
-      birthDate: new Date("2000-01-01T00:00:00.000Z"),
-      phoneNumber: "1234567890",
-      address: "123 Test St",
-      paymentDelayDays: 3,
-      difficulty: "EASY",
-      setDifficulty: vi.fn(),
-      setPaymentDelayDays: vi.fn(),
-    };
-
-    const mockBankAccount: BankAccount = {
-      id: "acc123",
-      name: "Main Account",
-      category: "Checking",
-      userId: "123",
-      balance: 1000,
-      main: true,
-      countryCode: "NO",
-      publicDetails() {
-        return {
-          id: this.id,
-          name: this.name,
-          category: this.category,
-        };
-      },
-    };
-
     vi.mocked(getSession).mockResolvedValue({
       user: { ...mockUser, birthDate: mockUser.birthDate.toISOString() },
       userId: mockUser.id,
@@ -134,36 +125,6 @@ describe("Home Component", () => {
   });
 
   test("renders correctly for MEDIUM difficulty user", async () => {
-    const mockUser: User = {
-      id: "123",
-      name: "Test User",
-      email: "test@example.com",
-      birthDate: new Date("2000-01-01T00:00:00.000Z"),
-      phoneNumber: "1234567890",
-      address: "123 Test St",
-      paymentDelayDays: 3,
-      difficulty: "MEDIUM",
-      setDifficulty: vi.fn(),
-      setPaymentDelayDays: vi.fn(),
-    };
-
-    const mockBankAccount: BankAccount = {
-      id: "acc123",
-      name: "Main Account",
-      category: "Checking",
-      userId: "123",
-      balance: 1000,
-      main: true,
-      countryCode: "NO",
-      publicDetails() {
-        return {
-          id: this.id,
-          name: this.name,
-          category: this.category,
-        };
-      },
-    };
-
     vi.mocked(getSession).mockResolvedValue({
       user: { ...mockUser, birthDate: mockUser.birthDate.toISOString() },
       userId: mockUser.id,
@@ -188,36 +149,6 @@ describe("Home Component", () => {
   });
 
   test("renders correctly for HARD difficulty user", async () => {
-    const mockUser: User = {
-      id: "123",
-      name: "Test User",
-      email: "test@example.com",
-      birthDate: new Date("2000-01-01T00:00:00.000Z"),
-      phoneNumber: "1234567890",
-      address: "123 Test St",
-      paymentDelayDays: 3,
-      difficulty: "HARD",
-      setDifficulty: vi.fn(),
-      setPaymentDelayDays: vi.fn(),
-    };
-
-    const mockBankAccount: BankAccount = {
-      id: "acc123",
-      name: "Main Account",
-      category: "Checking",
-      userId: "123",
-      balance: 1000,
-      main: true,
-      countryCode: "NO",
-      publicDetails() {
-        return {
-          id: this.id,
-          name: this.name,
-          category: this.category,
-        };
-      },
-    };
-
     vi.mocked(getSession).mockResolvedValue({
       user: { ...mockUser, birthDate: mockUser.birthDate.toISOString() },
       userId: mockUser.id,

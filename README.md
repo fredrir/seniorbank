@@ -146,19 +146,19 @@ This project uses **Docker Compose** to run PostgreSQL locally.
 2. **Generate Prisma Client**
 
    ```bash
-   npx prisma generate
+   pnpm prisma generate
    ```
 
 3. **Run migrations**
 
    ```bash
-   npx prisma migrate dev --name init
+   pnpm prisma migrate dev --name init
    ```
 
 4. **Inspect your database** (optional)
 
    ```bash
-   npx prisma studio
+   pnpm prisma studio
    ```
 
 ---
@@ -194,19 +194,6 @@ This project uses **Docker Compose** to run PostgreSQL locally.
 
    ```bash
    pnpm start
-   ```
-
-3. **Dockerize** (optional)
-
-   ```bash
-   docker build -t my-app .
-   docker run -e DATABASE_URL="$DATABASE_URL" \
-              -e NEXTAUTH_URL="$NEXTAUTH_URL" \
-              -e NEXTAUTH_SECRET="$NEXTAUTH_SECRET" \
-              -e AUTH0_ISSUER="$AUTH0_ISSUER" \
-              -e AUTH0_CLIENT_ID="$AUTH0_CLIENT_ID" \
-              -e AUTH0_CLIENT_SECRET="$AUTH0_CLIENT_SECRET" \
-              -p 3000:3000 my-app
    ```
 
 ---
