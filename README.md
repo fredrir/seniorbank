@@ -101,7 +101,7 @@ Create a file named `.env` in the project root with the following keys:
 
 ```env
 # PostgreSQL connection string (Prisma)
-DATABASE_URL="postgresql://postgres:password@localhost:5432/mydb?schema=public"
+DATABASE_URL="postgresql://user:password@localhost:5690/seniorbank"
 
 # NextAuth.js settings\NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET=#Use [openssl rand -hex 32] to generate a 32 bytes value
