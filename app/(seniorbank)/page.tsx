@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import Heading from "@/ui/molecules/Heading";
 import SubHeading from "@/ui/molecules/SubHeading";
 import { BankAccountCard } from "@/app/(seniorbank)/(components)/BankAccountCard";
