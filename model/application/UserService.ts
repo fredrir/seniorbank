@@ -1,8 +1,8 @@
-import { UserRepository } from "@/model/domain/user/UserRepository";
 import { JSONUserDTO, JsonUserDTOMapper } from "./mappers/JsonUserDTOMapper";
 import { DemoDataService } from "./DemoDataService";
 import { Difficulty } from "../domain/user/User";
-import { NotificationService } from "../domain/notification/NotificationService";
+import { NotificationService } from "./NotificationService";
+import { UserRepository } from "../domain/user/UserRepository";
 
 export class UserService {
   constructor(

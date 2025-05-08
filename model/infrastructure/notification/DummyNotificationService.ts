@@ -1,4 +1,4 @@
-import { NotificationService } from "@/model/domain/notification/NotificationService";
+import { NotificationService } from "@/model/application/NotificationService";
 
 export class DummyNotificationService implements NotificationService {
   async sendContactNotification(userId: string, message: string) {

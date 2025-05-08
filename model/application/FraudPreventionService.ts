@@ -1,4 +1,4 @@
-import { NotificationService } from "../domain/notification/NotificationService";
+import { NotificationService } from "./NotificationService";
 import { BankAccount } from "../domain/payment/BankAccount";
 import { Transaction } from "../domain/payment/Transaction";
 import { User } from "../domain/user/User";
