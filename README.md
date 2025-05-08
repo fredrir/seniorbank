@@ -28,21 +28,11 @@ which provides digital banking solutions for multiple Norwegian banks
 - The prototype **does not** handle real banking transactions (mock data only).
 - Focus on **UX/UI** and **fraud prevention logic**, rather than full banking functionality.
 
-<br>
 
-## Design
+![developmentviewpackagediagram](https://github.com/user-attachments/assets/a86a5cf3-f7c3-4a0d-9fd2-b90862a1576a)
 
-### Homepage
-
-### Registration
-
-### Transaction
-
-<br>
 
 # How to run
-
-## Table of Contents
 
 1. [Prerequisites](#prerequisites)
 2. [Getting Started](#getting-started)
@@ -178,6 +168,14 @@ This project uses **Docker Compose** to run PostgreSQL locally.
   ```bash
   pnpm run build
   pnpm start
+  ```
+
+---
+
+## Running the tests
+
+  ```bash
+  pnpm run test
   ```
 
 ---
